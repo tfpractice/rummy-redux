@@ -1,7 +1,7 @@
 {
   "name": "rummy-redux",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.2.0",
