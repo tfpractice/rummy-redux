@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import BasicTabs from '../tabs';
+import Deck from '../deck';
 class Boiler extends Component {
   render() {
     return (
@@ -13,6 +14,8 @@ class Boiler extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Deck/>
+        <BasicTabs/>
       </div>
     );
   }
