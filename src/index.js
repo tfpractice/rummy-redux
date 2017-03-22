@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Boiler as App } from './components';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import { Provider, } from 'react-redux';
 import Routes from './routes';
+import getStore from './store';
 import './index.css';
 
 ReactDOM.render(
-  <Routes />,
+  <Provider store={getStore()}>
+    <Routes />
+  </Provider>,
   document.getElementById('root')
 );
