@@ -11,7 +11,7 @@ export class Routes extends Component {
       <h1>Rummy Redux</h1>
       <div className="container">
         <Switch>
-          <Route path="/" component={Boiler} />
+          <Route path="/"  component={Boiler} />
           <Route component={NoMatch}/>
         </Switch>
       </div>
