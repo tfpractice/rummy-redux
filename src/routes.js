@@ -4,36 +4,28 @@ import { BrowserRouter, Link, Route, Switch, } from 'react-router-dom';
 import { Boiler, NavBar, NoMatch, } from './components';
 import createPalette from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
-import { blue, pink } from 'material-ui/styles/colors';
+import { blue, pink, } from 'material-ui/styles/colors';
+import Layout from 'material-ui/Layout';
 
-  const palette = createPalette({
-    primary: blue,
-    accent: pink,
-    type: 'dark',
-  });
+const palette = createPalette({
+  primary: blue,
+  accent: pink,
+  type: 'dark',
+});
 
-  const { styleManager, theme } = MuiThemeProvider.createDefaultContext({
-    theme: createMuiTheme(),
-  });
-
-  // styleManager.setSheetOrder(MUI_SHEET_ORDER.concat([
-  //   'AppContent',
-  //   'AppDrawer',
-  //   'AppDrawerNavItem',
-  //   'AppFrame',
-  //   'MarkdownDocs',
-  //   'MarkdownElement',
-  //   'Demo',
-  // ]));
+const { styleManager, theme, } = MuiThemeProvider.createDefaultContext({ theme: createMuiTheme(), });
 
 export class Routes extends Component {
   render () {
     return (
       <MuiThemeProvider theme={theme} styleManager={styleManager}>
         <BrowserRouter>
+          <Layout container >
+            <Layout item xs={12}>
+
           <div className="Game">
             <NavBar/>
-          <h1>Rummy Redux</h1>
+
           <div className="container">
             <Switch>
               <Route path="/" component={Boiler} />
@@ -41,6 +33,8 @@ export class Routes extends Component {
             </Switch>
           </div>
         </div>
+      </Layout>
+    </Layout>
   </BrowserRouter>
 </MuiThemeProvider>
     );
