@@ -1,27 +1,38 @@
 import React, { Component, } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Text from 'material-ui/Text';
-
-// import * from 'material-ui/styles/theme';
-// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { BrowserRouter, Link, Route, Switch, } from 'react-router-dom';
-import { Boiler, NoMatch, } from './components';
+import { Boiler, NavBar, NoMatch, } from './components';
+import createPalette from 'material-ui/styles/palette';
+import createMuiTheme from 'material-ui/styles/theme';
+import { blue, pink } from 'material-ui/styles/colors';
+
+  const palette = createPalette({
+    primary: blue,
+    accent: pink,
+    type: 'dark',
+  });
+
+  const { styleManager, theme } = MuiThemeProvider.createDefaultContext({
+    theme: createMuiTheme(),
+  });
+
+  // styleManager.setSheetOrder(MUI_SHEET_ORDER.concat([
+  //   'AppContent',
+  //   'AppDrawer',
+  //   'AppDrawerNavItem',
+  //   'AppFrame',
+  //   'MarkdownDocs',
+  //   'MarkdownElement',
+  //   'Demo',
+  // ]));
 
 export class Routes extends Component {
-  
   render () {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme} styleManager={styleManager}>
         <BrowserRouter>
           <div className="Game">
-          <AppBar >
-            <Toolbar>
-           <Text type="title" colorInherit>Title</Text>
-            </Toolbar>
-       </AppBar>
+            <NavBar/>
           <h1>Rummy Redux</h1>
           <div className="container">
             <Switch>
