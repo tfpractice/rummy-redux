@@ -21,6 +21,7 @@
   "dependencies": {
     "bee52": "^1.0.3-5",
     "fenugreek-collections": "^1.1.1",
+    "firebase": "^3.7.3",
     "jss-theme-reactor": "^0.10.0",
     "material-ui": "next",
     "react": "^15.4.2",
