@@ -15,6 +15,7 @@ export const authHandler = (store) => {
 export const connHandler = (store) => {
   connRef.on('value', (snap) => {
     if (snap.val()) {
+      console.log('somone connected');
       auth.currentUser && store.dispatch(login());
     } else {
       console.log('CONN:user disconnected', snap.val());
