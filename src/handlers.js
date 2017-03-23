@@ -1,6 +1,7 @@
 import { auth, connRef, onlineRef, } from './utils/firebase';
 import { createPlayer, login, logout, setCurrent, } from './modules/auth/actions';
 import { addUser, removeUser, setUsers, } from './modules/users/actions';
+import { addPlayer, } from './modules/game/actions';
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((user) => {
@@ -15,7 +16,7 @@ export const authHandler = (store) => {
 export const connHandler = (store) => {
   connRef.on('value', (snap) => {
     if (snap.val()) {
-      console.log('somone connected');
+      console.log('somone connected', auth.currentUser);
       auth.currentUser && store.dispatch(login());
     } else {
       console.log('CONN:user disconnected', snap.val());

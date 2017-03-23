@@ -14,7 +14,7 @@ const baseLogin = ({ handleSubmit, }) => (
     <Field name="displayName" type="text"
       component={renderTextField}
       placeholder="displayName"/>
-    <Button label="Login" secondary type="submit" >Login</Button>
+    <Button label="Login" accent type="submit" >Login</Button>
   </form>
 );
 const ReduxLogin = reduxForm()(baseLogin);

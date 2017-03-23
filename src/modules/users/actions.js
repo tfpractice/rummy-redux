@@ -19,6 +19,7 @@ export const addUser = u => ({ type: ADD_USER, curry: add(u), });
 export const removeUser = u => ({ type: REMOVE_USER, curry: remove(u), });
 export const checkConnections = id => getPresRef(id);
 
+// addPlayer
 export const catConn = ref =>
    Promise.resolve(ref.child('connections').push())
      .then(pref => pref.onDisconnect().remove()
