@@ -38,8 +38,9 @@ export const unsetCurrent = () => dispatch =>
 export const takeOffline = u => dispatch =>
   onlineRef.child(u.id).remove();
 
-export const login = ({ displayName, } = { displayName: '', }) => dispatch =>
-  Promise.resolve(dispatch(loginPend()))
+export const login = ({ displayName, } = { displayName: '', }) => (dispatch) => {
+  console.log('displayName', displayName);
+  return Promise.resolve(dispatch(loginPend()))
     .then(() => fAuth().signInAnonymously()
       .then(u =>
         u.updateProfile({ displayName: (displayName || u.uid), })
@@ -48,9 +49,9 @@ export const login = ({ displayName, } = { displayName: '', }) => dispatch =>
             return Promise.all(
         [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch));
           }))
-      .catch(loginFail)
+      .catch(e => dispatch(loginFail(e.message)))
 );
-
+};
 export const logout = u => dispatch =>
   Promise.resolve(dispatch(logoutPend()))
     .then(() => auth.currentUser)
