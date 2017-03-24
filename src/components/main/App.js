@@ -10,10 +10,8 @@ class Main extends Component {
     return (
       <div className="App">
         <div className="App-header">
-
           <h2>Welcome to Rummy Redux</h2>
         </div>
-
         <Game/>
         <BasicTabs/>
       </div>

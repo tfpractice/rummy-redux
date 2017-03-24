@@ -23,10 +23,8 @@ const Game = ({ deck, players, discard, }) => (
       <Text type="headline"> discard </Text>
       <Deck cards={discard}/>
     </Layout>
-
     <Layout item xs={12}>
       <Divider />
-
       {players.map((p, i) => <Player key={i} player={p}/>)}
     </Layout>
   </Layout>);
