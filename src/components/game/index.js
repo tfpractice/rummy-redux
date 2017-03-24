@@ -4,10 +4,11 @@ import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Paper from 'material-ui/Paper';
 import { Tab, Tabs, } from 'material-ui/Tabs';
-
+import { Player, } from '../players';
 import Layout from 'material-ui/Layout';
 
-const mapStateToProps = ({ game: { deck, players, discard, }, }) => ({ deck, players, discard, });
+const mapStateToProps = ({ game: { deck, players, discard, }, }) =>
+({ deck, players, discard, });
 
 const Game = ({ deck, players, discard, }) => (
   <Layout container>
@@ -17,6 +18,9 @@ const Game = ({ deck, players, discard, }) => (
     <Layout item xs={8}>
       <h1> discard </h1>
     </Layout>
-  </Layout>);
+    <Layout item xs={12}>
+      {players.map((p, i) => <Player key={i} player={p}/>)}
+      </Layout>)
+    </Layout>);
 
 export default connect(mapStateToProps)(Game);
