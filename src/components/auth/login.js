@@ -1,20 +1,21 @@
 import React from 'react';
 import Button from 'material-ui/Button';
+
 import TextField from 'material-ui/TextField';
+
+// import { TextField, } from 'redux-form-material-ui';
 import { connect, } from 'react-redux';
 import { Field, reduxForm, } from 'redux-form';
 import { resetForm, } from '../../utils';
 import { AuthActs, } from '../../modules';
 
-const renderTextField = ({ input, label, meta: { touched, error, }, ...custom }) => (
-    <TextField type="text" label={label} inputProps={input} {...custom}/>);
+const renderTextField = ({ input, meta: { touched, error, }, ...custom }) => (
+    <TextField id="displayName" type="text" inputProps={input} error={error} {...custom}/>);
 
 const baseLogin = ({ handleSubmit, }) => (
   <form onSubmit={handleSubmit} >
-    <Field name="displayName" type="text"
-      component={renderTextField}
-      placeholder="displayName"/>
-    <Button label="Login" accent type="submit" >Login</Button>
+    <Field name="displayName" component={'input'}/>
+    <Button accent type="submit">Login</Button>
   </form>
 );
 const ReduxLogin = reduxForm()(baseLogin);

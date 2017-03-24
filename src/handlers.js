@@ -8,7 +8,7 @@ export const authHandler = (store) => {
     if (user) {
       console.log('AUTH:SIGNEDIN.', user);
     } else {
-
+      console.log('AUTH:austStateChange.');
     }
   });
 };
@@ -16,11 +16,11 @@ export const authHandler = (store) => {
 export const connHandler = (store) => {
   connRef.on('value', (snap) => {
     if (snap.val()) {
-      console.log('somone connected');
+      console.log('somone connected', snap.val());
 
       auth.currentUser && store.dispatch(login());
     } else {
-      console.log('CONN:user disconnected', snap.val());
+      console.log('CONN:user disconnected');
     }
   });
 };

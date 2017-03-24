@@ -25,7 +25,7 @@ export const createPlayer = u => setName(u.displayName)(setID(u.uid)(u));
 export const setCurrent = u => dispatch =>
    Promise.resolve(dispatch(setCurrentUser(u)))
      .then((arg) => {
-       console.log('preparing add', JSON.stringify(u));
+       console.log('preparing add', arg, JSON.stringify(u));
        return dispatch(addOnline(u));
      })
      .catch(err => console.error(err.message));
@@ -44,7 +44,8 @@ export const login = ({ displayName, } = { displayName: '', }) => dispatch =>
        .then(u =>
         u.updateProfile({ displayName: (displayName || u.uid), })
           .then(() => {
-            console.log('user', u);
+            console.log('user profile updatedAt', u);
+            console.log('createPlayer(u)', createPlayer(u));
             return Promise.all(
         [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch));
           }))

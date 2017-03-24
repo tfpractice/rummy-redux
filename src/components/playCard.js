@@ -17,7 +17,7 @@ const PlayCard = ({ card, pos, }, context) =>
 
    (
     <div>
-      <Paper elevation={pos}>
+      <Paper elevation={pos / 2}>
         <Text type="headline" component="h3">
           Suit :{card.suit} Rank: {card.rank}
         </Text>
