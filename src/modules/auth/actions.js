@@ -26,6 +26,7 @@ export const setCurrent = u => dispatch =>
    Promise.resolve(dispatch(setCurrentUser(u)))
      .then((arg) => {
        console.log('preparing add', arg, JSON.stringify(u));
+
        return dispatch(addOnline(u));
      })
      .catch(err => console.error(err.message));
