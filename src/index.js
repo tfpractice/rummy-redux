@@ -9,9 +9,9 @@ import { authHandler, connHandler, onlineHandler, } from './handlers';
 injectTapEventPlugin();
 const store = getStore();
 
-// authHandler(store);
-// connHandler(store);
-// onlineHandler(store);
+authHandler(store);
+connHandler(store);
+onlineHandler(store);
 
 ReactDOM.render(
   <Provider store={store}>

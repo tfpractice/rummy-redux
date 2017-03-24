@@ -1,7 +1,7 @@
 import { auth, connRef, onlineRef, } from './utils/firebase';
 import { createPlayer, login, logout, setCurrent, } from './modules/auth/actions';
 import { addUser, removeUser, setUsers, } from './modules/users/actions';
-import { addPlayer, } from './modules/game/actions';
+import { addPlayer, removePlayer, } from './modules/game/actions';
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((user) => {
@@ -31,9 +31,11 @@ export const onlineHandler = (store) => {
   const matchID = val => val == authID();
 
   onlineRef.limitToLast(10).on('child_added', (snap) => {
-    console.log('child_added');
+    if (snap.hasChild('name')) {
+      console.log('child_added', snap.val());
 
-    store.dispatch(addUser(snap.val()));
+      store.dispatch(addPlayer(snap.val()));
+    }
 
     // snap.hasChild('connections') || snap.ref.remove();
   });
@@ -52,6 +54,6 @@ export const onlineHandler = (store) => {
   onlineRef.limitToLast(10).on('child_removed', (snap) => {
     console.log('child_removed');
 
-    store.dispatch(removeUser(snap.val()));
+    store.dispatch(removePlayer(snap.val()));
   });
 };
