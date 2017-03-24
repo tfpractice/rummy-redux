@@ -23,18 +23,13 @@ export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 export const createPlayer = u => setName(u.displayName)(setID(u.uid)(u));
 
 export const setCurrent = u => dispatch =>
-   Promise.resolve(dispatch(setCurrentUser(u)))
-     .then((arg) => {
-       console.log('preparing add', arg, JSON.stringify(u));
-
-       return dispatch(addOnline(u));
-     })
-     .catch(err => console.error(err.message));
+  Promise.resolve(dispatch(setCurrentUser(u)))
+    .then(arg => dispatch(addOnline(u)))
+    .catch(err => console.error(err.message));
 
 export const unsetCurrent = () => dispatch =>
-        Promise.resolve(dispatch(setCurrentUser(null)))
-
-          .catch(err => console.error(err.message));
+  Promise.resolve(dispatch(setCurrentUser(null)))
+    .catch(err => console.error(err.message));
 
 export const takeOffline = u => dispatch =>
   onlineRef.child(u.id).remove();
@@ -44,36 +39,28 @@ export const login = ({ displayName, } = { displayName: '', }) => dispatch =>
      .then(() => auth.signInAnonymously()
        .then(u =>
         u.updateProfile({ displayName: (displayName || u.uid), })
-          .then(() => {
-            console.log('user profile updatedAt', u);
-            console.log('createPlayer(u)', createPlayer(u));
-            return Promise.all(
-        [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch));
-          }))
+          .then(() => Promise.all(
+        [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch))))
        .catch(e => dispatch(loginFail(e.message))));
 
-export const logout = u => (dispatch) => {
-  console.log('logginh outr');
-  return Promise.resolve(dispatch(logoutPend()))
-    .then(() => auth.currentUser)
-    .then((u) => {
-      console.log('logoout', u);
-      return u && goOffline({ id: u.uid, })
-        .then(() => u.delete())
+export const logout = u => dispatch =>
+ Promise.resolve(dispatch(logoutPend()))
+   .then(() => auth.currentUser)
+   .then(u => u && goOffline({ id: u.uid, })
+     .then(() => u.delete())
 
       // return auth.signOut()
       //   .then(() => {
       //     console.log('goig off');
       //     return u && goOffline({ id: u.uid, });
       //   })
-        .then(() => Promise.all(
-          [ logoutSucc(null), unsetCurrent(null), ].map(dispatch)));
+     .then(() => Promise.all(
+          [ logoutSucc(null), unsetCurrent(null), ].map(dispatch)))
       
         // .then((arf) => {
         //   console.log('now delete', u, arf);
         //   return u.delete();
         // });
-    })
+    )
 
-    .catch(e => dispatch(logoutFail(e.message)));
-};
+   .catch(e => dispatch(logoutFail(e.message)));
