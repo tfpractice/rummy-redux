@@ -11,7 +11,6 @@ const NavBar = () => (
       <Text type="title" colorInherit>Rummy Redux</Text>
       <LoginForm formID={'mainLogin'}/>
       <LogoutLink/>
-
     </Toolbar>
   </AppBar>
 );
