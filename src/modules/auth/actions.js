@@ -29,18 +29,18 @@ export const setCurrent = u => dispatch =>
        return dispatch(addOnline(u));
      })
      .catch(err => console.error(err.message));
-     
+
 export const unsetCurrent = () => dispatch =>
         Promise.resolve(dispatch(setCurrentUser(null)))
 
           .catch(err => console.error(err.message));
-          
+
 export const takeOffline = u => dispatch =>
   onlineRef.child(u.id).remove();
 
 export const login = ({ displayName, } = { displayName: '', }) => dispatch =>
    Promise.resolve(dispatch(loginPend()))
-     .then(() => fAuth().signInAnonymously()
+     .then(() => auth.signInAnonymously()
        .then(u =>
         u.updateProfile({ displayName: (displayName || u.uid), })
           .then(() => {
@@ -50,8 +50,9 @@ export const login = ({ displayName, } = { displayName: '', }) => dispatch =>
           }))
        .catch(e => dispatch(loginFail(e.message))));
 
-export const logout = u => dispatch =>
-  Promise.resolve(dispatch(logoutPend()))
+export const logout = u => (dispatch) => {
+  console.log('logginh outr');
+  return Promise.resolve(dispatch(logoutPend()))
     .then(() => auth.currentUser)
     .then((u) => {
       console.log('logoout', u);
@@ -65,7 +66,7 @@ export const logout = u => dispatch =>
       //   })
         .then(() => Promise.all(
           [ logoutSucc(null), unsetCurrent(null), ].map(dispatch)));
-
+      
         // .then((arf) => {
         //   console.log('now delete', u, arf);
         //   return u.delete();
@@ -73,3 +74,4 @@ export const logout = u => dispatch =>
     })
 
     .catch(e => dispatch(logoutFail(e.message)));
+};

@@ -11,7 +11,7 @@ const store = getStore();
 
 authHandler(store);
 
-// connHandler(store);
+connHandler(store);
 onlineHandler(store);
 
 ReactDOM.render(

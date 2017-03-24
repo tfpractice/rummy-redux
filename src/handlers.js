@@ -16,7 +16,8 @@ export const authHandler = (store) => {
 export const connHandler = (store) => {
   connRef.on('value', (snap) => {
     if (snap.val()) {
-      console.log('somone connected', auth.currentUser);
+      console.log('somone connected');
+
       auth.currentUser && store.dispatch(login());
     } else {
       console.log('CONN:user disconnected', snap.val());
@@ -30,12 +31,15 @@ export const onlineHandler = (store) => {
   const matchID = val => val == authID();
 
   onlineRef.limitToLast(10).on('child_added', (snap) => {
+    console.log('child_added');
+
     store.dispatch(addUser(snap.val()));
 
     // snap.hasChild('connections') || snap.ref.remove();
   });
   
   onlineRef.limitToLast(10).on('child_changed', (snap) => {
+    console.log('child_changed');
     if (!snap.hasChild('connections')) {
       if (matchID(snap.key)) {
         store.dispatch(logout());
@@ -46,6 +50,8 @@ export const onlineHandler = (store) => {
   });
 
   onlineRef.limitToLast(10).on('child_removed', (snap) => {
+    console.log('child_removed');
+
     store.dispatch(removeUser(snap.val()));
   });
 };

@@ -4,7 +4,6 @@ import { connect, } from 'react-redux';
 
 import { AuthActs, } from '../../modules';
 
-const LogoutLink = ({ logout, }) =>
-  <Button label="Logout" onClick={logout} />;
+const LogoutLink = ({ logout, }) => <Button label="Logout" onClick={logout} />;
 
 export default connect(null, AuthActs)(LogoutLink);

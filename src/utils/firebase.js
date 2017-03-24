@@ -8,9 +8,7 @@ export const config = {
   messagingSenderId: '333061202480',
 };
 
-firebase.initializeApp(config, 'tfprummy');
-
-export const fireApp = firebase.initializeApp(config);
+export const fireApp = firebase.initializeApp(config, 'tfprummy');
 export const db = fireApp.database();
 export const auth = fireApp.auth();
 export const connRef = db.ref('.info/connected');
