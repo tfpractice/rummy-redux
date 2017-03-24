@@ -9,15 +9,12 @@ import CardChip from './cards/chip';
 
 const mapStateToProps = ({ game: { deck, }, }) => ({ deck, });
 
-const Deck = ({ deck, }) => (
+const Deck = ({ cards, }) => (
   <div>
     <div>
-      {deck.map((c, i) => <PlayCard card={c} pos={i} key={c.id}/>)}
+      {cards.map((c, i) => <PlayCard card={c} pos={i} key={c.id}/>)}
     </div>
-
-    <div>
-      {deck.map((c, i) => <PlayCard card={c} pos={i} key={c.id}/>)}
-    </div>
+    
   </div>);
 
 export default connect(mapStateToProps)(Deck);

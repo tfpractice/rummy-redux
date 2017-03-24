@@ -15,7 +15,6 @@ class Main extends Component {
         </div>
 
         <Game/>
-        <Deck/>
         <BasicTabs/>
       </div>
     );
