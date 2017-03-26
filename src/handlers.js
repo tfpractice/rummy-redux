@@ -31,13 +31,13 @@ export const connHandler = (store) => {
 
 export const onlineHandler = (store) => {
   onlineRef.on('child_added', (snap) => {
-    userUpdate(snap) && store.dispatch(addPlayer(snap.val()));
+    hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
   
   onlineRef.on('child_changed', (snap) => {
-    userUpdate(snap) && store.dispatch(addPlayer(snap.val()));
     rmConn(snap) && snap.ref.remove();
     disconn(snap) && store.dispatch(logout());
+    hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
   
   onlineRef.on('child_removed', (snap) => {
