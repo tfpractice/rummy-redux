@@ -50,10 +50,10 @@ export const updateU = props => fUser => fUser.updateProfile(props).then(() => u
 
 export const login = ({ displayName, } = initlLog) => dispatch =>
    Promise.resolve(dispatch(loginPend()))
-     .then(auth.signInAnonymously)
-     .then(updateU({ displayName: (displayName || auth.currentUser.uid), })
-       .then(u => Promise.all(
-        [loginSucc(u), setCurrent(createPlayer(u)),].map(dispatch))))
+     .then(() => auth.signInAnonymously())
+     .then(updateU({ displayName: (displayName || auth.currentUser.uid), }))
+     .then(u => Promise.all(
+        [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch)))
      .catch(e => dispatch(loginFail(e.message)));
 
 export const logout = u => dispatch =>
@@ -62,5 +62,5 @@ export const logout = u => dispatch =>
    .then(u => u && goOffline({ id: u.uid, })
      .then(() => u.delete())
      .then(() => Promise.all(
-      [logoutSucc(null), unsetCurrent(null), removePlayer(u),].map(dispatch))))
+      [ logoutSucc(null), unsetCurrent(null), removePlayer(u), ].map(dispatch))))
    .catch(e => dispatch(logoutFail(e.message)));
