@@ -28,7 +28,7 @@ export const catConn = ref =>
      })
      .then(() => ref);
 
-const updateRef = u => ref => ref.update(u).then(() => (ref));
+const updateRef = u => ref => ref.update(u).then(() => { console.log('u', u); return (ref); });
 
 export const addOnline = u => dispatch =>
  Promise.resolve(onlineRef.child(u.id))

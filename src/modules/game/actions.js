@@ -5,8 +5,10 @@ import { ADD_PLAYER, DEAL, DRAW_TO, DROP_NEXT, REMOVE_PLAYER, SET_PLAYERS, SHIFT
 const { addPlr, players, setPlayers, shiftDk, } = Game;
 const { copy, } = Player;
 
-export const addPlayer = p =>
- ({ type: ADD_PLAYER, curry: Game.addPlr(copy(p)), });
+export const addPlayer = (p) => {
+  console.log('p', p, copy(p));
+  return ({ type: ADD_PLAYER, curry: Game.addPlr(copy(p)), });
+};
  
 export const remove = ({ id, }) => g =>
  setPlayers(players(g).map(p => p.id != id))(g);
