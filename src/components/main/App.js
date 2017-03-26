@@ -1,7 +1,6 @@
 import React, { Component, } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import BasicTabs from '../tabs';
 import Game from '../game';
 
 class Main extends Component {
@@ -12,7 +11,6 @@ class Main extends Component {
           <h2>Welcome to Rummy Redux</h2>
         </div>
         <Game/>
-        <BasicTabs/>
       </div>
     );
   }

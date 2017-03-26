@@ -12,7 +12,7 @@ import { Player, } from '../players';
 import { CardCount, Deck, } from '../cards';
 import Discard from './discard';
 import Button from 'material-ui/Button';
-
+import HandDrawer from './hand';
 import { GameActs, } from '../../modules';
 
 const { active, } = GM;
@@ -28,6 +28,9 @@ const mapStateToProps = ({ auth: { user, }, game, }) =>
 
 const Game = ({ isActive, deck, players, discard, deal, }) => (
   <Layout container>
+    <HandDrawer open/>
+    
+    <Layout item xs={12} />
     <Layout item xs={12} >
       <Button onClick={deal}>Deal</Button>
     </Layout>
