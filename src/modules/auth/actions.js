@@ -50,6 +50,7 @@ export const updateU = props => fUser => fUser.updateProfile(props).then(() => u
 
 export const login = ({ displayName, } = initlLog) => dispatch =>
    Promise.resolve(dispatch(loginPend()))
+     .then(() => dispatch(removePlayer({ id: 'computer', })))
      .then(() => auth.signInAnonymously())
      .then(updateU({ displayName: (displayName || auth.currentUser.uid), }))
      .then(u => Promise.all(
