@@ -2,6 +2,7 @@ import { auth, connRef, onlineRef, } from './utils/firebase';
 import { createPlayer, login, logout, setCurrent, } from './modules/auth/actions';
 import { addUser, removeUser, setUsers, } from './modules/users/actions';
 import { addPlayer, removePlayer, } from './modules/game/actions';
+
 const loggedIn = () => auth.currentUser;
 const authID = () => loggedIn() && auth.currentUser.uid;
 const matchID = val => val == authID();
