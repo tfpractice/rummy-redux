@@ -8,7 +8,8 @@ const { copy, } = Player;
 // export const setPlayers = plrs =>
 // ({ type: SET_PLAYERS, curry: setPs(plrs), });
 
-export const addPlayer = p => ({ type: ADD_PLAYER, curry: Game.addPlr(copy(p)), });
+export const addPlayer = p =>
+({ type: ADD_PLAYER, curry: Game.addPlr(copy(p)), });
  
 export const remove = u => (g) => {
   console.log('remobeu', u);
