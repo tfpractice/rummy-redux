@@ -22,23 +22,15 @@ const logoutSucc = rqActions(LOGOUT).success;
 
 const uCheck = auth => !!auth.currentUser;
 const getCurrent = a => uCheck(a) && a.currentUser;
-const uLoad = a => getCurrent(a).reload().then(() => {
-  console.log('uLoad(a)', getCurrent(a).toJSON().displayName);
-  return getCurrent(a);
-});
-  
+const uLoad = a => getCurrent(a).reload().then(() => getCurrent(a));
+
 export const getCurrentUser = aMod => uCheck(aMod)
   ? uLoad(aMod) : aMod.signInAnonymously();
-  
+
 export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
-export const createPlayer = (u) => {
-  let a;
-
-  // console.log('user exis', u);
-
-  return u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
-};
+export const createPlayer = u =>
+   u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
 
 export const setCurrent = u => dispatch =>
   Promise.resolve(dispatch(setCurrentUser(u)))
@@ -51,30 +43,18 @@ export const unsetCurrent = () => dispatch =>
 
 export const takeOffline = u => dispatch =>
   onlineRef.child(u.id).remove();
-  
+
 const initlLog = { displayName: '', };
 
-export const updateUser = props => (fUser) => {
-  console.log('fUser.toJSON().displayName', getCurrent(auth).toJSON().displayName);
-  return fUser.updateProfile(props).then(() => {
-    console.log('auth.currentUser.toJSON()', getCurrent(auth).toJSON().displayName);
-    return uLoad(auth);
-
-    // return fUser;
-  });
-};
+export const updateU = props => fUser => fUser.updateProfile(props).then(() => uLoad(auth));
 
 export const login = ({ displayName, } = initlLog) => dispatch =>
    Promise.resolve(dispatch(loginPend()))
-     .then(() => {
-       console.log('login.displayName?', getCurrentUser(auth).displayName);
-       return auth.signInAnonymously()
-         .then(u =>
-           updateUser({ displayName: (displayName || u.uid), })(u)
-             .then(() => Promise.all(
-        [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch))))
-         .catch(e => dispatch(loginFail(e.message)));
-     });
+     .then(auth.signInAnonymously)
+     .then(updateU({ displayName: (displayName || auth.currentUser.uid), })
+       .then(u => Promise.all(
+        [loginSucc(u), setCurrent(createPlayer(u)),].map(dispatch))))
+     .catch(e => dispatch(loginFail(e.message)));
 
 export const logout = u => dispatch =>
  Promise.resolve(dispatch(logoutPend()))
@@ -82,5 +62,5 @@ export const logout = u => dispatch =>
    .then(u => u && goOffline({ id: u.uid, })
      .then(() => u.delete())
      .then(() => Promise.all(
-      [ logoutSucc(null), unsetCurrent(null), removePlayer(u), ].map(dispatch))))
+      [logoutSucc(null), unsetCurrent(null), removePlayer(u),].map(dispatch))))
    .catch(e => dispatch(logoutFail(e.message)));
