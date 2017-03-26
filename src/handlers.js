@@ -35,8 +35,8 @@ export const onlineHandler = (store) => {
   });
   
   onlineRef.on('child_changed', (snap) => {
-    rmConn(snap) && snap.ref.remove();
     disconn(snap) && store.dispatch(logout());
+    rmConn(snap) && snap.ref.remove();
     hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
   
