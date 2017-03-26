@@ -4,7 +4,7 @@ import { render, } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import createPalette, { dark, } from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
-import { blue, pink, teal, } from 'material-ui/styles/colors';
+import { pink, teal, } from 'material-ui/styles/colors';
 import Layout from 'material-ui/Layout';
 import { BrowserRouter, Link, Route, Switch, } from 'react-router-dom';
 import { Main, NavBar, NoMatch, } from './components';
@@ -18,10 +18,9 @@ const palette = createPalette({
   ...dark,
 });
 
-const { styleManager, theme, } =
- MuiThemeProvider.createDefaultContext({ theme: createMuiTheme({ palette, }), });
+const { styleManager, theme, } = MuiThemeProvider.createDefaultContext(
+  { theme: createMuiTheme({ palette, }), });
 
-console.log('styleManager', styleManager);
 export class Routes extends Component {
 
   render () {

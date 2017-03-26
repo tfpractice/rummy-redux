@@ -25,5 +25,4 @@ const LoginForm = ({ login, formID, }) => (
     />
 );
 
-console.log('AuthActs', AuthActs);
 export default connect(null, AuthActs)(LoginForm);
