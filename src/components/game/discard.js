@@ -8,19 +8,14 @@ import { PlayCard, } from '../cards';
 import { GameActs, } from '../../modules';
 import Button from 'material-ui/Button';
 
-console.log('GameActs', GameActs);
-const stateToProps = ({ game: { deck, }, }) => ({ deck, });
-const dispatchToProps = (dispatch, { args, }) => {
-  console.log('...args', ...args);
-  return {};
-};
+const stateToProps = ({ game: { discard, }, }) => ({ discard, });
 
-const Discard = ({ cards, drawTo, shiftDeck, }) => (
+const Discard = ({ discard, drawTo, dropNext, }) => (
   <div>
-    <div onClick={shiftDeck}>
-      <Button onClick={shiftDeck}/>
-      {cards.map((c, i) =>
-        <PlayCard onClick={drawTo(c)} card={c} pos={i} key={c.id}/>)}
+    <div>
+      <Button onClick={dropNext}>dropNext</Button>
+      {discard.map((c, i) =>
+        <PlayCard onClick={console.log} card={c} pos={i} key={c.id}/>)}
     </div>
 
   </div>);

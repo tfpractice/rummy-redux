@@ -11,29 +11,12 @@ const styleSheet = createStyleSheet('PlayCard', theme => ({
   }),
 }));
 
-const PlayCard = ({ card, pos, }, context) =>
-
-  // const classes = context.styleManager.render(styleSheet);
-
-   (
-    <div>
+const PlayCard = ({ card, pos, }, context) => (
       <Paper elevation={pos / 2}>
         <Text type="headline" component="h3">
           Suit :{card.suit} Rank: {card.rank}
         </Text>
-        <Text type="body1" component="p">
-          Paper can be used to build surface or other elements for your application.
-        </Text>
       </Paper>
-    </div>
   );
-
-//
-// PaperSheet.contextTypes = {
-//   styleManager: customPropTypes.muiRequired,
-// };
-// const PlayCard = ({ card, }) => (
-//   <h1>Suit :{card.suit} Rank: {card.rank}</h1>
-// );
 
 export default PlayCard;

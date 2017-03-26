@@ -1,6 +1,6 @@
 import { Game, Player, } from 'rummy-rules';
 import * as GA from './actions';
-import { ADD_PLAYER, REMOVE_PLAYER, SET_PLAYERS, SHIFT_DECK, } from './constants';
+import { ADD_PLAYER, DEAL, DRAW_TO, DROP_NEXT, REMOVE_PLAYER, SET_PLAYERS, SHIFT_DECK, } from './constants';
 
 const { addPlr, players, setPlayers, shiftDk, } = Game;
 const { copy, } = Player;
@@ -13,6 +13,10 @@ export const remove = ({ id, }) => g =>
  
 export const shiftDeck = () =>
  ({ type: SHIFT_DECK, curry: shiftDk, });
+ 
+export const deal = () => ({ type: DEAL, curry: Game.deal(7), });
+export const dropNext = () => ({ type: DROP_NEXT, curry: Game.dropNext, });
+export const drawTo = c => ({ type: DRAW_TO, curry: Game.drawTo(c), });
 export const removePlayer = player =>
   ({ type: REMOVE_PLAYER, curry: remove(player), });
   

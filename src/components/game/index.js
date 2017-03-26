@@ -11,6 +11,9 @@ import Text from 'material-ui/Text';
 import { Player, } from '../players';
 import { CardCount, Deck, } from '../cards';
 import Discard from './discard';
+import Button from 'material-ui/Button';
+
+import { GameActs, } from '../../modules';
 
 const { active, } = GM;
 const { matches, } = Plr;
@@ -23,14 +26,17 @@ const mapStateToProps = ({ auth: { user, }, game, }) =>
  discard: game.discard,
 });
 
-const Game = ({ isActive, deck, players, discard, }) => (
+const Game = ({ isActive, deck, players, discard, deal, }) => (
   <Layout container>
+    <Layout item xs={12} >
+      <Button onClick={deal}>Deal</Button>
+    </Layout>
     <Layout item xs={4}>
       <CardCount cards={deck}/>
     </Layout>
     <Layout item xs={8}>
       <Text type="headline"> discard </Text>
-      <Discard isActive={isActive} cards={discard}/>
+      <Discard isActive={isActive} />
     </Layout>
     <Layout item xs={12}>
       <Divider />
@@ -38,4 +44,4 @@ const Game = ({ isActive, deck, players, discard, }) => (
     </Layout>
   </Layout>);
 
-export default connect(mapStateToProps)(Game);
+export default connect(mapStateToProps, GameActs)(Game);
