@@ -21,9 +21,9 @@ const { matches, } = Plr;
 const mapStateToProps = ({ auth: { user, }, game, }) =>
 ({
  isActive: !!(user && matches(user)(active(game))),
- deck: game.deck,
- players: game.players,
- discard: game.discard,
+ deck: GM.deck(game),
+ players: GM.players(game),
+ discard: GM.discard(game),
 });
 
 const Game = ({ isActive, deck, players, discard, deal, }) => (

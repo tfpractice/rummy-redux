@@ -2,7 +2,6 @@ import { auth, connRef, onlineRef, } from './utils/firebase';
 import { createPlayer, login, logout, setCurrent, } from './modules/auth/actions';
 import { addUser, removeUser, setUsers, } from './modules/users/actions';
 import { addPlayer, removePlayer, } from './modules/game/actions';
-
 const loggedIn = () => auth.currentUser;
 const authID = () => loggedIn() && auth.currentUser.uid;
 const matchID = val => val == authID();
@@ -13,8 +12,8 @@ const hasName = snap => snap.hasChild('name');
 const noConn = snap => !snap.hasChild('connections');
 
 const userUpdate = snap => hasName(snap) && matchID(snap.key);
-const disconn = snap => noConn(snap) && matchID(snap.key);
-const rmConn = snap => noConn(snap) && !matchID(snap.key);
+const disconn = snap => hasName(snap) && noConn(snap) && matchID(snap.key);
+const rmConn = snap => hasName(snap) && noConn(snap) && !matchID(snap.key);
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((user) => {
@@ -36,12 +35,15 @@ export const onlineHandler = (store) => {
   });
   
   onlineRef.on('child_changed', (snap) => {
+    console.log('child_changed', snap.val());
     userUpdate(snap) && store.dispatch(addPlayer(snap.val()));
-    disconn(snap) && store.dispatch(logout());
     rmConn(snap) && snap.ref.remove();
+    disconn(snap) && store.dispatch(logout());
+
+    // disconn(snap) && loggedIn().delete();
   });
   
   onlineRef.on('child_removed', (snap) => {
-    store.dispatch(removePlayer(snap.val()));
+    hasName(snap) && store.dispatch(removePlayer(snap.val()));
   });
 };

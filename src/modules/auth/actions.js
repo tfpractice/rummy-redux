@@ -7,6 +7,7 @@ const { auth, onlineRef, } = fireUtils;
 const { rqConstants, rqActions, } = rqUtils;
 const { player, setID, setName, } = Player;
 
+import { removePlayer, } from '../game/actions';
 const set = user => () => user;
 const unset = () => () => null;
 
@@ -20,7 +21,10 @@ const logoutSucc = rqActions(LOGOUT).success;
 
 export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
-export const createPlayer = u => setName(u.displayName)(setID(u.uid)(u));
+export const createPlayer = (u) => {
+  console.log('user exis', u);
+  return u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
+};
 
 export const setCurrent = u => dispatch =>
   Promise.resolve(dispatch(setCurrentUser(u)))
@@ -48,19 +52,6 @@ export const logout = u => dispatch =>
    .then(() => auth.currentUser)
    .then(u => u && goOffline({ id: u.uid, })
      .then(() => u.delete())
-
-      // return auth.signOut()
-      //   .then(() => {
-      //     console.log('goig off');
-      //     return u && goOffline({ id: u.uid, });
-      //   })
      .then(() => Promise.all(
-          [ logoutSucc(null), unsetCurrent(null), ].map(dispatch)))
-      
-        // .then((arf) => {
-        //   console.log('now delete', u, arf);
-        //   return u.delete();
-        // });
-    )
-
+      [ logoutSucc(null), unsetCurrent(null), removePlayer(u), ].map(dispatch))))
    .catch(e => dispatch(logoutFail(e.message)));

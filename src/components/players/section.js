@@ -9,7 +9,7 @@ import Layout from 'material-ui/Layout';
 import Text from 'material-ui/Text';
 import { CardCount, } from '../cards';
 
-const { Game: { active, }, Player: { matches, hand, sets, }, } = Rummy;
+const { Game: { active, }, Player: { matches, hand, sets, copy, }, } = Rummy;
 
 const mapStateToProps = ({ game, }, { player, }) =>
   ({ isActive: matches(active(game))(player).toString(), });
@@ -26,7 +26,8 @@ const Player = ({ player, isActive, }) => (
     </Layout>
     <Layout item xs={8}>
       <Text type="headline" component="h2">
-        sets {sets(player).length}
+        {console.log('player', copy(player))}
+        sets {player && sets(player)}
       </Text>
     </Layout>
 </Layout>
