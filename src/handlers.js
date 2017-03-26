@@ -17,19 +17,22 @@ const disconn = snap => hasName(snap) && noConn(snap) && matchID(snap.key);
 const rmConn = snap => hasName(snap) && noConn(snap) && !matchID(snap.key);
 
 export const authHandler = (store) => {
-  auth.onAuthStateChanged((user) => {
-    user ? console.log('AUTH:SIGNEDIN', user.toJSON().displayName)
-      : console.log('loggeout');
+  auth.onAuthStateChanged((u) => {
+    u ? console.log('SIGNEDIN', u.displayName) : console.log('SIGNEDOUT');
   });
 };
 
 export const connHandler = (store) => {
   connRef.on('value', (snap) => {
-    reconnected(snap) && store.dispatch(login(auth.currentUser));
+    reconnected(snap) && store.dispatch(login(auth.currentUser))
+      ;
   });
 };
 
 export const onlineHandler = (store) => {
+  onlineRef.once('child_added', (snap) => {
+    hasName(snap) && store.dispatch(removePlayer({ id: 'computer', }));
+  });
   onlineRef.on('child_added', (snap) => {
     hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
