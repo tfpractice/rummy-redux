@@ -18,8 +18,11 @@ const palette = createPalette({
   ...dark,
 });
 
+console.log('MuiThemeProvider', MuiThemeProvider);
 const { styleManager, theme, } = MuiThemeProvider.createDefaultContext(
   { theme: createMuiTheme({ palette, }), });
+
+console.log('styleManager', styleManager);
 
 export class Routes extends Component {
 

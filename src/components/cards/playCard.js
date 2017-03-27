@@ -15,6 +15,7 @@ import { CardIcon, } from './icons';
 const styleSheet = createStyleSheet('PlayCard',
   theme => ({ root: theme.mixins.gutters({ paddingTop: 16, paddingBottom: 16, }), }));
 
+console.log('styleSheet', styleSheet);
 const PlayCard = ({ card, pos, }, context) => (
   <Paper elevation={pos / 2}>
     <ListItem>
