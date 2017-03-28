@@ -7,13 +7,14 @@ import { List, ListItem, ListItemIcon, ListItemSecondaryAction,
 import { PlayCard, } from '../cards';
 import { GameActs, } from '../../modules';
 import Button from 'material-ui/Button';
+import Text from 'material-ui/Text';
 
 const stateToProps = ({ game: { discard, }, }) => ({ discard, });
 
 const Discard = ({ discard, drawTo, dropNext, }) => (
   <List>
     <ListSubheader>
-      <Button onClick={dropNext}>dropNext</Button>
+      <Text type="headline"> Discard </Text>
     </ListSubheader>
     {discard.map((c, i) =>
       <PlayCard onClick={() => drawTo(c)} card={c} pos={i} key={c.id} />

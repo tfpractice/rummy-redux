@@ -26,17 +26,18 @@ const mapStateToProps = ({ auth: { user, }, game, }) =>
  discard: GM.discard(game),
 });
 
-const Game = ({ isActive, deck, players, discard, deal, }) => (
+const Game = ({ isActive, deck, dropNext, players, discard, deal, }) => (
   <Layout container>
     <HandDrawer open/>
     <Layout item xs={12} >
       <Button onClick={deal}>Deal</Button>
+      <Button onClick={dropNext}>dropNext</Button>
+
     </Layout>
     <Layout item xs={4}>
       <CardCount cards={deck}/>
     </Layout>
     <Layout item xs={8}>
-      <Text type="headline"> discard </Text>
       <Discard isActive={isActive} />
     </Layout>
     <Layout item xs={12}>
