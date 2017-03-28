@@ -3,8 +3,6 @@ import { List, ListItem, ListItemIcon,
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import Paper from 'material-ui/Paper';
-import { Tab, Tabs, } from 'material-ui/Tabs';
 import PlayCard from './playCard';
 import CardChip from './chip';
 
