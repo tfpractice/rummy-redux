@@ -8,10 +8,7 @@ import CardChip from './chip';
 
 const CardList = ({ cards, }) => (
   <List>
-    {cards.map((c, i) =>
-      <ListItem key={c.id} >
-        <PlayCard card={c} pos={i} key={c.id}/>
-      </ListItem>)}
+    {cards.map((c, i) => <PlayCard card={c} pos={i} key={c.id}/>)}
   </List>
 );
 

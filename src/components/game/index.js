@@ -12,7 +12,7 @@ import { Player, } from '../players';
 import { CardCount, Deck, } from '../cards';
 import Discard from './discard';
 import Button from 'material-ui/Button';
-import HandDrawer from './hand';
+import HandDrawer from './handDrawer';
 import { GameActs, } from '../../modules';
 
 const { active, } = GM;
