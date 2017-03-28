@@ -2,23 +2,36 @@ import React, { Component, PropTypes, } from 'react';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import Paper from 'material-ui/Paper';
 import Text from 'material-ui/Text';
-import { Tab, Tabs, } from 'material-ui/Tabs';
+import { Card, CardActions, CardContent, CardMedia, } from 'material-ui/Card';
 
-const styleSheet = createStyleSheet('PaperSheet', theme => ({
-      root: theme.mixins.gutters({
-        paddingTop: 16,
-        paddingBottom: 16,
-      }),
+const CardBackUrl =
+'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Card_back_06.svg/314px-Card_back_06.svg.png';
+
+const styleSheet = createStyleSheet('CardCount', theme => ({
+  text: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    '-ms-transform': 'translate(-50%, -50%)',
+  },
 }));
 
-const CardCount = ({ cards, }) => (
-  <Paper elevation={4}>
-    <Text type="headline" component="h3">
-      CardCount: {cards.length}
-    </Text>
-  </Paper>);
-    
+const CardCount = ({ cards, ...props }, { styleManager, }) => {
+  const classes = styleManager.render(styleSheet);
+
+  return (
+    <Card >
+      <CardMedia>
+        <img src={CardBackUrl}/>
+        <Text className={classes.text} type="headline" component="h3">
+          {cards.length}
+        </Text>
+      </CardMedia>
+    </Card>);
+};
+
 export default CardCount;
-  
+
+CardCount.contextTypes = { styleManager: PropTypes.object, };

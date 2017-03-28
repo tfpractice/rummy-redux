@@ -11,7 +11,7 @@ import Button from 'material-ui/Button';
 const stateToProps = ({ game: { discard, }, }) => ({ discard, });
 
 const Discard = ({ discard, drawTo, dropNext, }) => (
-  <List >
+  <List>
     <ListSubheader>
       <Button onClick={dropNext}>dropNext</Button>
     </ListSubheader>
