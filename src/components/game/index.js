@@ -32,7 +32,6 @@ const Game = ({ isActive, deck, dropNext, players, discard, deal, }) => (
     <Layout item xs={12} >
       <Button onClick={deal}>Deal</Button>
       <Button onClick={dropNext}>dropNext</Button>
-
     </Layout>
     <Layout item xs={4}>
       <CardCount cards={deck}/>

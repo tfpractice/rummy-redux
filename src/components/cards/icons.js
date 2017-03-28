@@ -18,7 +18,7 @@ const styleSheet = createStyleSheet('CardIcon',
       CLUBS: { color: '#000', },
   }));
 
-export const CardIcon = ({ card, }, { styleManager, }) => {
+const CardIcon = ({ card, }, { styleManager, }) => {
   const classes = styleManager.render(styleSheet);
 
   return (
@@ -28,3 +28,4 @@ export const CardIcon = ({ card, }, { styleManager, }) => {
 };
 
 CardIcon.contextTypes = { styleManager: PropTypes.object, theme: PropTypes.object, muiTheme: PropTypes.object, };
+export default CardIcon;

@@ -1,20 +1,21 @@
 import React, { Component, } from 'react';
+import * as RUMMY from 'rummy-rules';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
+import { List, ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Drawer from 'material-ui/Drawer';
-import { List, ListItem, ListItemIcon, ListItemText, } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 
 import { CardList, } from '../cards';
 
-import * as RUMMY from 'rummy-rules';
-
 const { Player: { hand: pHand, matches, copy, }, Game: { active, }, } = RUMMY;
 
-const getPlayerHand = user => g => user ? pHand(g.players.find(matches(user))) : [];
-const stateToProps = ({ auth: { user, }, game, }) => ({ hand: (getPlayerHand(user)(game)), });
+const getUser = user => game => game.players.find(matches(user));
+const getPlayerHand = user => g => user ? pHand(getUser(user)(g)) : [];
+const stateToProps = ({ auth: { user, }, game, }) =>
+({ hand: (getPlayerHand(user)(game)), });
 
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: {
@@ -41,6 +42,9 @@ class HandDrawer extends Component {
           onRequestClose={this.handleClose}
           onClick={this.handleClose}
         >
+          <List>
+            <ListSubheader />
+          </List>
           <CardList className={classes.list} cards={[ ...this.props.hand, ]}/>
           <div className={classes.remainder}/>
         </Drawer>
