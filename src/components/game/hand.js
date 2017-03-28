@@ -1,5 +1,5 @@
-
 import React, { Component, } from 'react';
+import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Drawer from 'material-ui/Drawer';
@@ -12,6 +12,11 @@ import SendIcon from 'material-ui-icons/Send';
 import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
+import { CardList, } from '../cards';
+
+const getPlayerHand = user => g => user.id && g.players.find(p => p.id === user.id).hand;
+const stateToProps = ({ auth: { user, }, game, }) =>
+({ hand: !!user && getPlayerHand(user)(game), });
 
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: {
@@ -21,7 +26,7 @@ const styleSheet = createStyleSheet('HandDrawer', () => ({
   remainder: { flex: 1, },
 }));
 
-export default class HandDrawer extends Component {
+class HandDrawer extends Component {
   state = { open: false, };
 
   handleOpen = () => this.setState({ open: true, });
@@ -93,3 +98,4 @@ export default class HandDrawer extends Component {
 }
 
 HandDrawer.contextTypes = { styleManager: React.PropTypes.object, };
+export default connect(stateToProps)(HandDrawer);

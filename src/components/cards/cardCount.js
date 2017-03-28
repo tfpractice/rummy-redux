@@ -6,11 +6,6 @@ import Paper from 'material-ui/Paper';
 import Text from 'material-ui/Text';
 import { Tab, Tabs, } from 'material-ui/Tabs';
 
-// import PlayCard from './playCard';
-// import CardChip from './cards/chip';
-
-// const mapStateToProps = ({ game: { deck, }, }) => ({ deck, });
-
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
       root: theme.mixins.gutters({
         paddingTop: 16,
@@ -23,8 +18,7 @@ const CardCount = ({ cards, }) => (
     <Text type="headline" component="h3">
       CardCount: {cards.length}
     </Text>
-  </Paper>
-      );
+  </Paper>);
     
 export default CardCount;
   

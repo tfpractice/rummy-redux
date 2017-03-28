@@ -29,8 +29,6 @@ const mapStateToProps = ({ auth: { user, }, game, }) =>
 const Game = ({ isActive, deck, players, discard, deal, }) => (
   <Layout container>
     <HandDrawer open/>
-    
-    <Layout item xs={12} />
     <Layout item xs={12} >
       <Button onClick={deal}>Deal</Button>
     </Layout>

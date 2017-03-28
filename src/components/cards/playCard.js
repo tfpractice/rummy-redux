@@ -4,18 +4,10 @@ import customPropTypes from 'material-ui/utils/customPropTypes';
 import Paper from 'material-ui/Paper';
 import Text from 'material-ui/Text';
 import Badge from 'material-ui/Badge';
-import {
-  List,
-  ListItem, ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
-} from 'material-ui/List';
+import { List, ListItem, ListItemIcon,
+  ListItemSecondaryAction, ListItemText, } from 'material-ui/List';
 import { CardIcon, } from './icons';
 
-const styleSheet = createStyleSheet('PlayCard',
-  theme => ({ root: theme.mixins.gutters({ paddingTop: 16, paddingBottom: 16, }), }));
-
-console.log('styleSheet', styleSheet);
 const PlayCard = ({ card, pos, }, context) => (
   <Paper elevation={pos / 2}>
     <ListItem>
@@ -24,8 +16,6 @@ const PlayCard = ({ card, pos, }, context) => (
       </Text>
       <CardIcon card={card}/>
     </ListItem>
-  </Paper>
-
-  );
+  </Paper>);
 
 export default PlayCard;
