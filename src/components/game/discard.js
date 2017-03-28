@@ -6,7 +6,6 @@ import { List, ListItem, ListItemIcon, ListItemSecondaryAction,
   ListItemText, ListSubheader, } from 'material-ui/List';
 import { PlayCard, } from '../cards';
 import { GameActs, } from '../../modules';
-import Button from 'material-ui/Button';
 import Text from 'material-ui/Text';
 
 const stateToProps = ({ game: { discard, }, }) => ({ discard, });
