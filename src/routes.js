@@ -7,7 +7,7 @@ import createMuiTheme from 'material-ui/styles/theme';
 import { pink, teal, } from 'material-ui/styles/colors';
 import Layout from 'material-ui/Layout';
 import { BrowserRouter, Link, Route, Switch, } from 'react-router-dom';
-import { Main, NavBar, NoMatch, } from './components';
+import { Game, Main, NavBar, NoMatch, } from './components';
 
 const mapStateToProps = ({ users, }) => ({ users, });
 
@@ -34,7 +34,8 @@ export class Routes extends Component {
             <Layout item xs={12}>
               <NavBar/>
               <Switch>
-                <Route path="/" component={Main} />
+                <Route exact path="/" component={Main} />
+                <Route path="/play" component={Game} />
                 <Route component={NoMatch}/>
               </Switch>
             </Layout>
