@@ -50,11 +50,9 @@ class PlayerDrawer extends Component {
           onClick={this.handleClose}
         >
           <List className={classes.list}>
-            <List className={classes.list}>
-              <ListSubheader >
-                USername
-              </ListSubheader>
-            </List>
+            <ListSubheader >
+              USername
+            </ListSubheader>
             <CardList cards={hand}/>
             <List className={classes.list}>
               <ListSubheader >
