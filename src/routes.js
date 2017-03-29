@@ -18,21 +18,22 @@ const palette = createPalette({
   ...dark,
 });
 
-console.log('MuiThemeProvider', MuiThemeProvider);
 const { styleManager, theme, } = MuiThemeProvider.createDefaultContext(
   { theme: createMuiTheme({ palette, }), });
 
-console.log('styleManager', styleManager);
+const styles = { paddingTop: '3rem', };
 
 export class Routes extends Component {
-
+  
   render () {
     return (
       <MuiThemeProvider theme={theme} styleManager={styleManager}>
         <BrowserRouter>
-          <Layout container>
+          <Layout container direction={'column'}>
             <Layout item xs={12}>
               <NavBar/>
+            </Layout>
+            <Layout item xs={12} style={styles}>
               <Switch>
                 <Route exact path="/" component={Main} />
                 <Route path="/play" component={Game} />

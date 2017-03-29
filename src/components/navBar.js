@@ -3,7 +3,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Text from 'material-ui/Text';
 import { LoginForm, LogoutLink, } from './auth';
-import Layout from 'material-ui/Layout';
 
 const NavBar = () => (
   <AppBar >
