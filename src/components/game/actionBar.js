@@ -12,7 +12,6 @@ const { matches, } = Plr;
 
 import { GameActs, } from '../../modules';
 
-// import { LoginForm, LogoutLink, } from './auth';
 const stateToProps = ({ auth: { user, }, game, }) => ({
   isActive: !!(user && matches(user)(active(game))),
   deck: GM.deck(game),
