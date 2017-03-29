@@ -10,13 +10,12 @@ const uniChars = {
   SPADES:  String.fromCharCode('\u2660'.charCodeAt(0)),
 };
 
-const styleSheet = createStyleSheet('CardIcon',
-  theme => ({
+const styleSheet = createStyleSheet('CardIcon', theme => ({
       HEARTS: { color: '#f00', },
       DIAMONDS: { color: '#f00', },
       SPADES: { color: '#000', },
       CLUBS: { color: '#000', },
-  }));
+}));
 
 const CardIcon = ({ card, }, { styleManager, }) => {
   const classes = styleManager.render(styleSheet);

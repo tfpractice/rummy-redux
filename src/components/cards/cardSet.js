@@ -9,7 +9,7 @@ import CardIcon from './icons';
 
 const CardSet = ({ cards, }) => (
     <ListItem>
-      {cards.map((c, i) => <CardIcon key={c.id} card={c}/>)}
+      {cards.map(c => <CardIcon key={c.id} card={c}/>)}
     </ListItem>
 );
 

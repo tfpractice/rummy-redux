@@ -8,11 +8,11 @@ import Divider from 'material-ui/Divider';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Paper from 'material-ui/Paper';
 import Text from 'material-ui/Text';
-import { Player, } from '../players';
+import { Player, PlayerDrawer, } from '../players';
 import { CardCount, Deck, } from '../cards';
 import Discard from './discard';
 import Button from 'material-ui/Button';
-import HandDrawer from './handDrawer';
+
 import { GameActs, } from '../../modules';
 
 const { active, } = GM;
@@ -28,7 +28,7 @@ const mapStateToProps = ({ auth: { user, }, game, }) =>
 
 const Game = ({ isActive, deck, dropNext, players, discard, deal, }) => (
   <Layout container>
-    <HandDrawer open/>
+    <PlayerDrawer open/>
     <Layout item xs={12} >
       <Button onClick={deal}>Deal</Button>
       <Button onClick={dropNext}>dropNext</Button>

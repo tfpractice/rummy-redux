@@ -9,6 +9,7 @@ const CardBackUrl =
 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Card_back_06.svg/314px-Card_back_06.svg.png';
 
 const styleSheet = createStyleSheet('CardCount', theme => ({
+  root: { backgroundColor: 'transparent', },
   text: {
     position: 'absolute',
     top: '50%',
@@ -22,7 +23,7 @@ const CardCount = ({ cards, ...props }, { styleManager, }) => {
   const classes = styleManager.render(styleSheet);
 
   return (
-    <Card >
+    <Card className={classes.root}>
       <CardMedia>
         <img src={CardBackUrl}/>
         <Text className={classes.text} type="headline" component="h3">
