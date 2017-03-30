@@ -33,8 +33,10 @@ const Game = ({ isActive, game, draw, }) => (
     <Layout item xs={8}>
       <Discard cards={game.discard} isActive={isActive} />
     </Layout>
-    <Layout item xs={12}>
-      {game.players.map((p, i) => <Player key={i} player={p}/>)}
+    <Layout container justify={'space-between'}>
+      <Layout item xs={12}>
+        {game.players.map((p, i) => <Player key={i} player={p}/>)}
+      </Layout>
     </Layout>
   </Layout>);
 

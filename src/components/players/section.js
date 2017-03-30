@@ -16,27 +16,21 @@ import { CardCount, CardSet, } from '../cards';
 const { Game: { active, }, Player: { matches, hand, sets, copy, }, } = Rummy;
 
 const mapStateToProps = ({ game, }, { player, }) =>
- ({ isActive: matches(active(game))(player).toString(), });
+ ({ isActive: matches(active(game))(player), });
   
 const Player = ({ player, isActive, }) => (
   <Card>
-    <CardHeader
-      title={player.name}
-      subhead={isActive.toString()}
-    />
+    <CardHeader title={player.name} />
     <CardMedia>
       <Layout container>
-        <Layout item xs={4}>
-          <CardCount cards={hand(player)}/>
-        </Layout>
+        <Layout item xs={4}
+          children={ <CardCount cards={hand(player)}/>}/>
         <Layout item xs={8}>
           <List>
-            <ListSubheader type="title">
-              sets
-            </ListSubheader>
-            {sets(player).map((s, i) => <ListItem key={i} >
-              <CardSet cards={[ ...s, ]}/>
-            </ListItem>)}
+            <ListSubheader children={'Sets'} type="title" />
+            {sets(player).map((s, i) =>
+              <ListItem key={i}
+                children={ <CardSet cards={[ ...s, ]}/>} />)}
           </List>
         </Layout>
       </Layout>
