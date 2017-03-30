@@ -5,6 +5,7 @@ import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import PlayCard from './playCard';
 import CardChip from './chip';
+import Layout from 'material-ui/Layout';
 
 const CardList = ({ cards, }) => (
   <List>

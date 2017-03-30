@@ -6,11 +6,12 @@ import customPropTypes from 'material-ui/utils/customPropTypes';
 import PlayCard from './playCard';
 import CardChip from './chip';
 import CardIcon from './icons';
+import Layout from 'material-ui/Layout';
 
 const CardSet = ({ cards, }) => (
-    <ListItem>
+    <Layout container justify={'flex-start'} >
       {cards.map(c => <CardIcon key={c.id} card={c}/>)}
-    </ListItem>
+    </Layout>
 );
 
 export default CardSet;

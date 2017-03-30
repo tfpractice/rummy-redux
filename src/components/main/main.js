@@ -13,7 +13,7 @@ class Main extends Component {
           <Text type="headline">Welcome to Rummy Redux</Text>
           <Text type="headline">Sign in to start a new game</Text>
         </Layout>
-        <Layout xs={12} >
+        <Layout item xs={12} >
           <Game/>
         </Layout>
       </Layout>

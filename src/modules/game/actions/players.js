@@ -7,10 +7,9 @@ const { copy, } = Player;
 export const turnGame = () =>
 ({ type: TURN_GAME, curry: Game.turn, });
 
-export const remove = u => (g) => {
-  console.log('remobeu', u);
-  return setPs(players(g).filter(p => p.id != u.id))(g);
-};
+export const remove = u => g =>
+setPs(players(g).filter(p => p.id != u.id))(g);
+
 export const setPlayers = (plrs = []) =>
  ({ type: SET_PLAYERS, curry: setPs, });
 
