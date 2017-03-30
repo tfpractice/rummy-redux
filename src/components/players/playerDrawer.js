@@ -10,7 +10,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import { Tab, Tabs, } from 'material-ui/Tabs';
 import Layout from 'material-ui/Layout';
-
+import MyHand from './hand';
 import { CardList, CardSet, } from '../cards';
 
 const { hand: pHand, matches, copy, } = Player;
