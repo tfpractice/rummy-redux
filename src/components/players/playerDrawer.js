@@ -10,7 +10,7 @@ import Button from 'material-ui/Button';
 import Layout from 'material-ui/Layout';
 import MyHand from './hand';
 import { CardSet, } from '../cards';
-
+import { GameActs, } from '../../modules';
 const { hand: pHand, matches, copy, } = Player;
 const { active, playable, } = Game;
 const { possibles, } = Sets;
@@ -38,7 +38,7 @@ class PlayerDrawer extends Component {
 
   render() {
     const classes = this.context.styleManager.render(styleSheet);
-    const { hand, user, sets, isActive, } = this.props;
+    const { hand, user, sets, isActive, play, } = this.props;
 
     return (
       <Layout container >
@@ -62,10 +62,9 @@ class PlayerDrawer extends Component {
                   Possibles
                 </ListSubheader>
                 {sets.map((p, i) =>
-                  <ListItem key={i}>
-                    <CardSet cards={[ ...p, ]}/>
-                  </ListItem>
-                )}
+                  <ListItem onClick={() => isActive && play(...p)} key={i}>
+                  <CardSet cards={[ ...p, ]}/>
+                </ListItem>)}
               </List>
             </ListItem>
             <Divider/>
@@ -80,4 +79,4 @@ class PlayerDrawer extends Component {
 }
 
 PlayerDrawer.contextTypes = { styleManager: React.PropTypes.object, };
-export default connect(stateToProps)(PlayerDrawer);
+export default connect(stateToProps, GameActs)(PlayerDrawer);

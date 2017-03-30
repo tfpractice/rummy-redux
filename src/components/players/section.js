@@ -5,6 +5,7 @@ import { createStyleSheet, } from 'jss-theme-reactor';
 import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Collapse from 'material-ui/transitions/Collapse';
+import { List, ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
 
 import Paper from 'material-ui/Paper';
 import Layout from 'material-ui/Layout';
@@ -29,15 +30,18 @@ const Player = ({ player, isActive, }) => (
           <CardCount cards={hand(player)}/>
         </Layout>
         <Layout item xs={8}>
-          <Text type="title">
-            sets {player && sets(player)}
-          </Text>
-          <CardSet cards={hand(player)}/>
+          <List>
+            <ListSubheader type="title">
+              sets
+            </ListSubheader>
+            {sets(player).map((s, i) => <ListItem key={i} >
+              <CardSet cards={[ ...s, ]}/>
+            </ListItem>)}
+          </List>
         </Layout>
       </Layout>
     </CardMedia>
   </Card>
-  
 );
 
 export default connect(mapStateToProps)(Player);
