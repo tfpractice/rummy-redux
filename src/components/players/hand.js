@@ -1,22 +1,26 @@
 import * as RUMMY from 'rummy-rules';
 import React, { Component, } from 'react';
 import { connect, } from 'react-redux';
-import { createStyleSheet, } from 'jss-theme-reactor';
-import { CardIcon, CardList, } from '../cards';
+import { CardIcon, } from '../cards';
 import Layout from 'material-ui/Layout';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+
 import { GameActs, } from '../../modules';
 const { Player: { hand: pHand, matches, copy, }, Game: { active, }, } = RUMMY;
 
-const getUser = user => game => game.players.find(matches(user));
-const getPlayerHand = user => g => user ? pHand(getUser(user)(g)) : [];
-const stateToProps = ({ auth: { user, }, game, }) =>
-({ cards: (getPlayerHand(user)(game)), });
+const getUser = user => g => g.players.find(matches(user)) || active(g);
 
-export const MyHand = ({ user, cards, isActive, dropCards, }) => {
-  console.log('user', user);
-  return (<Layout container justify={'center'}>
-    {cards.map(c => <CardIcon key={c.id} onClick={() => isActive && dropCards(c)} card={c}/>)}
-  </Layout>);
-};
+const stateToProps = ({ game, auth: { user = active(game), }, } = {}) =>
+ ({ user: getUser(user)(game), });
+
+const MyHand = ({ user, isActive, dropCards, }) => (
+  <Layout container justify={'center'} gutter={8}>
+    {pHand(user).map(c =>
+      <IconButton onClick={() => isActive && dropCards(user)(c)}>
+        <CardIcon key={c.id} card={c}/>
+      </IconButton>)}
+</Layout>
+);
 
 export default connect(stateToProps, GameActs)(MyHand);

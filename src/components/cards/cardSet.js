@@ -9,7 +9,7 @@ import CardIcon from './icons';
 import Layout from 'material-ui/Layout';
 
 const CardSet = ({ cards, }) => (
-    <Layout container justify={'flex-start'} >
+    <Layout container justify={'center'} gutter={8} >
       {cards.map(c => <CardIcon key={c.id} card={c}/>)}
     </Layout>
 );

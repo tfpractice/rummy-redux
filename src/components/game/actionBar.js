@@ -19,11 +19,12 @@ const stateToProps = ({ auth: { user, }, game, }) => ({
   discard: GM.discard(game),
 });
 
-const ActionBar = ({ deal, dropNext, isActive, }) => (
+const ActionBar = ({ deal, dropNext, isActive, turnGame, }) => (
     <Toolbar>
       <Layout container justify={'center'} align={'center'} gutter={24}>
         <Button onClick={deal}>Deal</Button>
         <Button onClick={dropNext}>dropNext</Button>
+        <Button onClick={turnGame}>turnGame</Button>
       </Layout>
   </Toolbar>
 

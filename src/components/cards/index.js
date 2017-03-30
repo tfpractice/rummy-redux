@@ -4,3 +4,4 @@ export { default as Deck, } from './deck';
 export { default as Chip, } from './chip';
 export { default as PlayCard, } from './playCard';
 export { default as CardSet, } from './cardSet';
+export { default as CardIcon, } from './icons';

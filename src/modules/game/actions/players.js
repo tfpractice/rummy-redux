@@ -5,6 +5,7 @@ const { addPlr, players, setPlayers: setPs, shiftDk, } = Game;
 const { copy, scrap, } = Player;
 
 import { drop, } from './discard';
+
 export const turnGame = () =>
 ({ type: TURN_GAME, curry: Game.turn, });
 
@@ -20,7 +21,20 @@ export const addPlayer = p =>
 export const removePlayer = player =>
   ({ type: REMOVE_PLAYER, curry: remove(player), });
 
-export const dropCards = p => dispatch => (...cards) =>
-  Promise.resolve(dispatch(addPlayer(scrap(...cards)(p))))
-    .then(x => dispatch(drop(...cards)))
+export const dropCards = p => dispatch => (...cards) => {
+  console.log('p', p);
+  console.log('cards', cards, scrap(...cards)(p), p);
+  return Promise.resolve(scrap(...cards)(p))
+    .then((y) => {
+      console.log('y', y);
+      return addPlayer(y);
+    })
+
+    // .then(addPlayer)
+    .then(dispatch)
+    .then((x) => {
+      console.log('x', x);
+      return dispatch(drop(...cards));
+    })
     .catch(console.error);
+};

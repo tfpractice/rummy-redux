@@ -17,11 +17,11 @@ const styleSheet = createStyleSheet('CardIcon', theme => ({
       CLUBS: { color: '#000', },
 }));
 
-const CardIcon = ({ card, }, { styleManager, }) => {
+const CardIcon = ({ card, ...rest }, { styleManager, }) => {
   const classes = styleManager.render(styleSheet);
 
   return (
-  <Avatar className={classes[`${card.suit}`]}>
+  <Avatar className={classes[`${card.suit}`]} {...rest}>
     {card.rank.toUpperCase()} {uniChars[`${card.suit}`]}
   </Avatar>);
 };
