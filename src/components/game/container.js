@@ -19,28 +19,22 @@ const { active, } = GM;
 const { matches, } = Plr;
 
 const mapStateToProps = ({ auth: { user, }, game, }) =>
-({
- isActive: !!(user && matches(user)(active(game))),
- deck: GM.deck(game),
- players: GM.players(game),
- discard: GM.discard(game),
-});
+({ game, isActive: !!(user && matches(user)(active(game))), });
 
-const Game = ({ isActive, deck, dropNext, players, discard, deal, }) => (
+const Game = ({ isActive, game, draw, }) => (
   <Layout container>
-    <PlayerDrawer open/>
+    <PlayerDrawer isActive={isActive} open/>
     <Layout item xs={12} >
       <ActionBar/>
     </Layout>
-    <Layout item xs={4}>
-      <CardCount cards={deck}/>
+    <Layout onClick={() => isActive && draw()} item xs={4}>
+      <CardCount cards={game.deck}/>
     </Layout>
     <Layout item xs={8}>
-      <Discard isActive={isActive} />
+      <Discard cards={game.discard} isActive={isActive} />
     </Layout>
     <Layout item xs={12}>
-      <Divider />
-      {players.map((p, i) => <Player key={i} player={p}/>)}
+      {game.players.map((p, i) => <Player key={i} player={p}/>)}
     </Layout>
   </Layout>);
 
