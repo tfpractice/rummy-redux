@@ -18,10 +18,8 @@ export const setPlayers = (plrs = []) =>
 export const addPlayer = p =>
 ({ type: ADD_PLAYER, curry: Game.addPlr(copy(p)), });
 
-export const play = (...cards) => {
-  console.log('cards', cards);
-  return ({ type: PLAY, curry: Game.play(...cards), });
-};
+export const play = (...cards) =>
+   ({ type: PLAY, curry: Game.play(...cards), });
 
 export const removePlayer = player =>
   ({ type: REMOVE_PLAYER, curry: remove(player), });
