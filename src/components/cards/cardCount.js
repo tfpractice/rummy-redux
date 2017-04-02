@@ -27,7 +27,7 @@ const CardCount = ({ cards, ...props }, { styleManager, }) => {
       <CardMedia>
         <img src={CardBackUrl}/>
         <Text className={classes.text} type="headline" component="h3">
-          {cards.length}
+          {cards && cards.length}
         </Text>
       </CardMedia>
     </Card>);

@@ -16,7 +16,7 @@ import { CardCount, CardSet, } from '../cards';
 const { Game: { active, }, Player: { matches, hand, sets, copy, }, } = Rummy;
 
 const mapStateToProps = ({ game, }, { player, }) =>
- ({ isActive: matches(active(game))(player), });
+   ({ isActive: matches(active(game))(player), });
   
 const Player = ({ player, isActive, }) => (
   <Card>
@@ -28,7 +28,7 @@ const Player = ({ player, isActive, }) => (
         <Layout item xs={8}>
           <List>
             <ListSubheader children={'Sets'} type="title" />
-            {sets(player).map((s, i) =>
+            { player.sets && sets(player).map((s, i) =>
               <ListItem key={i}
                 children={ <CardSet cards={[ ...s, ]}/>} />)}
           </List>

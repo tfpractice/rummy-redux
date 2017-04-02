@@ -2,6 +2,7 @@ import { denormalize, normalize, schema, } from 'normalizr';
 import { Game, Player, } from 'rummy-rules';
 import { Deck, } from 'bee52';
 import { db, } from '../../utils/firebase';
+
 import { GAME_ACTIONS, } from './constants';
 
 const { player, } = Player;
@@ -25,11 +26,8 @@ const gSchema = new schema.Entity('game', {
   discard:  [ cSchema, ],
 }, { idAttribute: g => 'current', });
 
-console.log('normalize(state,gSchema)', normalize(init, gSchema));
-console.log('denormalize', denormalize(init, gSchema));
+// console.log('normalize(state,gSchema)', normalize(init, gSchema));
+// console.log('denormalize', denormalize(init, gSchema));
 
-export default (state = init, { type, curry, }) => {
-  const o = 0;
-  
-  return GAME_ACTIONS.has(type) ? curry(state) : state;
-};
+export default (state = init, { type, curry, }) =>
+GAME_ACTIONS.has(type) ? curry(state) : state;

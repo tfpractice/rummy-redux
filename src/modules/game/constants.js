@@ -30,6 +30,7 @@ export const SET_DISCARD = 'SET_DISCARD';
 export const SET_PLAYERS = 'SET_PLAYERS';
 export const SHIFT_DECK = 'SHIFT_DECK';
 export const TURN_GAME = 'TURN_GAME';
+export const UPDATE_GAME = 'UPDATE_GAME';
 
 export const GAME_ACTIONS = new Set([
   ADD_PLAYER,
@@ -63,4 +64,5 @@ export const GAME_ACTIONS = new Set([
   SET_DISCARD,
   SET_PLAYERS,
   SHIFT_DECK,
+  UPDATE_GAME,
 ]);

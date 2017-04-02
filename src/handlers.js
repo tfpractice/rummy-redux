@@ -1,7 +1,7 @@
-import { auth, connRef, onlineRef, } from './utils/firebase';
+import { auth, connRef, db, onlineRef, } from './utils/firebase';
 import { createPlayer, login, logout, setCurrent, } from './modules/auth/actions';
 import { addUser, removeUser, setUsers, } from './modules/users/actions';
-import { addPlayer, removePlayer, } from './modules/game/actions';
+import { addPlayer, removePlayer, updateGame, } from './modules/game/actions';
 
 const loggedIn = () => !!auth.currentUser;
 const authID = () => loggedIn() && auth.currentUser.uid;
@@ -45,5 +45,20 @@ export const onlineHandler = (store) => {
   
   onlineRef.on('child_removed', (snap) => {
     hasName(snap) && store.dispatch(removePlayer(snap.val()));
+  });
+};
+
+const gref = db.ref('game');
+const deckRef = gref.child('deck');
+const disRef = gref.child('discard');
+
+export const gameHandler = (store) => {
+  // deckref.on('child_added', (snap) => {
+  //   hasName(snap) && store.dispatch(addPlayer(snap.val()));
+  // });
+  gref.on('value', (snap) => {
+    console.log('GAME VALUE CHANGE', snap.val());
+
+    store.dispatch(updateGame(snap.val()));
   });
 };
