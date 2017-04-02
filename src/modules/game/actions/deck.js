@@ -1,4 +1,5 @@
 import { Game, } from 'rummy-rules';
+import { db, } from '../../../utils/firebase';
 import { DEAL, DECK_DRAW, DROP_NEXT, SHIFT_DECK, } from '../constants';
 
 const { deal: gDeal, dropNext: dNext, shiftDk, } = Game;
