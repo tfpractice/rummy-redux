@@ -29,11 +29,11 @@ export const getCurrentUser = aMod => uCheck(aMod)
 
 export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
-export const createPlayer = u =>
-   u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
+export const createPlayer = u => u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
 
 export const setCurrent = u => dispatch =>
   Promise.resolve(dispatch(setCurrentUser(u)))
+
     .then(arg => dispatch(addOnline(u)))
     .catch(err => console.error(err.message));
 

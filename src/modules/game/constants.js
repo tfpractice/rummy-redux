@@ -32,6 +32,20 @@ export const SHIFT_DECK = 'SHIFT_DECK';
 export const TURN_GAME = 'TURN_GAME';
 export const UPDATE_GAME = 'UPDATE_GAME';
 
+export const PLAYER_ACTIONS = new Set([ ADD_PLAYER,
+  CLAIM_CARDS,
+  PLAY,
+  REMOVE_PLAYER,
+  SET_PLAYERS,
+  TURN_GAME, ]);
+  
+export const DECK_ACTIONS = new Set([
+  DEAL, DECK_DRAW, DROP_NEXT, SET_DECK, SHIFT_DECK,
+]);
+
+export const DISCARD_ACTIONS = new Set([
+  DIS_ADD, DRAW_TO, SET_DISCARD, SET_DISCARD,
+]);
 export const GAME_ACTIONS = new Set([
   ADD_PLAYER,
   REMOVE_PLAYER,

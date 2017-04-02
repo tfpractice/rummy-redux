@@ -1,3 +1,4 @@
+import { spread, } from 'fenugreek-collections';
 import React, { Component, PropTypes, } from 'react';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
@@ -15,13 +16,11 @@ import Button from 'material-ui/Button';
 import ActionBar from './actionBar';
 import { GameActs, } from '../../modules';
 
-const { active, } = GM;
+const { active, players, } = GM;
 const { matches, } = Plr;
 
-const mapStateToProps = ({ auth: { user, }, game, }) => {
-  console.log('user', user);
-  return ({ game, isActive: !!(user && matches(user)(active(game))), });
-};
+const mapStateToProps = ({ auth: { user, }, game, }) =>
+   ({ game, isActive: !!(user && matches(user)(active(game))), });
 
 const Game = ({ isActive, game, draw, }) => (
   <Layout container>

@@ -1,5 +1,14 @@
+import { denormalize, normalize, schema, } from 'normalizr';
 import * as firebase from 'firebase';
-import { GAME_ACTIONS, } from '../modules/game/constants';
+import { Game, Player, } from 'rummy-rules';
+import { Deck, } from 'bee52';
+import { DECK_ACTIONS, DISCARD_ACTIONS, GAME_ACTIONS, } from '../modules/game/constants';
+
+const { player, } = Player;
+const { shuffle, deck, } = Deck;
+const { copy, } = Game;
+const iPlrs = [ player('computer'), ];
+const init = Game.game(iPlrs, shuffle(deck()), []);
 
 export const config = {
   apiKey: process.env.REACT_APP_RUMMY_FIREBASE_KEY,
@@ -24,14 +33,67 @@ export const fireMid = ({ dispatch, getState, }) => next => (action) => {
   const result = next(action);
 
   if (GAME_ACTIONS.has(action.type)) {
-    // console.log('dispatch(action)', dispatch(action));
-
-    console.log('action.type', action.type);
     if (action.type !== 'UPDATE_GAME') {
-      // console.log('store.getState()', getState());
-      // console.log('action.curry(getState())', action.curry(getState().game));
-      db.ref('game').set(action.curry(getState().game));
+      db.ref('game').set(getState().game);
     }
   }
+
+  // if (DISCARD_ACTIONS.has(action.type)) {
+  //   // console.log('dispatch(action)', dispatch(action));
+  //
+  //   console.log('action.type', action.type);
+  //   if (action.type !== 'SET_DISCARD') {
+  //     // console.log('store.getState()', getState());
+  //     // console.log('action.curry(getState())', action.curry(getState().game));
+  //     db.ref('discard').set(action.curry(getState().game.discard));
+  //   }
+  // }
+  // if (DECK_ACTIONS.has(action.type)) {
+  //   // console.log('dispatch(action)', dispatch(action));
+  //
+  //   console.log('action.type', action.type);
+  //   if (action.type !== 'SET_DECK') {
+  //     // console.log('store.getState()', getState());
+  //     // console.log('action.curry(getState())', action.curry(getState().game));
+  //     db.ref('deck').set(action.curry(getState().game.deck));
+  //   }
+  // }
+  
   return result;
 };
+
+const cSchema = new schema.Object('card');
+const setSchema = new schema.Object('set', [ cSchema, ]);
+const pSchema = new schema.Entity('players', {
+  hand: [ cSchema, ],
+  sets: [ setSchema, ],
+});
+
+const dkSchema = new schema.Entity('deck', [ cSchema, ]);
+const dsSchema = new schema.Entity('discard', [ cSchema, ]);
+
+const gSchema1 = {
+  players: [ pSchema, ],
+  deck: [ dkSchema, ],
+  discard:  [ cSchema, ],
+};
+const gSchema = new schema.Entity('game', {
+  players: [ pSchema, ],
+  deck: [ dkSchema, ],
+  discard:  [ cSchema, ],
+}, {
+ idAttribute: () => 'current',
+ mergeStrategy: (entityA, entityB) => {
+   console.log('entityA, entityB', entityA, entityB);
+   return ({
+      ...entityA,
+      ...entityB,
+      
+   });
+ },
+ processStrategy: entity => copy(entity),
+
+});
+
+console.log('normalize(state,gSchema)', normalize(init, gSchema));
+console.log('denormalize', denormalize(init, gSchema));

@@ -28,15 +28,13 @@ export const catConn = ref =>
      })
      .then(() => ref);
 
-const updateRef = u => ref => ref.update(u).then(() => { console.log('u', u); return (ref); });
+const updateRef = u => ref => ref.update(u).then(() => (ref));
 
 export const addOnline = u => dispatch =>
  Promise.resolve(onlineRef.child(u.id))
    .then(updateRef(u)).then(catConn)
    .catch(console.error);
    
-export const goOffline = ({ id, }) => {
-  console.log('going offline', onlineRef.child(`${id}`));
-  return onlineRef.child(`${id}`).remove();
-};
+export const goOffline = ({ id, }) =>
+ onlineRef.child(`${id}`).remove();
    
