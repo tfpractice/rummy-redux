@@ -20,13 +20,12 @@ const { active, players, } = GM;
 const { matches, } = Plr;
 
 const mapStateToProps = ({ auth: { user, }, game, }) =>
-   ({ game, isActive: !!(user && matches(user)(active(game))), });
+   ({ user, game, isActive: !!(user && matches(user)(active(game))), });
 
-const Game = ({ isActive, game, draw, }) => (
+const Game = ({ isActive, game, user, draw, }) => (
   <Layout container>
-    <PlayerDrawer isActive={isActive} open/>
     <Layout item xs={12} >
-      <ActionBar/>
+      <ActionBar user={user} isActive={isActive}/>
     </Layout>
     <Layout onClick={() => isActive && draw()} item xs={4}>
       <CardCount cards={game.deck}/>

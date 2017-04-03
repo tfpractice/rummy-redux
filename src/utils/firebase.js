@@ -33,9 +33,11 @@ export const fireMid = ({ dispatch, getState, }) => next => (action) => {
   const result = next(action);
 
   if (GAME_ACTIONS.has(action.type)) {
-    if (action.type !== 'UPDATE_GAME') {
-      db.ref('game').set(getState().game);
-    }
+    // if (action.type !== 'UPDATE_GAME') {
+    console.log('getState(', getState().game.players);
+    db.ref('game').set(getState().game);
+
+    // }
   }
 
   // if (DISCARD_ACTIONS.has(action.type)) {

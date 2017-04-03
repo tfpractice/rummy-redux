@@ -6,22 +6,18 @@ import Button from 'material-ui/Button';
 import Layout from 'material-ui/Layout';
 
 import Text from 'material-ui/Text';
+import { Player, PlayerDrawer, } from '../players';
+
 import { Game as GM, Player as Plr, } from 'rummy-rules';
 const { active, } = GM;
 const { matches, } = Plr;
 
 import { GameActs, } from '../../modules';
 
-const stateToProps = ({ auth: { user, }, game, }) => ({
-  isActive: !!(user && matches(user)(active(game))),
-  deck: GM.deck(game),
-  players: GM.players(game),
-  discard: GM.discard(game),
-});
-
-const ActionBar = ({ deal, dropNext, isActive, turnGame, newGame, }) => (
+const ActionBar = ({ deal, dropNext, user, isActive, turnGame, newGame, }) => (
     <Toolbar>
       <Layout container justify={'center'} align={'center'} gutter={24}>
+        {!!user && <PlayerDrawer user={user} isActive={isActive} open/>}
         <Button onClick={newGame}>newGame</Button>
         <Button onClick={deal}>Deal</Button>
         <Button onClick={dropNext}>dropNext</Button>
@@ -31,4 +27,4 @@ const ActionBar = ({ deal, dropNext, isActive, turnGame, newGame, }) => (
 
 );
 
-export default connect(stateToProps, GameActs)(ActionBar);
+export default connect(null, GameActs)(ActionBar);

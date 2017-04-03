@@ -31,11 +31,13 @@ export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
 export const createPlayer = u => u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
 
-export const setCurrent = u => dispatch =>
-  Promise.resolve(dispatch(setCurrentUser(u)))
+export const setCurrent = u => (dispatch) => {
+  console.log('setCurrentuBefore', u);
 
+  return Promise.resolve(dispatch(setCurrentUser(u)))
     .then(arg => dispatch(addOnline(u)))
     .catch(err => console.error(err.message));
+};
 
 export const unsetCurrent = () => dispatch =>
   Promise.resolve(dispatch(setCurrentUser(null)))
@@ -52,8 +54,11 @@ export const login = ({ displayName, } = initlLog) => dispatch =>
    Promise.resolve(dispatch(loginPend()))
      .then(() => auth.signInAnonymously())
      .then(updateU({ displayName: (displayName || auth.currentUser.uid), }))
-     .then(u => Promise.all(
-        [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch)))
+     .then((u) => {
+       console.log('createPlayer(u)', createPlayer(u));
+       return Promise.all(
+        [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch));
+     })
      .catch(e => dispatch(loginFail(e.message)));
 
 export const logout = u => dispatch =>

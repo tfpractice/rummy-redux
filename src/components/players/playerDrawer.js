@@ -18,13 +18,23 @@ const { possibles, } = Sets;
 const getUser = user => g => g.players.find(matches(user)) || active(g);
 const getPlayerHand = user => g => user ? pHand(getUser(user)(g)) : [];
 
-const stateToProps = ({ auth: { user, }, game, }) => ({
-  user,
-  isActive: !!(user && matches(user)(active(game))),
-  hand: (getPlayerHand(user)(game)),
-  sets: possibles(getPlayerHand(user)(game)).filter(p => playable(...p)(game)),
-});
+const stateToProps = ({ auth: { user, }, game, }) => {
+  // console.log(' possibles(getPlayerHand(user)(game))',
+  //  possibles(getPlayerHand(user)(game)).filter(p => playable(...p)(game)));
+  // console.log('(getPlayerHand(user)(game))', (getPlayerHand(user)(game)));
+  console.log('drawe', user);
 
+  // console.log('user.hand', user.hand);
+
+  // console.log('possibles(getPla', possibles(getPlayerHand(user)(game)));
+  return ({
+  user,
+
+  // hand: (getPlayerHand(user)(game)),
+  sets:  user ? possibles(getPlayerHand(user)(game))
+    .filter(p => playable(...p)(game)) : [],
+  });
+};
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: { width: 250, flex: 'initial', },
   remainder: { flex: 1, },
@@ -38,9 +48,10 @@ class PlayerDrawer extends Component {
 
   render() {
     const classes = this.context.styleManager.render(styleSheet);
-    const { hand, user, sets, isActive, play, } = this.props;
+    const { user, sets, isActive, play, } = this.props;
 
-    return (
+    console.log('sets', sets);
+    return (!!user &&
       <Layout container >
         <Button onClick={this.handleOpen}>Open Drawer</Button>
         <Drawer
@@ -53,7 +64,7 @@ class PlayerDrawer extends Component {
               Choose a card to discard
             </ListSubheader>
             <ListItem>
-              <MyHand user={user} isActive={isActive}/>
+              {/* <MyHand user={user} isActive={isActive}/> */}
             </ListItem>
             <Divider/>
             <ListItem>
@@ -61,10 +72,10 @@ class PlayerDrawer extends Component {
                 <ListSubheader >
                   Possibles
                 </ListSubheader>
-                {sets.map((p, i) =>
+                {/* {sets.map((p, i) =>
                   <ListItem onClick={() => isActive && play(...p)} key={i}>
                   <CardSet cards={[ ...p, ]}/>
-                </ListItem>)}
+                </ListItem>)} */}
               </List>
             </ListItem>
             <Divider/>
