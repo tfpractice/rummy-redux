@@ -64,8 +64,11 @@ export const login = ({ displayName, } = initlLog) => dispatch =>
 export const logout = u => dispatch =>
  Promise.resolve(dispatch(logoutPend()))
    .then(() => auth.currentUser)
-   .then(u => u && goOffline({ id: u.uid, })
-     .then(() => u.delete())
-     .then(() => Promise.all(
-      [ logoutSucc(null), unsetCurrent(null), removePlayer(u), ].map(dispatch))))
+   .then((u) => {
+     console.log('logout u', u);
+     return u && goOffline({ id: u.uid, })
+       .then(() => u.delete())
+       .then(() => Promise.all(
+      [ logoutSucc(null), unsetCurrent(null), removePlayer(u), ].map(dispatch)));
+   })
    .catch(e => dispatch(logoutFail(e.message)));

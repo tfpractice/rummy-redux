@@ -19,9 +19,10 @@ import { GameActs, } from '../../modules';
 const { active, players, } = GM;
 const { matches, } = Plr;
 
-const mapStateToProps = ({ auth: { user, }, game, }) =>
-   ({ user, game, isActive: !!(user && matches(user)(active(game))), });
-
+const mapStateToProps = ({ auth: { user, }, game, }) => {
+  console.log('stateToPropsauth', user, active(game));
+  return ({ user, game, isActive: !!(user != null && matches(user)(active(game))), });
+};
 const Game = ({ isActive, game, user, draw, }) => (
   <Layout container>
     <Layout item xs={12} >

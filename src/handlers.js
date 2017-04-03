@@ -18,7 +18,8 @@ const rmConn = snap => hasName(snap) && noConn(snap) && !matchID(snap.key);
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((u) => {
-    u && store.dispatch(login(u));
+    // u && store.dispatch(login(createPlayer(u)));
+    u ? store.dispatch(login(u)) : store.dispatch(logout());
     u ? console.log('SIGNEDIN', u.displayName) : console.log('SIGNEDOUT');
   });
 };
@@ -39,12 +40,16 @@ export const onlineHandler = (store) => {
   });
   
   onlineRef.on('child_changed', (snap) => {
-    disconn(snap) && store.dispatch(logout());
+    rmConn(snap) && console.log(' child_changed snap.val()', snap.val());
+
+    // disconn(snap) && store.dispatch(logout());
     rmConn(snap) && snap.ref.remove();
     hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
   
   onlineRef.on('child_removed', (snap) => {
+    console.log('child_removed snap.val()', snap.val());
+
     hasName(snap) && store.dispatch(removePlayer(snap.val()));
   });
 };

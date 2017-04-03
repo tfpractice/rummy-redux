@@ -35,6 +35,8 @@ export const addOnline = u => dispatch =>
    .then(updateRef(u)).then(catConn)
    .catch(console.error);
    
-export const goOffline = ({ id, }) =>
- onlineRef.child(`${id}`).remove();
+export const goOffline = ({ id, }) => {
+  console.log('onlineRef.child(`${id}`)', onlineRef.child(`${id}`));
+  return onlineRef.child(`${id}`).remove();
+};
    
