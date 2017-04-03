@@ -73,6 +73,6 @@ export const gameHandler = (store) => {
   gref.on('value', (snap) => {
     console.log('GAME VALUE CHANGE', snap.val());
   
-    store.dispatch(updateGame(snap.val()));
+    hasVal(snap) && store.dispatch(updateGame(snap.val()));
   });
 };

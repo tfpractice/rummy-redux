@@ -18,23 +18,23 @@ const { possibles, } = Sets;
 const getUser = user => g => g.players.find(matches(user)) || active(g);
 const getPlayerHand = user => g => user ? pHand(getUser(user)(g)) : [];
 
-const stateToProps = ({ auth: { user, }, game, }) => {
+const stateToProps = ({ auth, game, }, { user, }) =>
+
   // console.log(' possibles(getPlayerHand(user)(game))',
   //  possibles(getPlayerHand(user)(game)).filter(p => playable(...p)(game)));
   // console.log('(getPlayerHand(user)(game))', (getPlayerHand(user)(game)));
-  console.log('drawe', user);
+  // console.log('drawe', user);
 
   // console.log('user.hand', user.hand);
 
   // console.log('possibles(getPla', possibles(getPlayerHand(user)(game)));
-  return ({
-  user,
+({
+game,
+  // user,
 
   // hand: (getPlayerHand(user)(game)),
-  sets:  user ? possibles(getPlayerHand(user)(game))
-    .filter(p => playable(...p)(game)) : [],
-  });
-};
+  
+});
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: { width: 250, flex: 'initial', },
   remainder: { flex: 1, },
@@ -48,9 +48,12 @@ class PlayerDrawer extends Component {
 
   render() {
     const classes = this.context.styleManager.render(styleSheet);
-    const { user, sets, isActive, play, } = this.props;
+    const { user, isActive, play, } = this.props;
 
-    console.log('sets', sets);
+    // const sets = user != null ? possibles(getPlayerHand(user)(game))
+    //  .filter(p => playable(...p)(game)) : [];
+
+    // console.log('sets', sets, user);
     return (!!user &&
       <Layout container >
         <Button onClick={this.handleOpen}>Open Drawer</Button>
@@ -64,7 +67,7 @@ class PlayerDrawer extends Component {
               Choose a card to discard
             </ListSubheader>
             <ListItem>
-              {/* <MyHand user={user} isActive={isActive}/> */}
+              <MyHand user={user} isActive={isActive}/>
             </ListItem>
             <Divider/>
             <ListItem>
