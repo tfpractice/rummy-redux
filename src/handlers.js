@@ -1,7 +1,7 @@
 import { auth, connRef, db, onlineRef, } from './utils/firebase';
 import { createPlayer, login, logout, setCurrent, } from './modules/auth/actions';
 import { addUser, removeUser, setUsers, } from './modules/users/actions';
-import { addPlayer, removePlayer, setDeck, setDiscard, updateGame, } from './modules/game/actions';
+import { addPlayer, removePlayer, setCurrentUser, setDeck, setDiscard, updateCurrent, updateGame, } from './modules/game/actions';
 
 const loggedIn = () => !!auth.currentUser;
 const authID = () => loggedIn() && auth.currentUser.uid;
@@ -44,6 +44,7 @@ export const onlineHandler = (store) => {
 
     // disconn(snap) && store.dispatch(logout());
     rmConn(snap) && snap.ref.remove();
+    hasName(snap) && console.log('PLAYER UPDATED', snap.val());
     hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
   
@@ -78,7 +79,21 @@ export const gameHandler = (store) => {
 
   gref.on('value', (snap) => {
     console.log('GAME VALUE CHANGE', snap.val());
+
+    // hasVal(snap) && Promise.resolve(store.dispatch(updateGame(snap.val())))
+    //   .then(() => store.dispatch(updateCurrent(snap.val())))
+    //   .catch(console.error);
+    hasVal(snap) && console.log('snap.val().players', snap.val().players);
+    hasVal(snap) && console.log('MATCHID', snap.val().players.find(({ id, }) => matchID(id)));
   
     hasVal(snap) && store.dispatch(updateGame(snap.val()));
+    if (hasVal(snap)) {
+      const plr = snap.val().players.find(({ id, }) => matchID(id));
+
+      store.dispatch(updateCurrent(snap.val()));
+      store.dispatch(setCurrentUser(plr));
+    }
+
+    // hasVal(snap) && store.dispatch(updateCurrent(snap.val()));
   });
 };

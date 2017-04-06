@@ -18,6 +18,8 @@ export const deal = () => ({ type: DEAL, curry: gDeal(7), });
 export const draw = () => ({ type: DECK_DRAW, curry: Game.draw, });
 export const dropNext = () => ({ type: DROP_NEXT, curry: dNext, });
 export const shiftDeck = () => ({ type: SHIFT_DECK, curry: shiftDk, });
-export const updateGame = g => ({ type: UPDATE_GAME, curry: () => copy(g), });
+export const updateGame = g => (dispatch) => {
+  dispatch({ type: UPDATE_GAME, curry: () => copy(g), });
+};
 export const setDeck = cards => ({ type: SET_DECK, curry: Game.setDeck(cards), });
 export const newGame = g => ({ type: UPDATE_GAME, curry: reset, });

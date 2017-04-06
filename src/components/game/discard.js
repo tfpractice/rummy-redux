@@ -8,15 +8,15 @@ import { PlayCard, } from '../cards';
 import { GameActs, } from '../../modules';
 import Text from 'material-ui/Text';
 
-const stateToProps = ({ game: { discard, }, }) => ({ discard, });
+const stateToProps = ({ game: { discard, }, auth: { user, }, }) => ({ discard, user, });
 
-const Discard = ({ discard, drawTo, dropNext, }) => (
+const Discard = ({ discard, drawTo, disDrawTo, user, dropNext, }) => (
   <List>
     <ListSubheader>
       <Text type="headline"> Discard </Text>
     </ListSubheader>
     {discard.map((c, i) =>
-      <PlayCard onClick={() => drawTo(c)} card={c} pos={i} key={c.id} />
+      <PlayCard onClick={() => disDrawTo(user)(c)} card={c} pos={i} key={c.id} />
     )}
   </List>
 

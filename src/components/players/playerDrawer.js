@@ -21,21 +21,7 @@ const getPlayerHand = user => g => user ? pHand(getUser(user)(g)) : [];
 const stateToProps = ({ auth, game, }, ) => {
   console.log('player drawer user', auth);
 
-  // console.log(' possibles(getPlayerHand(user)(game))',
-  //  possibles(getPlayerHand(user)(game)).filter(p => playable(...p)(game)));
-  // console.log('(getPlayerHand(user)(game))', (getPlayerHand(user)(game)));
-  // console.log('drawe', user);
-
-  // console.log('user.hand', user.hand);
-
-  // console.log('possibles(getPla', possibles(getPlayerHand(user)(game)));
-  return ({
-game,
-// user: auth.user,
-
-  // hand: (getPlayerHand(user)(game)),
-  
-  });
+  return ({ game, });
 };
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: { width: 250, flex: 'initial', },
@@ -52,10 +38,6 @@ class PlayerDrawer extends Component {
     const classes = this.context.styleManager.render(styleSheet);
     const { user, isActive, play, } = this.props;
 
-    // const sets = user != null ? possibles(getPlayerHand(user)(game))
-    //  .filter(p => playable(...p)(game)) : [];
-
-    // console.log('sets', sets, user);
     return (!!user &&
       <Layout container >
         <Button onClick={this.handleOpen}>Open Drawer</Button>
@@ -77,10 +59,7 @@ class PlayerDrawer extends Component {
                 <ListSubheader >
                   Possibles
                 </ListSubheader>
-                {/* {sets.map((p, i) =>
-                  <ListItem onClick={() => isActive && play(...p)} key={i}>
-                  <CardSet cards={[ ...p, ]}/>
-                </ListItem>)} */}
+                {}
               </List>
             </ListItem>
             <Divider/>
