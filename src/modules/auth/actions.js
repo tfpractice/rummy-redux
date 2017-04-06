@@ -9,8 +9,8 @@ const { auth, onlineRef, } = fireUtils;
 const { rqActions, } = rqUtils;
 const { player, setID, setName, matches, } = Player;
 
-const set = user => () => user;
-const unset = () => () => null;
+const set = (user = {}) => () => user;
+const unset = () => () => {};
 
 const loginPend = rqActions(LOGIN).pending;
 const loginFail = rqActions(LOGIN).failure;
@@ -36,7 +36,7 @@ export const findAuthPlr = getState => getPlayers(getState).find(matches(getUser
 export const findPlayer = getState => u => getPlayers(getState).find(matches(u));
 
 export const createPlayer = u =>
-u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
+u.uid ? setName(u.displayName)(setID(u.uid)(u)) : {};
 
 export const getPlayer = gs => u => findPlayer(gs)(u) || createPlayer(u);
 
@@ -60,7 +60,7 @@ export const setCurrent = u => (dispatch, getState) => {
 };
 
 export const unsetCurrent = () => dispatch =>
-  Promise.resolve(dispatch(setCurrentUser(null)))
+  Promise.resolve(dispatch(setCurrentUser()))
     .catch(err => console.error(err.message));
 
 export const takeOffline = u => dispatch =>
@@ -89,6 +89,6 @@ export const logout = u => dispatch =>
      return u && goOffline({ id: u.uid, })
        .then(() => u.delete())
        .then(() => Promise.all(
-      [ logoutSucc(null), unsetCurrent(null), removePlayer(u), ].map(dispatch)));
+      [ logoutSucc(), unsetCurrent(), removePlayer(u), ].map(dispatch)));
    })
    .catch(e => dispatch(logoutFail(e.message)));

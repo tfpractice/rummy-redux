@@ -9,7 +9,7 @@ const login = (state = reqDefault, { type, curry, }) =>
 const logout = (state = reqDefault, { type, curry, }) =>
   LOGOUT_ACTIONS.has(type) ? curry(state) : state;
 
-const user = (state = null, { type, curry, }) =>
+const user = (state = {}, { type, curry, }) =>
   USER_ACTIONS.has(type) ? curry(state) : state;
 
 export default combineReducers({ user, login, logout, });
