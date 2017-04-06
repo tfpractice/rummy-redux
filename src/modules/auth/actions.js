@@ -1,5 +1,5 @@
 import { auth as fAuth, } from 'firebase';
-import { Player, } from 'rummy-rules';
+import { Game, Player, } from 'rummy-rules';
 import { fireUtils, rqUtils, } from '../../utils';
 import { addOnline, addUser, goOffline, } from '../users/actions';
 import { removePlayer, } from '../game/actions';
@@ -7,7 +7,7 @@ import { LOGIN, LOGOUT, SET_CURRENT_USER, } from './constants';
 
 const { auth, onlineRef, } = fireUtils;
 const { rqActions, } = rqUtils;
-const { player, setID, setName, } = Player;
+const { player, setID, setName, matches, } = Player;
 
 const set = user => () => user;
 const unset = () => () => null;
@@ -29,11 +29,31 @@ export const getCurrentUser = aMod => uCheck(aMod)
 
 export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
-export const createPlayer = u => u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
+export const getUser = getState => getState().auth.user;
+export const getGame = getState => getState().game;
+export const getPlayers = getState => Game.players(getState().game);
+export const findAuthPlr = getState => getPlayers(getState).find(matches(getUser(getState)));
+export const findPlayer = getState => u => getPlayers(getState).find(matches(u));
 
-export const setCurrent = u => (dispatch) => {
+export const createPlayer = u =>
+u.uid ? setName(u.displayName)(setID(u.uid)(u)) : null;
+
+export const getPlayer = gs => u => findPlayer(gs)(u) || createPlayer(u);
+
+export const updateCurrent = g => (dispatch, getState) =>
+dispatch(setCurrentUser(g.players.find(matches(getUser(getState)))));
+
+export const updateCurrent2 = u => (dispatch, getState) =>
+dispatch(setCurrentUser(getPlayer(getState)(u)));
+
+export const setCurrent = u => (dispatch, getState) => {
   console.log('setCurrentuBefore', u);
 
+  // console.log('getPlayer(getState)(u)', getPlayer(getState)(u));
+  // console.log('findPlayer(getState)', findPlayer(getState));
+
+  // Promise.resolve(getPlayer(getState)(u))
+  //   .then((plr) => { console.log('getPlayer plr', plr); });
   return Promise.resolve(dispatch(setCurrentUser(u)))
     .then(arg => dispatch(addOnline(u)))
     .catch(err => console.error(err.message));

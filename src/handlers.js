@@ -1,7 +1,7 @@
 import { auth, connRef, db, onlineRef, } from './utils/firebase';
-import { createPlayer, login, logout, setCurrent, } from './modules/auth/actions';
+import { createPlayer, login, logout, setCurrent, updateCurrent, } from './modules/auth/actions';
 import { addUser, removeUser, setUsers, } from './modules/users/actions';
-import { addPlayer, removePlayer, setCurrentUser, setDeck, setDiscard, updateCurrent, updateGame, } from './modules/game/actions';
+import { addPlayer, removePlayer, setCurrentUser, setDeck, setDiscard, updateGame, } from './modules/game/actions';
 
 const loggedIn = () => !!auth.currentUser;
 const authID = () => loggedIn() && auth.currentUser.uid;
@@ -90,8 +90,10 @@ export const gameHandler = (store) => {
     if (hasVal(snap)) {
       const plr = snap.val().players.find(({ id, }) => matchID(id));
 
+      console.log('mathcing layers', plr);
       store.dispatch(updateCurrent(snap.val()));
-      store.dispatch(setCurrentUser(plr));
+
+      // store.dispatch(setCurrentUser(plr));
     }
 
     // hasVal(snap) && store.dispatch(updateCurrent(snap.val()));

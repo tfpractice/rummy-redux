@@ -13,7 +13,9 @@ export const remove = u => g =>
   setPs(players(g).filter(p => p.id != u.id))(g);
   
 export const updateCurrent = g => (dispatch, getState) =>
-dispatch(setCurrentUser(Game.players(g).find(matches(getState.auth.user))));
+
+// Promise.resolve(addPlr(p))
+dispatch(setCurrentUser(Game.players(g).find(matches(getState().auth.user))));
 
 export const setPlayers = (plrs = []) =>
  ({ type: SET_PLAYERS, curry: setPs, });

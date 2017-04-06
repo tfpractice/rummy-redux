@@ -17,7 +17,7 @@ import ActionBar from './actionBar';
 import { GameActs, } from '../../modules';
 
 const { active, players, } = GM;
-const { matches, } = Plr;
+const { matches, copy, } = Plr;
 
 const mapStateToProps = ({ auth: { user, }, game, }) => {
   console.log('stateToPropsauth', user, active(game));

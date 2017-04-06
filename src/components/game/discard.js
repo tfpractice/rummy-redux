@@ -8,7 +8,10 @@ import { PlayCard, } from '../cards';
 import { GameActs, } from '../../modules';
 import Text from 'material-ui/Text';
 
-const stateToProps = ({ game: { discard, }, auth: { user, }, }) => ({ discard, user, });
+const stateToProps = ({ game: { discard, }, auth: { user, }, }) => {
+  console.log('DISCARD Componentuser', user);
+  return ({ discard, user, });
+};
 
 const Discard = ({ discard, drawTo, disDrawTo, user, dropNext, }) => (
   <List>
