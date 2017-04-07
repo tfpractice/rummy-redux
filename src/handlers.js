@@ -40,16 +40,11 @@ export const onlineHandler = (store) => {
   });
   
   onlineRef.on('child_changed', (snap) => {
-    rmConn(snap) && console.log(' child_changed snap.val()', snap.val());
-    
     rmConn(snap) && snap.ref.remove();
-    hasName(snap) && console.log('PLAYER UPDATED', snap.val());
     hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
   
   onlineRef.on('child_removed', (snap) => {
-    console.log('child_removed snap.val()', snap.val());
-    
     hasName(snap) && store.dispatch(removePlayer(snap.val()));
   });
 };
@@ -60,8 +55,6 @@ const disRef = gref.child('discard');
 
 export const gameHandler = (store) => {
   gref.on('value', (snap) => {
-    console.log('GAME VALUE CHANGE', snap.val());
-    
     if (hasVal(snap)) {
       store.dispatch(updateGame(snap.val()));
       

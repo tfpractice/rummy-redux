@@ -1,4 +1,3 @@
-// import { auth as fAuth, } from 'firebase';
 import { Game, Player, } from 'rummy-rules';
 import { fireUtils, rqUtils, } from '../../utils';
 import { addOnline, } from '../users/actions';
@@ -8,10 +7,9 @@ import { LOGIN, LOGOUT, SET_CURRENT_USER, } from './constants';
 const { auth, onlineRef, } = fireUtils;
 const { rqActions, } = rqUtils;
 const { player, } = Player;
-const { findPlr, playerByID, } = Game;
+const { findPlr, } = Game;
 
 const set = (user = {}) => () => user;
-const unset = () => () => {};
 
 const loginPend = rqActions(LOGIN).pending;
 const loginFail = rqActions(LOGIN).failure;
@@ -21,7 +19,7 @@ const logoutPend = rqActions(LOGOUT).pending;
 const logoutFail = rqActions(LOGOUT).failure;
 const logoutSucc = rqActions(LOGOUT).success;
 
-const uCheck = auth => !!auth.currentUser;
+const uCheck = a => !!a.currentUser;
 const getCurrent = a => uCheck(a) && a.currentUser;
 const uLoad = a => getCurrent(a).reload().then(() => getCurrent(a));
 
