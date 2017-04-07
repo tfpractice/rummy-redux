@@ -4,6 +4,7 @@ import { Deck, } from 'bee52';
 import { db, } from '../../../utils/firebase';
 import { DEAL, DECK_DRAW, DROP_NEXT, SET_DECK, SHIFT_DECK, UPDATE_GAME, } from '../constants';
 import { init, } from '../reducer';
+import { updateCurrent, } from '../../auth/actions';
 const { shuffle, deck, } = Deck;
 const { setHand, } = Player;
 const { deal: gDeal, dropNext: dNext, shiftDk, copy, players, } = Game;
@@ -24,7 +25,9 @@ const getAuth = getState => getState().auth.user;
 export const updateGame = g => (dispatch, getState) => {
   Promise.resolve(({ type: UPDATE_GAME, curry: () => copy(g), }))
     .then(dispatch)
-    .then();
+    .then(res => (updateCurrent(g))).then(dispatch);
+  
+    // .then();
 };
 export const setDeck = cards => ({ type: SET_DECK, curry: Game.setDeck(cards), });
 export const newGame = g => ({ type: UPDATE_GAME, curry: reset, });

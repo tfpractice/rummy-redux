@@ -18,9 +18,9 @@ const rmConn = snap => hasName(snap) && noConn(snap) && !matchID(snap.key);
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((u) => {
-    // u && store.dispatch(login(createPlayer(u)));
+    u ? console.log('SIGNEDIN', u.toJSON()) : console.log('SIGNEDOUT');
+
     u ? store.dispatch(login(u)) : store.dispatch(logout());
-    u ? console.log('SIGNEDIN', u.displayName) : console.log('SIGNEDOUT');
   });
 };
 
@@ -41,8 +41,7 @@ export const onlineHandler = (store) => {
   
   onlineRef.on('child_changed', (snap) => {
     rmConn(snap) && console.log(' child_changed snap.val()', snap.val());
-
-    // disconn(snap) && store.dispatch(logout());
+    
     rmConn(snap) && snap.ref.remove();
     hasName(snap) && console.log('PLAYER UPDATED', snap.val());
     hasName(snap) && store.dispatch(addPlayer(snap.val()));
@@ -50,7 +49,7 @@ export const onlineHandler = (store) => {
   
   onlineRef.on('child_removed', (snap) => {
     console.log('child_removed snap.val()', snap.val());
-
+    
     hasName(snap) && store.dispatch(removePlayer(snap.val()));
   });
 };
@@ -60,42 +59,15 @@ const deckRef = gref.child('deck');
 const disRef = gref.child('discard');
 
 export const gameHandler = (store) => {
-  // gref.on('child_added', (snap) => {
-  //   console.log('snap.key', snap.key);
-  //
-  //   console.log('child_addedsnap.val()', snap.val());
-  //   hasName(snap) && store.dispatch(addPlayer(snap.val()));
-  // });
-  // deckRef.on('value', (snap) => {
-  //   console.log('DECK VALUE CHANGE', snap.val());
-  //
-  //   store.dispatch(setDeck(snap.val()));
-  // });
-  // disRef.on('value', (snap) => {
-  //   console.log('discard VALUE CHANGE', snap.val());
-  //
-  //   store.dispatch(setDeck(snap.val()));
-  // });
-
   gref.on('value', (snap) => {
     console.log('GAME VALUE CHANGE', snap.val());
-
-    // hasVal(snap) && Promise.resolve(store.dispatch(updateGame(snap.val())))
-    //   .then(() => store.dispatch(updateCurrent(snap.val())))
-    //   .catch(console.error);
-    hasVal(snap) && console.log('snap.val().players', snap.val().players);
-    hasVal(snap) && console.log('MATCHID', snap.val().players.find(({ id, }) => matchID(id)));
-  
-    hasVal(snap) && store.dispatch(updateGame(snap.val()));
+    
     if (hasVal(snap)) {
-      const plr = snap.val().players.find(({ id, }) => matchID(id));
-
-      console.log('mathcing layers', plr);
-      store.dispatch(updateCurrent(snap.val()));
-
-      // store.dispatch(setCurrentUser(plr));
+      store.dispatch(updateGame(snap.val()));
+      
+      // const plr = snap.val().players.find(({ id, }) => matchID(id));
+      //
+      // store.dispatch(updateCurrent(snap.val()));
     }
-
-    // hasVal(snap) && store.dispatch(updateCurrent(snap.val()));
   });
 };
