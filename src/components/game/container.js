@@ -16,13 +16,12 @@ import Button from 'material-ui/Button';
 import ActionBar from './actionBar';
 import { GameActs, } from '../../modules';
 
-const { active, players, } = GM;
+const { active, players, isActive, } = GM;
 const { matches, copy, } = Plr;
 
-const mapStateToProps = ({ auth: { user, }, game, }) => {
-  console.log('stateToPropsauth', user, active(game));
-  return ({ user, game, isActive: !!(user != null && matches(user)(active(game))), });
-};
+const mapStateToProps = ({ auth: { user, }, game, }) =>
+ ({ user, game, isActive: isActive(game)(user), });
+ 
 const Game = ({ isActive, game, user, draw, deckDraw, }) => (
   <Layout container>
     <Layout item xs={12} >

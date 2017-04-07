@@ -27,10 +27,3 @@ export const disDrawTo = p => dispatch => c =>
 
 export const dropCards = (...cards) => dispatch => p =>
   dispatch({ type: SCRAP_CARDS, curry: Game.dropCards(...cards)(p), });
-
-//
-// export const dropCards = p => dispatch => (...cards) =>
-//  Promise.resolve(scrap(...cards)(p))
-//    .then(addPlayer).then(dispatch)
-//    .then(x => dispatch(drop(...cards)))
-//    .catch(console.error);

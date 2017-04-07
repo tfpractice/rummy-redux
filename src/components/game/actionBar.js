@@ -17,12 +17,9 @@ import { GameActs, } from '../../modules';
 const ActionBar = ({ deal, dropNext, user, isActive, turnGame, newGame, }) => (
     <Toolbar>
       <Layout container justify={'center'} align={'center'} gutter={24}>
-        {!!user && <PlayerDrawer user={user} isActive={isActive} open/>}
+        <PlayerDrawer user={user} isActive={isActive} open/>
         <Button onClick={newGame}>newGame</Button>
-        <Button onClick={() => {
-          console.log('user', user);
-          return deal();
-        }}>Deal</Button>
+        <Button onClick={deal}>Deal</Button>
         <Button onClick={dropNext}>dropNext</Button>
         <Button onClick={turnGame}>turnGame</Button>
       </Layout>
