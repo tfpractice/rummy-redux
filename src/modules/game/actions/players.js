@@ -25,5 +25,5 @@ export const deckDraw = p => ({ type: DECK_DRAW, curry: Game.deckDraw(p), });
 export const disDrawTo = p => dispatch => c =>
  dispatch({ type: DECK_DRAW, curry: Game.drawTo(c)(p), });
 
-export const dropCards = (...cards) => dispatch => p =>
+export const dropCards = p => dispatch => (...cards) =>
   dispatch({ type: SCRAP_CARDS, curry: Game.dropCards(...cards)(p), });

@@ -12,12 +12,12 @@ const { Player: { hand: pHand, matches, copy, }, Game: { active, }, } = RUMMY;
 const getUser = user => g => g.players.find(matches(user)) || active(g);
 
 const stateToProps = ({ game, auth: { user = active(game), }, } = {}) =>
- ({ user: getUser(user)(game), });
+ ({ user, });
 
 const MyHand = ({ user, isActive, dropCards, }) => (
   <Layout container justify={'center'} gutter={8}>
     {pHand(user).map(c =>
-      <IconButton key={c.id} onClick={() => dropCards(c)(user)}>
+      <IconButton key={c.id} onClick={() => dropCards(user)(c)}>
         <CardIcon card={c}/>
       </IconButton>)}
 </Layout>
