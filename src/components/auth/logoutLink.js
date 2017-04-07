@@ -3,7 +3,9 @@ import Button from 'material-ui/Button';
 import { connect, } from 'react-redux';
 import { AuthActs, } from '../../modules';
 
-const LogoutLink = ({ logout, }) =>
- <Button contrast onClick={logout}>Logout</Button>;
+const mapStateToProps = ({ auth: { user, }, }) => ({ user, });
+
+const LogoutLink = ({ logout, user, }) =>
+ <Button contrast onClick={() => logout(user)}>Logout</Button>;
 
 export default connect(null, AuthActs)(LogoutLink);

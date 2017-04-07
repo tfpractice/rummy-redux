@@ -34,31 +34,9 @@ export const fireMid = ({ dispatch, getState, }) => next => (action) => {
 
   if (GAME_ACTIONS.has(action.type)) {
     if (action.type !== 'UPDATE_GAME') {
-      console.log('getState(', getState().game.players);
       db.ref('game').set(getState().game);
     }
   }
-
-  // if (DISCARD_ACTIONS.has(action.type)) {
-  //   // console.log('dispatch(action)', dispatch(action));
-  //
-  //   console.log('action.type', action.type);
-  //   if (action.type !== 'SET_DISCARD') {
-  //     // console.log('store.getState()', getState());
-  //     // console.log('action.curry(getState())', action.curry(getState().game));
-  //     db.ref('discard').set(action.curry(getState().game.discard));
-  //   }
-  // }
-  // if (DECK_ACTIONS.has(action.type)) {
-  //   // console.log('dispatch(action)', dispatch(action));
-  //
-  //   console.log('action.type', action.type);
-  //   if (action.type !== 'SET_DECK') {
-  //     // console.log('store.getState()', getState());
-  //     // console.log('action.curry(getState())', action.curry(getState().game));
-  //     db.ref('deck').set(action.curry(getState().game.deck));
-  //   }
-  // }
   
   return result;
 };
@@ -95,6 +73,3 @@ const gSchema = new schema.Entity('game', {
  processStrategy: entity => copy(entity),
 
 });
-
-console.log('normalize(state,gSchema)', normalize(init, gSchema));
-console.log('denormalize', denormalize(init, gSchema));
