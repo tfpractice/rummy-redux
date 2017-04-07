@@ -18,11 +18,7 @@ const { possibles, } = Sets;
 const getUser = user => g => g.players.find(matches(user)) || active(g);
 const getPlayerHand = user => g => user ? pHand(getUser(user)(g)) : [];
 
-const stateToProps = ({ auth, game, }, ) => {
-  console.log('player drawer user', auth);
-
-  return ({ game, });
-};
+const stateToProps = ({ auth, game, }, ) => ({ game, });
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: { width: 250, flex: 'initial', },
   remainder: { flex: 1, },
