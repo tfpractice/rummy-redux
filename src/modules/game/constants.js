@@ -28,6 +28,7 @@ export const RUMMY = 'RUMMY';
 export const SET_DECK = 'SET_DECK';
 export const SET_DISCARD = 'SET_DISCARD';
 export const SET_PLAYERS = 'SET_PLAYERS';
+export const SCRAP_CARDS = 'SCRAP_CARDS';
 export const SHIFT_DECK = 'SHIFT_DECK';
 export const TURN_GAME = 'TURN_GAME';
 export const UPDATE_GAME = 'UPDATE_GAME';
@@ -35,6 +36,7 @@ export const UPDATE_GAME = 'UPDATE_GAME';
 export const PLAYER_ACTIONS = new Set([ ADD_PLAYER,
   CLAIM_CARDS,
   PLAY,
+  SCRAP_CARDS,
   REMOVE_PLAYER,
   SET_PLAYERS,
   TURN_GAME, ]);
@@ -50,6 +52,7 @@ export const GAME_ACTIONS = new Set([
   ADD_PLAYER,
   REMOVE_PLAYER,
   CLAIM,
+  ...PLAYER_ACTIONS,
   CLAIM_CARDS,
   PLAYER_CLAIM_PARTS,
   PLAYER_CLAIM_SET,

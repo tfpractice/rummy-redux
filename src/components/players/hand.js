@@ -17,7 +17,7 @@ const stateToProps = ({ game, auth: { user = active(game), }, } = {}) =>
 const MyHand = ({ user, isActive, dropCards, }) => (
   <Layout container justify={'center'} gutter={8}>
     {pHand(user).map(c =>
-      <IconButton key={c.id} onClick={() => isActive && dropCards(user)(c)}>
+      <IconButton key={c.id} onClick={() => dropCards(c)(user)}>
         <CardIcon card={c}/>
       </IconButton>)}
 </Layout>

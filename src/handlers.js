@@ -18,8 +18,6 @@ const rmConn = snap => hasName(snap) && noConn(snap) && !matchID(snap.key);
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((u) => {
-    u ? console.log('SIGNEDIN', u.toJSON()) : console.log('SIGNEDOUT');
-
     u ? store.dispatch(login(u)) : store.dispatch(logout());
   });
 };

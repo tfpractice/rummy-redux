@@ -23,12 +23,12 @@ const mapStateToProps = ({ auth: { user, }, game, }) => {
   console.log('stateToPropsauth', user, active(game));
   return ({ user, game, isActive: !!(user != null && matches(user)(active(game))), });
 };
-const Game = ({ isActive, game, user, draw, }) => (
+const Game = ({ isActive, game, user, draw, deckDraw, }) => (
   <Layout container>
     <Layout item xs={12} >
       <ActionBar user={user} isActive={isActive}/>
     </Layout>
-    <Layout onClick={() => isActive && draw()} item xs={4}>
+    <Layout onClick={() => deckDraw(user)} item xs={4}>
       <CardCount cards={game.deck}/>
     </Layout>
     <Layout item xs={8}>
