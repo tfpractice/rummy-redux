@@ -26,8 +26,7 @@ export const authHandler = (store) => {
 
 export const connHandler = (store) => {
   connRef.on('value', (snap) => {
-    reconnected(snap) && store.dispatch(login(auth.currentUser))
-      ;
+    reconnected(snap) && store.dispatch(login(auth.currentUser));
   });
 };
 
@@ -45,6 +44,7 @@ export const onlineHandler = (store) => {
   });
   
   onlineRef.on('child_removed', (snap) => {
+    hasName(snap) && console.log('child_removedsnap.val()', snap.val());
     hasName(snap) && store.dispatch(removePlayer(snap.val()));
   });
 };

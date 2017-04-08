@@ -44,7 +44,7 @@ export const unsetCurrent = () => dispatch =>
 export const takeOffline = u =>
   u && onlineRef.child(`${u.uid}`).remove().then(() => u);
 
-export const deleteU = u => u && u.delete().then(() => u);
+export const deleteU = u => u && u.delete().then(() => { console.log('u', u); return u; });
 
 const initlLog = { displayName: '', };
 
@@ -62,9 +62,11 @@ export const login = ({ displayName, } = initlLog) => dispatch =>
 
 export const logout = (user = auth.currentUser) => dispatch =>
   Promise.resolve(dispatch(logoutPend()))
-    .then(() => user)
+    .then(() => auth.currentUser)
     .then(takeOffline)
     .then(deleteU)
     .then(u => Promise.all(
-      [ logoutSucc(), unsetCurrent(), removePlayer(u), ].map(dispatch)))
+      [ logoutSucc(), unsetCurrent(),
+        removePlayer(u),
+      ].map(dispatch)))
     .catch(e => dispatch(logoutFail(e.message)));
