@@ -4,29 +4,34 @@ import { addUser, removeUser, setUsers, } from './modules/users/actions';
 import { addPlayer, removePlayer, setCurrentUser, setDeck, setDiscard, updateGame, } from './modules/game/actions';
 
 const loggedIn = () => !!auth.currentUser;
-const authID = () => loggedIn() && auth.currentUser.uid;
+const loggedOut = () => !loggedIn();
+const getUser = () => loggedIn() && auth.currentUser;
+const authID = () => loggedIn() ? getUser.uid : '';
+
 const matchID = val => val == authID();
+const authSnap = snap => matchID(snap.key);
+const nonAuth = snap => !authSnap(snap);
 
 const hasVal = snap => !!snap.val();
 const reconnected = snap => hasVal(snap) && loggedIn();
 const hasName = snap => snap.hasChild('name');
-const noConn = snap => !snap.hasChild('connections');
+const hasConn = snap => hasName(snap) && snap.hasChild('connections');
+const noConn = snap => hasName(snap) && !hasConn(snap);
 
-const userUpdate = snap => hasName(snap) && matchID(snap.key);
-const disconn = snap => hasName(snap) && noConn(snap) && matchID(snap.key);
-const rmConn = snap => hasName(snap) && noConn(snap) && !matchID(snap.key);
+const isCurrent = snap => hasName(snap) && authSnap(snap);
+const isAlt = snap => hasName(snap) && nonAuth(snap);
+const curDiscon = snap => isCurrent(snap) && noConn(snap);
+const altDiscon = snap => isAlt(snap) && noConn(snap);
+const connKey = snap => snap.key === 'connections';
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((u) => {
-    // u && store.dispatch(login(u));
-
-    // : store.dispatch(logout());
   });
 };
 
 export const connHandler = (store) => {
   connRef.on('value', (snap) => {
-    reconnected(snap) && store.dispatch(login(auth.currentUser));
+    reconnected(snap) && store.dispatch(login(getUser()));
   });
 };
 
@@ -39,13 +44,34 @@ export const onlineHandler = (store) => {
   });
   
   onlineRef.on('child_changed', (snap) => {
-    rmConn(snap) && snap.ref.remove();
-    hasName(snap) && store.dispatch(addPlayer(snap.val()));
+    if (curDiscon(snap)) {
+      console.log('child_changed curDiscon(snap)', snap.key, snap.val());
+
+      store.dispatch(logout());
+    } else if (noConn(snap)) {
+      console.log('child_changed noConn(snap)', snap.key, snap.val());
+
+      snap.ref.remove();
+    } else if (hasConn(snap)) {
+      console.log('child_changed hasConn(snap)', snap.key, snap.val());
+
+      store.dispatch(addPlayer(snap.val()));
+    }
   });
   
   onlineRef.on('child_removed', (snap) => {
-    hasName(snap) && console.log('child_removedsnap.val()', snap.val());
-    hasName(snap) && store.dispatch(removePlayer(snap.val()));
+    console.log('child removed', snap.val());
+    if (noConn(snap)) {
+      store.dispatch(removePlayer(snap.val()));
+    }
+    
+    if (curDiscon(snap)) {
+      console.log('child_removed alternate curDiscon disconnected', snap.val(), snap.key());
+    }
+    
+    if (altDiscon(snap)) {
+      console.log('child_removed alternate altDiscon disconnected', snap.val(), snap.key);
+    }
   });
 };
 
@@ -57,10 +83,6 @@ export const gameHandler = (store) => {
   gref.on('value', (snap) => {
     if (hasVal(snap)) {
       store.dispatch(updateGame(snap.val()));
-      
-      // const plr = snap.val().players.find(({ id, }) => matchID(id));
-      //
-      // store.dispatch(updateCurrent(snap.val()));
     }
   });
 };

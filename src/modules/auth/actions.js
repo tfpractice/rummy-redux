@@ -60,13 +60,15 @@ export const login = ({ displayName, } = initlLog) => dispatch =>
       [ loginSucc(u), setCurrent(createPlayer(u)), ].map(dispatch)))
     .catch(e => dispatch(loginFail(e.message)));
 
-export const logout = (user = auth.currentUser) => dispatch =>
-  Promise.resolve(dispatch(logoutPend()))
+export const logout = (user = authPlayer(auth)) => (dispatch, getState) => {
+  console.log('logging out user arg', user, getState().auth.user, auth.currentUser);
+  return Promise.resolve(dispatch(logoutPend()))
     .then(() => auth.currentUser)
     .then(takeOffline)
     .then(deleteU)
-    .then(u => Promise.all(
-      [ logoutSucc(), unsetCurrent(),
-        removePlayer(u),
-      ].map(dispatch)))
+    .then(createPlayer)
+    .then(u => Promise.all([ logoutSucc(),
+      removePlayer(getState().auth.user), unsetCurrent(),
+    ].map(dispatch)))
     .catch(e => dispatch(logoutFail(e.message)));
+};
