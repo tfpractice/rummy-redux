@@ -14,10 +14,11 @@ const { matches, } = Plr;
 
 import { GameActs, } from '../../modules';
 
-const ActionBar = ({ deal, dropNext, user, isActive, turnGame, newGame, }) => (
+const ActionBar = ({ deal, dropNext, user, clearGame, isActive, turnGame, newGame, }) => (
     <Toolbar>
       <Layout container justify={'center'} align={'center'} gutter={24}>
         <PlayerDrawer user={user} isActive={isActive} open/>
+        <Button onClick={clearGame}>clearGame</Button>
         <Button onClick={newGame}>newGame</Button>
         <Button onClick={deal}>Deal</Button>
         <Button onClick={dropNext}>dropNext</Button>

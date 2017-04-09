@@ -3,6 +3,7 @@ export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 
 export const CLAIM = 'CLAIM';
 export const CLAIM_CARDS = 'CLAIM_CARDS';
+export const CLEAR_GAME = 'CLEAR_GAME';
 export const PLAYER_CLAIM_PARTS = 'PLAYER_CLAIM_PARTS';
 export const PLAYER_CLAIM_SET = 'PLAYER_CLAIM_SET';
 export const DEAL = 'DEAL';
@@ -52,6 +53,7 @@ export const GAME_ACTIONS = new Set([
   ADD_PLAYER,
   REMOVE_PLAYER,
   CLAIM,
+  CLEAR_GAME,
   ...PLAYER_ACTIONS,
   CLAIM_CARDS,
   PLAYER_CLAIM_PARTS,
