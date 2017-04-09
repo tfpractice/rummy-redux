@@ -10,7 +10,7 @@ const { shuffle, deck, } = Deck;
 const { setHand, } = Player;
 const { deal: gDeal, dropNext: dNext, shiftDk, copy, players, } = Game;
 
-const clear = () => Game.game();
+const clear = () => init;
 
 export const deal = () => ({ type: DEAL, curry: gDeal(7), });
 export const draw = () => ({ type: DECK_DRAW, curry: Game.draw, });

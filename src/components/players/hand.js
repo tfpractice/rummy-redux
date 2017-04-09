@@ -7,18 +7,18 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 
 import { GameActs, } from '../../modules';
-const { Player: { hand: pHand, matches, copy, }, Game: { active, }, } = RUMMY;
 
-const stateToProps = ({ game, auth: { user = active(game), }, } = {}) =>
- ({ user, });
+// const { Player: { hand: pHand, matches, copy, }, Game: { active, }, } = RUMMY;
 
-const MyHand = ({ user, isActive, dropCards, }) => (
+// const stateToProps = ({ game, auth: { user, }, }) => ({ user, });
+
+const MyHand = ({ user, cards, dropCards, }) => (
   <Layout container justify={'center'} gutter={8}>
-    {user.hand.map(c =>
+    {cards.map(c =>
       <IconButton key={c.id} onClick={() => dropCards(user)(c)}>
         <CardIcon card={c}/>
       </IconButton>)}
 </Layout>
 );
 
-export default connect(stateToProps, GameActs)(MyHand);
+export default connect(null, GameActs)(MyHand);

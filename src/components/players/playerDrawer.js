@@ -12,13 +12,15 @@ import MyHand from './hand';
 import { CardSet, } from '../cards';
 import { GameActs, } from '../../modules';
 const { hand: pHand, matches, copy, } = Player;
-const { active, playable, } = Game;
-const { possibles, } = Sets;
+const { active, playable, allSets, } = Game;
+const { possibles, playables, possFits, } = Sets;
 
-const getUser = user => g => g.players.find(matches(user)) || active(g);
-const getPlayerHand = user => g => user ? pHand(getUser(user)(g)) : [];
+const stateToProps = ({ game, auth: { user, }, }, ) => ({
+ game,
+ user,
+ plays: possibles(pHand(user)).filter(playable(game)),
+});
 
-const stateToProps = ({ auth, game, }, ) => ({ game, });
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: { width: 250, flex: 'initial', },
   remainder: { flex: 1, },
@@ -32,9 +34,9 @@ class PlayerDrawer extends Component {
 
   render() {
     const classes = this.context.styleManager.render(styleSheet);
-    const { user, isActive, play, } = this.props;
+    const { user, play, plays, } = this.props;
 
-    return (!!user &&
+    return (
       <Layout container >
         <Button onClick={this.handleOpen}>Open Drawer</Button>
         <Drawer
@@ -47,7 +49,7 @@ class PlayerDrawer extends Component {
               Choose a card to discard
             </ListSubheader>
             <ListItem>
-              <MyHand user={user} isActive={isActive}/>
+              <MyHand user={user} cards={pHand(user)}/>
             </ListItem>
             <Divider/>
             <ListItem>
@@ -55,11 +57,13 @@ class PlayerDrawer extends Component {
                 <ListSubheader >
                   Possibles
                 </ListSubheader>
-                {}
+                {plays.map((s, i) =>
+                  <ListItem key={i} onClick={() => play(user)(s)}
+                    children={ <CardSet cards={[ ...s, ]}/>}
+                  />)}
               </List>
             </ListItem>
-            <Divider/>
-
+            
             <div className={classes.remainder}/>
           </List>
 

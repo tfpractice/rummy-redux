@@ -1,7 +1,7 @@
-import { Game, Player, } from 'rummy-rules';
+import { Game, Player, Sets, } from 'rummy-rules';
 import { ADD_PLAYER, CLAIM_CARDS, DECK_DRAW, PLAY, REMOVE_PLAYER, SCRAP_CARDS, SET_PLAYERS, TURN_GAME, } from '../constants';
-const { addPlr, players, setPlayers: setPs, shiftDk, hasPlr, } = Game;
-const { copy, scrap, addHand, } = Player;
+const { addPlr, players, claimWhole, claimParts, } = Game;
+const { copy, scrap, addHand, player, } = Player;
 
 import { drop, } from './discard';
 
@@ -9,16 +9,19 @@ export const turnGame = () =>
 ({ type: TURN_GAME, curry: Game.turn, });
 
 export const setPlayers = (plrs = []) =>
- ({ type: SET_PLAYERS, curry: setPs, });
+ ({ type: SET_PLAYERS, curry: Game.setPlayers(plrs), });
 
-export const addPlayer = p =>
+export const addPlayer = (p = player()) =>
 ({ type: ADD_PLAYER, curry: Game.addPlr(copy(p)), });
 
 export const removePlayer = player =>
   ({ type: REMOVE_PLAYER, curry: Game.rmPlr(player), });
   
-export const play = (...cards) =>
-   ({ type: PLAY, curry: Game.play(...cards), });
+export const playByType = set => p => g =>
+  Sets.isFull(...set) ? claimWhole(...set)(p)(g) : claimParts(...set)(p)(g);
+
+export const play = p => dispatch => (...set) =>
+ dispatch({ type: PLAY, curry: playByType(set)(p), });
 
 export const deckDraw = p => ({ type: DECK_DRAW, curry: Game.deckDraw(p), });
 
