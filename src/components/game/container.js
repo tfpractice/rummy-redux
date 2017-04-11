@@ -16,12 +16,13 @@ import Button from 'material-ui/Button';
 import ActionBar from './actionBar';
 import { GameActs, } from '../../modules';
 
-const { active, players, isActive, } = GM;
+const { active, players, isActive, rummable, } = GM;
 const { matches, copy, } = Plr;
 
+console.log('GM', GM);
 const mapStateToProps = ({ auth: { user, }, game, }) =>
  ({ user, game, isActive: isActive(game)(user), });
- 
+
 const Game = ({ isActive, game, user, draw, deckDraw, }) => (
   <Layout container>
     <Layout item xs={12} >
@@ -32,6 +33,9 @@ const Game = ({ isActive, game, user, draw, deckDraw, }) => (
     </Layout>
     <Layout item xs={8}>
       <Discard cards={game.discard} isActive={isActive} />
+    </Layout>
+    <Layout item xs={8}>
+      <Discard cards={rummable(game)} isActive={isActive} />
     </Layout>
     <Layout container justify={'space-between'}>
       <Layout item xs={12}>
