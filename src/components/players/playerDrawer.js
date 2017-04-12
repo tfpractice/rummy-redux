@@ -18,7 +18,7 @@ const { possibles, playables, possFits, } = Sets;
 const stateToProps = ({ game, auth: { user, }, }, ) => ({
  game,
  user,
- plays: possibles(pHand(user)).filter(playable(game)),
+ plays: playables(allSets(game))(pHand(user)),
 });
 
 const styleSheet = createStyleSheet('HandDrawer', () => ({
@@ -36,6 +36,7 @@ class PlayerDrawer extends Component {
     const classes = this.context.styleManager.render(styleSheet);
     const { user, play, plays, } = this.props;
 
+    console.log('plays', plays);
     return (
       <Layout container >
         <Button onClick={this.handleOpen}>Open Drawer</Button>
