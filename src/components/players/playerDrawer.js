@@ -13,12 +13,12 @@ import { CardSet, } from '../cards';
 import { GameActs, } from '../../modules';
 const { hand: pHand, matches, copy, } = Player;
 const { active, playable, allSets, } = Game;
-const { possibles, playables, possFits, } = Sets;
+const { possibles, playables, possFits, canPlay, } = Sets;
 
 const stateToProps = ({ game, auth: { user, }, }, ) => ({
  game,
  user,
- plays: playables(allSets(game))(pHand(user)),
+ plays: (possibles(pHand(user))).filter(canPlay(allSets(game))),
 });
 
 const styleSheet = createStyleSheet('HandDrawer', () => ({

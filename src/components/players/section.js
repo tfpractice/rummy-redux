@@ -28,7 +28,7 @@ const Player = ({ player, isActive, }) => (
         <Layout item xs={8}>
           <List>
             <ListSubheader children={'Sets'} type="title" />
-            { player.sets && sets(player).map((s, i) =>
+            { sets(player).map((s, i) =>
               <ListItem key={i}
                 children={ <CardSet cards={[ ...s, ]}/>} />)}
           </List>

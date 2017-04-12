@@ -17,7 +17,7 @@ export const addPlayer = (p = player()) =>
 export const removePlayer = player =>
   ({ type: REMOVE_PLAYER, curry: Game.rmPlr(player), });
 
-export const play = p => dispatch => (...set) =>
+export const play = p => dispatch => set =>
  dispatch({ type: PLAY, curry: Game.play(set)(p), });
 
 export const deckDraw = p => ({ type: DECK_DRAW, curry: Game.deckDraw(p), });
