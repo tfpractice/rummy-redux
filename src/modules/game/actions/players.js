@@ -16,12 +16,9 @@ export const addPlayer = (p = player()) =>
 
 export const removePlayer = player =>
   ({ type: REMOVE_PLAYER, curry: Game.rmPlr(player), });
-  
-export const playByType = set => p => g =>
-  Sets.isFull(...set) ? claimWhole(...set)(p)(g) : claimParts(...set)(p)(g);
 
 export const play = p => dispatch => (...set) =>
- dispatch({ type: PLAY, curry: playByType(set)(p), });
+ dispatch({ type: PLAY, curry: Game.play(set)(p), });
 
 export const deckDraw = p => ({ type: DECK_DRAW, curry: Game.deckDraw(p), });
 
