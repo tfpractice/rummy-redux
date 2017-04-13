@@ -22,7 +22,7 @@ const getAuth = getState => getState().auth.user;
 export const updateGame = g => (dispatch, getState) => {
   Promise.resolve(({ type: UPDATE_GAME, curry: () => copy(g), }))
     .then(dispatch)
-    .then(res => (updateCurrent(g)))
+    .then(res => (updateCurrent(getState().game)))
     .then(dispatch);
 };
 export const setDeck = cards => ({ type: SET_DECK, curry: Game.setDeck(cards), });

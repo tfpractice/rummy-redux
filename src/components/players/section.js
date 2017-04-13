@@ -15,10 +15,12 @@ import { CardCount, CardSet, } from '../cards';
 
 const { Game: { active, }, Player: { matches, hand, sets, copy, }, } = Rummy;
 
-const mapStateToProps = ({ game, }, { player, }) =>
-   ({ isActive: matches(active(game))(player), });
+const mapStateToProps = ({ game, }, { player, }) => {
+  console.log('player,sets(player)', player, sets(player));
+  return ({ isActive: matches(active(game))(player), sets: sets(player), });
+};
   
-const Player = ({ player, isActive, }) => (
+const Player = ({ player, isActive, sets, }) => (
   <Card>
     <CardHeader title={player.name} />
     <CardMedia>
@@ -28,9 +30,13 @@ const Player = ({ player, isActive, }) => (
         <Layout item xs={8}>
           <List>
             <ListSubheader children={'Sets'} type="title" />
-            { sets(player).map((s, i) =>
-              <ListItem key={i}
-                children={ <CardSet cards={[ ...s, ]}/>} />)}
+            <p>{sets.length}</p>
+            { sets.map((s, i) => {
+              console.log('s', s, [ ...s, ]);
+              console.log('player', player);
+              return (<ListItem key={i}
+                children={ <CardSet cards={[ ...s, ]}/>} />);
+            })}
           </List>
         </Layout>
       </Layout>

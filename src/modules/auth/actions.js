@@ -28,14 +28,20 @@ const uLoad = a => getCurrent(a).reload().then(() => getCurrent(a));
 
 export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
-export const createPlayer = u => u
-    ? player(u.displayName, [], [], u.uid)
+export const createPlayer = (u) => {
+  console.log(' createPlayeru', u);
+  return u ? player(u.displayName, [], [], u.uid)
     : {};
+};
 
 export const authPlayer = amod => createPlayer(amod.currentUser);
 
-export const updateCurrent = g => dispatch =>
-  dispatch(setCurrentUser(findPlr(authPlayer(auth))(g)));
+export const updateCurrent = g => (dispatch) => {
+  console.log('g.players', g.players);
+  console.log('authPlayer(auth)', authPlayer(auth));
+  console.log('findPlr(authPlayer(auth))(g))', findPlr(authPlayer(auth))(g));
+  return dispatch(setCurrentUser(findPlr(authPlayer(auth))(g)));
+};
 
 export const setCurrent = u => (dispatch, getState) =>
   Promise.resolve(dispatch(setCurrentUser(u)))
