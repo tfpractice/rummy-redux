@@ -1,24 +1,25 @@
 import React, { Component, } from 'react';
-import * as RUMMY from 'rummy-rules';
 import { Game, Player, Sets, } from 'rummy-rules';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
-import { List, ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
+import List, { ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
+
 import MyHand from './hand';
 import { CardSet, } from '../cards';
 import { GameActs, } from '../../modules';
+
 const { hand: pHand, matches, copy, } = Player;
 const { active, playable, allSets, findPlr, } = Game;
 const { possibles, plays, possFits, canPlay, } = Sets;
 
-const stateToProps = ({ game, auth: { user, }, }, ) => ({
- game,
- user: findPlr(user)(game),
- plays: (plays(allSets(game))(pHand(user))),
+const stateToProps = ({ game, auth: { user, }, },) => ({
+  game,
+  user: findPlr(user)(game),
+  plays: (plays(allSets(game))(pHand(user))),
 });
 
 const styleSheet = createStyleSheet('HandDrawer', () => ({
@@ -27,18 +28,26 @@ const styleSheet = createStyleSheet('HandDrawer', () => ({
 }));
 
 class PlayerDrawer extends Component {
-  state = { open: false, };
-
-  handleOpen = () => this.setState({ open: true, });
-  handleClose = () => this.setState({ open: false, });
-
+  constructor(props) {
+    super(props);
+    this.state = { open: false, };
+  }
+  
+  handleOpen() {
+    this.setState({ open: true, });
+  }
+  
+  handleClose () {
+    this.setState({ open: false, });
+  }
+  
   render() {
     const classes = this.context.styleManager.render(styleSheet);
     const { user, play, plays, } = this.props;
-
+    
     console.log('plays', plays);
     return (
-      <Layout container >
+      <Grid container >
         <Button onClick={this.handleOpen}>Open Drawer</Button>
         <Drawer
           open={this.state.open}
@@ -59,9 +68,9 @@ class PlayerDrawer extends Component {
                   Possibles
                 </ListSubheader>
                 {plays.map((s, i) =>
-                  <ListItem key={i} onClick={() => play(user)(s)}
+                  (<ListItem key={i} onClick={() => play(user)(s)}
                     children={ <CardSet cards={[ ...s, ]}/>}
-                  />)}
+                  />))}
               </List>
             </ListItem>
             
@@ -69,7 +78,7 @@ class PlayerDrawer extends Component {
           </List>
 
         </Drawer>
-      </Layout>
+      </Grid>
     );
   }
 }

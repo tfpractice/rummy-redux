@@ -2,14 +2,14 @@ import React, { Component, PropTypes, } from 'react';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import { List, ListItem, ListItemIcon, ListItemSecondaryAction,
+import List, { ListItem, ListItemIcon, ListItemSecondaryAction,
   ListItemText, ListSubheader, } from 'material-ui/List';
 import { PlayCard, } from '../cards';
 import { GameActs, } from '../../modules';
-import Text from 'material-ui/Text';
+import Text from 'material-ui/Typography';
 
 const stateToProps = ({ game: { discard, }, auth: { user, }, }) =>
- ({ discard, user, });
+  ({ discard, user, });
 
 const Discard = ({ discard, disDrawTo, user, }) => (
   <List>

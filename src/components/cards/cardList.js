@@ -1,11 +1,11 @@
 import React, { Component, PropTypes, } from 'react';
-import { List, ListItem, } from 'material-ui/List';
+import List, { ListItem, } from 'material-ui/List';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import PlayCard from './playCard';
 import CardChip from './chip';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 
 const CardList = ({ cards, }) => (
   <List>

@@ -4,8 +4,9 @@ import { render, } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import createPalette, { dark, } from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
-import { pink, teal, } from 'material-ui/styles/colors';
-import Layout from 'material-ui/Layout';
+import pink from 'material-ui/colors/pink';
+import teal from 'material-ui/colors/teal';
+import Grid from 'material-ui/Grid';
 import { BrowserRouter, Link, Route, Switch, } from 'react-router-dom';
 import { Game, Main, NavBar, NoMatch, } from './components';
 
@@ -24,23 +25,22 @@ const { styleManager, theme, } = MuiThemeProvider.createDefaultContext(
 const styles = { paddingTop: '3rem', };
 
 export class Routes extends Component {
-  
   render () {
     return (
       <MuiThemeProvider theme={theme} styleManager={styleManager}>
         <BrowserRouter>
-          <Layout container direction={'column'}>
-            <Layout item xs={12}>
+          <Grid container direction={'column'}>
+            <Grid item xs={12}>
               <NavBar/>
-            </Layout>
-            <Layout item xs={12} style={styles}>
+            </Grid>
+            <Grid item xs={12} style={styles}>
               <Switch>
                 <Route exact path="/" component={Main} />
                 <Route path="/play" component={Game} />
                 <Route component={NoMatch}/>
               </Switch>
-            </Layout>
-          </Layout>
+            </Grid>
+          </Grid>
         </BrowserRouter>
       </MuiThemeProvider>
     );

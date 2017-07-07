@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
-import Layout from 'material-ui/Layout';
-import Text from 'material-ui/Text';
+import Grid from 'material-ui/Grid';
+import Text from 'material-ui/Typography';
 import logo from './logo.svg';
 import './main.css';
 import Game from '../game';
@@ -8,15 +8,15 @@ import Game from '../game';
 class Main extends Component {
   render() {
     return (
-      <Layout item className="App">
-        <Layout item className="App-header">
+      <Grid item className="App">
+        <Grid item className="App-header">
           <Text type="headline">Welcome to Rummy Redux</Text>
           <Text type="headline">Sign in to start a new game</Text>
-        </Layout>
-        <Layout item xs={12} >
+        </Grid>
+        <Grid item xs={12} >
           <Game/>
-        </Layout>
-      </Layout>
+        </Grid>
+      </Grid>
     );
   }
 }

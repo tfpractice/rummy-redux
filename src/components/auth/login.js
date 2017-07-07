@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, } from 'react-redux';
 import { Field, reduxForm, } from 'redux-form';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import LogoutLink from './logoutLink';

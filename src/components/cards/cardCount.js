@@ -2,8 +2,8 @@ import React, { Component, PropTypes, } from 'react';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
-import Text from 'material-ui/Text';
-import { Card, CardActions, CardContent, CardMedia, } from 'material-ui/Card';
+import Text from 'material-ui/Typography';
+import Card, { CardActions, CardContent, CardMedia, } from 'material-ui/Card';
 
 const CardBackUrl =
 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Card_back_06.svg/314px-Card_back_06.svg.png';

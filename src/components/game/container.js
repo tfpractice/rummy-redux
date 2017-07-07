@@ -4,11 +4,11 @@ import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import { Game as GM, Player as Plr, } from 'rummy-rules';
 import { Tab, Tabs, } from 'material-ui/Tabs';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Paper from 'material-ui/Paper';
-import Text from 'material-ui/Text';
+import Text from 'material-ui/Typography';
 import { Player, PlayerDrawer, } from '../players';
 import { CardCount, Deck, } from '../cards';
 import Discard from './discard';
@@ -21,27 +21,27 @@ const { matches, copy, } = Plr;
 
 console.log('GM', GM);
 const mapStateToProps = ({ auth: { user, }, game, }) =>
- ({ user, game, isActive: isActive(game)(user), });
+  ({ user, game, isActive: isActive(game)(user), });
 
 const Game = ({ isActive, game, user, draw, deckDraw, }) => (
-  <Layout container>
-    <Layout item xs={12} >
+  <Grid container>
+    <Grid item xs={12} >
       <ActionBar user={user} isActive={isActive}/>
-    </Layout>
-    <Layout onClick={() => deckDraw(user)} item xs={4}>
+    </Grid>
+    <Grid onClick={() => deckDraw(user)} item xs={4}>
       <CardCount cards={game.deck}/>
-    </Layout>
-    <Layout item xs={8}>
+    </Grid>
+    <Grid item xs={8}>
       <Discard cards={game.discard} isActive={isActive} />
-    </Layout>
-    <Layout item xs={8}>
+    </Grid>
+    <Grid item xs={8}>
       <Discard cards={rummable(game)} isActive={isActive} />
-    </Layout>
-    <Layout container justify={'space-between'}>
-      <Layout item xs={12}>
+    </Grid>
+    <Grid container justify={'space-between'}>
+      <Grid item xs={12}>
         {game.players.map((p, i) => <Player key={i} player={p}/>)}
-      </Layout>
-    </Layout>
-  </Layout>);
+      </Grid>
+    </Grid>
+  </Grid>);
 
 export default connect(mapStateToProps, GameActs)(Game);

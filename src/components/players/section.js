@@ -2,14 +2,14 @@ import React, { Component, PropTypes, } from 'react';
 import * as Rummy from 'rummy-rules';
 import { connect, } from 'react-redux';
 import { createStyleSheet, } from 'jss-theme-reactor';
-import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
+import Card, {CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Collapse from 'material-ui/transitions/Collapse';
-import { List, ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
+import List, { ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
 
 import Paper from 'material-ui/Paper';
-import Layout from 'material-ui/Layout';
-import Text from 'material-ui/Text';
+import Grid from 'material-ui/Grid';
+import Text from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { CardCount, CardSet, } from '../cards';
 
@@ -24,10 +24,10 @@ const Player = ({ player, isActive, sets, }) => (
   <Card>
     <CardHeader title={player.name} />
     <CardMedia>
-      <Layout container>
-        <Layout item xs={4}
+      <Grid container>
+        <Grid item xs={4}
           children={ <CardCount cards={hand(player)}/>}/>
-        <Layout item xs={8}>
+        <Grid item xs={8}>
           <List>
             <ListSubheader children={'Sets'} type="title" />
             <p>{sets.length}</p>
@@ -38,8 +38,8 @@ const Player = ({ player, isActive, sets, }) => (
                 children={ <CardSet cards={[ ...s, ]}/>} />);
             })}
           </List>
-        </Layout>
-      </Layout>
+        </Grid>
+      </Grid>
     </CardMedia>
   </Card>
 );
