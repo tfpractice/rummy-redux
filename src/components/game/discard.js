@@ -9,12 +9,10 @@ import Text from 'material-ui/Typography';
 const stateToProps = ({ game: { discard, }, auth: { user, }, }) =>
   ({ discard, user, });
 
-const Discard = ({ discard, disDrawTo, user, }) => (
+const Discard = ({ cards, disDrawTo, user, }) => (
   <List>
-    <ListSubheader>
-      <Text type="headline"> Discard </Text>
-    </ListSubheader>
-    {discard.map((c, i) =>
+    <ListSubheader />
+    {cards.map((c, i) =>
       <PlayCard onClick={() => disDrawTo(user)(c)} card={c} pos={i} key={c.id} />
     )}
   </List>

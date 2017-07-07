@@ -1,41 +1,47 @@
-import { spread, } from 'fenugreek-collections';
 import React from 'react';
 import { connect, } from 'react-redux';
-import { Game as GM, Player as Plr, } from 'rummy-rules';
+import { Game as GM, } from 'rummy-rules';
 import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
-import Paper from 'material-ui/Paper';
-import Text from 'material-ui/Typography';
-import { Player, PlayerDrawer, } from '../players';
-import { CardCount, Deck, } from '../cards';
-import Discard from './discard';
-import Button from 'material-ui/Button';
-import ActionBar from './actionBar';
+import Card, { CardActions, CardContent, CardHeader, } from 'material-ui/Card';
 import { GameActs, } from '../../modules';
+import { Player, } from '../players';
+import { CardCount, } from '../cards';
+import Discard from './discard';
+import ActionBar from './actionBar';
+import Board from './board';
 
-const { active, players, isActive, rummable, } = GM;
-const { matches, copy, } = Plr;
+const { isActive, rummable, active, } = GM;
 
+const idSort = (a, b) => a.name <= b.id ? -1 : 1;
 const mapStateToProps = ({ auth: { user, }, game, }) =>
-  ({ user, game, isActive: isActive(game)(user), });
+  ({ user, game, });
 
-const Game = ({ isActive, game, user, draw, deckDraw, }) => (
-  <Grid container>
-    <Grid item xs={12} >
-      <ActionBar user={user} isActive={isActive}/>
+const Game = ({ game, user, draw, deckDraw, }) => (
+  <Grid container justify="center">
+    <Grid item xs={11} >
+      <Card style={ { backgroundColor: 'transparent', }}>
+        <CardHeader title={`current player ${active(game).name}`}/>
+        <CardContent>
+          <Grid container justify="center">
+            <Grid item xs={11}>
+              <Board/>
+            </Grid>
+          </Grid>
+        </CardContent>
+        <CardActions>
+          <ActionBar user={user} />
+        </CardActions>
+      </Card>
     </Grid>
-    <Grid onClick={() => deckDraw(user)} item xs={4}>
-      <CardCount cards={game.deck}/>
-    </Grid>
-    <Grid item xs={8}>
-      <Discard cards={game.discard} isActive={isActive} />
-    </Grid>
-    <Grid item xs={8}>
-      <Discard cards={rummable(game)} isActive={isActive} />
-    </Grid>
-    <Grid container justify={'space-between'}>
-      <Grid item xs={12}>
-        {game.players.map((p, i) => <Player key={i} player={p}/>)}
+
+    <Grid item xs={11}>
+      <Grid container justify="center">
+        {game.players.map((p, i) =>
+          (<Grid item xs={11} sm={6} key={p.id} >
+            <Player player={p}/>
+          </Grid>)
+        )}
+
       </Grid>
     </Grid>
   </Grid>);

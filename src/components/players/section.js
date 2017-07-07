@@ -25,7 +25,7 @@ const Player = ({ player, isActive, sets, }) => (
     <CardHeader title={player.name} />
     <CardMedia>
       <Grid container>
-        <Grid item xs={4}
+        <Grid item xs={3}
           children={ <CardCount cards={hand(player)}/>}/>
         <Grid item xs={8}>
           <List>
