@@ -8,12 +8,12 @@ import Game from '../game';
 class Main extends Component {
   render() {
     return (
-      <Grid item className="App">
-        <Grid item className="App-header">
+      <Grid container justify="center" className="App">
+        <Grid item xs={11}>
           <Text type="headline">Welcome to Rummy Redux</Text>
           <Text type="headline">Sign in to start a new game</Text>
         </Grid>
-        <Grid item xs={12} >
+        <Grid item xs={11} >
           <Game/>
         </Grid>
       </Grid>
