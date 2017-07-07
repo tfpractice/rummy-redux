@@ -29,7 +29,7 @@ const Game = ({ game, user, draw, deckDraw, }) => (
           </Grid>
         </CardContent>
         <CardActions>
-          <ActionBar user={user} />
+          <ActionBar />
         </CardActions>
       </Card>
     </Grid>

@@ -4,16 +4,15 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import { CardActions, } from 'material-ui/Card';
+import Tabs, { Tab, } from 'material-ui/Tabs';
 import { PlayerDrawer, } from '../players';
 
-import { Game as GM, Player as Plr, } from 'rummy-rules';
 import { GameActs, } from '../../modules';
 
-const ActionBar = ({ deal, dropNext, user, clearGame, turnGame, newGame, }) => (
+const ActionBar = ({ deal, dropNext, clearGame, turnGame, newGame, }) => (
   <Grid container justify="center" align="center">
     <Grid item xs>
-      <PlayerDrawer user={user} />
+      <PlayerDrawer />
     </Grid>
     <Grid item xs>
       <Button onClick={clearGame}>clearGame</Button>
@@ -33,19 +32,20 @@ const ActionBar = ({ deal, dropNext, user, clearGame, turnGame, newGame, }) => (
   </Grid>
 
 );
-
-const ActionBar2 = ({ deal, dropNext, user, clearGame, isActive, turnGame, newGame, }) => (
-  <CardActions>
-    <Grid container justify={'center'} align={'center'} gutter={24}>
-      <PlayerDrawer user={user} isActive={isActive} open/>
-      <Button onClick={clearGame}>clearGame</Button>
-      <Button onClick={newGame}>newGame</Button>
-      <Button onClick={deal}>Deal</Button>
-      <Button onClick={dropNext}>dropNext</Button>
-      <Button onClick={turnGame}>turnGame</Button>
+const ActionTabs = ({ deal, dropNext, clearGame, turnGame, newGame, }) => (
+  <Grid container justify="center">
+    <Grid item xs>
+      <Tabs fullWidth scrollable centered index={false} onChange={() => null}>
+        <Tab label={<PlayerDrawer />}/>
+        <Tab label={<Button onClick={clearGame}>clearGame</Button>} />
+        <Tab label={<Button onClick={newGame}>newGame</Button>} />
+        <Tab label={<Button onClick={deal}>Deal</Button>} />
+        <Tab label={<Button onClick={dropNext}>dropNext</Button>} />
+        <Tab label={<Button onClick={turnGame}>turnGame</Button>} />
+      </Tabs>
     </Grid>
-  </CardActions>
+  </Grid>
 
 );
 
-export default connect(null, GameActs)(ActionBar);
+export default connect(null, GameActs)(ActionTabs);
