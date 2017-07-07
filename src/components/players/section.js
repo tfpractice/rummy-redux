@@ -1,8 +1,7 @@
 import React, { Component, PropTypes, } from 'react';
 import * as Rummy from 'rummy-rules';
 import { connect, } from 'react-redux';
-import { createStyleSheet, } from 'jss-theme-reactor';
-import Card, {CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
+import Card, { CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Collapse from 'material-ui/transitions/Collapse';
 import List, { ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';

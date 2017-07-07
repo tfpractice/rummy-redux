@@ -1,6 +1,6 @@
 import React, { Component, PropTypes, } from 'react';
 import { connect, } from 'react-redux';
-import { createStyleSheet, } from 'jss-theme-reactor';
+import { createStyleSheet, withStyles, } from 'material-ui/styles';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Text from 'material-ui/Typography';
 import Card, { CardActions, CardContent, CardMedia, } from 'material-ui/Card';
@@ -19,20 +19,22 @@ const styleSheet = createStyleSheet('CardCount', theme => ({
   },
 }));
 
-const CardCount = ({ cards, ...props }, { styleManager, }) => {
-  const classes = styleManager.render(styleSheet);
-  
-  return (
-    <Card className={classes.root}>
-      <CardMedia>
-        <img src={CardBackUrl}/>
-        <Text className={classes.text} type="headline" component="h3">
-          {cards && cards.length}
-        </Text>
-      </CardMedia>
-    </Card>);
-};
+const CardCount = ({ cards, classes, ...props }) =>
 
-export default CardCount;
+  // const classes = styleManager.render(styleSheet);
+  
+  (
+  <Card className={classes.root}>
+    <CardMedia>
+      <img src={CardBackUrl}/>
+      <Text className={classes.text} type="headline" component="h3">
+        {cards && cards.length}
+      </Text>
+    </CardMedia>
+  </Card>)
+
+;
+
+export default withStyles(styleSheet)(CardCount);
 
 CardCount.contextTypes = { styleManager: PropTypes.object, };

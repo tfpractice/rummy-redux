@@ -1,7 +1,7 @@
 import React, { Component, } from 'react';
 import { Game, Player, Sets, } from 'rummy-rules';
 import { connect, } from 'react-redux';
-import { createStyleSheet, } from 'jss-theme-reactor';
+import { createStyleSheet, withStyles, } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
@@ -42,8 +42,8 @@ class PlayerDrawer extends Component {
   }
   
   render() {
-    const classes = this.context.styleManager.render(styleSheet);
-    const { user, play, plays, } = this.props;
+    // const classes = this.context.styleManager.render(styleSheet);
+    const { user, play, plays, classes, } = this.props;
     
     console.log('plays', plays);
     return (
@@ -83,5 +83,4 @@ class PlayerDrawer extends Component {
   }
 }
 
-PlayerDrawer.contextTypes = { styleManager: React.PropTypes.object, };
-export default connect(stateToProps, GameActs)(PlayerDrawer);
+export default connect(stateToProps, GameActs)(withStyles(styleSheet)(PlayerDrawer));

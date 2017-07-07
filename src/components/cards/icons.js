@@ -1,5 +1,5 @@
 import React, { PropTypes, } from 'react';
-import { createStyleSheet, } from 'jss-theme-reactor';
+import { createStyleSheet, withStyles, } from 'material-ui/styles';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Avatar from 'material-ui/Avatar';
 
@@ -11,20 +11,22 @@ const uniChars = {
 };
 
 const styleSheet = createStyleSheet('CardIcon', theme => ({
-      HEARTS: { color: '#f00', },
-      DIAMONDS: { color: '#f00', },
-      SPADES: { color: '#000', },
-      CLUBS: { color: '#000', },
+  HEARTS: { color: '#f00', },
+  DIAMONDS: { color: '#f00', },
+  SPADES: { color: '#000', },
+  CLUBS: { color: '#000', },
 }));
 
-const CardIcon = ({ card, ...rest }, { styleManager, }) => {
-  const classes = styleManager.render(styleSheet);
+const CardIcon = ({ card, classes, ...rest }, { styleManager, }) =>
 
-  return (
+  // const classes = styleManager.render(styleSheet);
+
+  (
   <Avatar className={classes[`${card.suit}`]} {...rest}>
     {card.rank.toUpperCase()} {uniChars[`${card.suit}`]}
-  </Avatar>);
-};
+  </Avatar>)
+
+;
 
 CardIcon.contextTypes = { styleManager: PropTypes.object, theme: PropTypes.object, muiTheme: PropTypes.object, };
-export default CardIcon;
+export default withStyles(styleSheet)(CardIcon);

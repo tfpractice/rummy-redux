@@ -1,12 +1,10 @@
 import { spread, } from 'fenugreek-collections';
 import React, { Component, PropTypes, } from 'react';
 import { connect, } from 'react-redux';
-import { createStyleSheet, } from 'jss-theme-reactor';
 import { Game as GM, Player as Plr, } from 'rummy-rules';
 import { Tab, Tabs, } from 'material-ui/Tabs';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
-import customPropTypes from 'material-ui/utils/customPropTypes';
 import Paper from 'material-ui/Paper';
 import Text from 'material-ui/Typography';
 import { Player, PlayerDrawer, } from '../players';

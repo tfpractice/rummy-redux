@@ -1,7 +1,5 @@
 import React, { Component, PropTypes, } from 'react';
 import { connect, } from 'react-redux';
-import { createStyleSheet, } from 'jss-theme-reactor';
-import customPropTypes from 'material-ui/utils/customPropTypes';
 import List, { ListItem, ListItemIcon, ListItemSecondaryAction,
   ListItemText, ListSubheader, } from 'material-ui/List';
 import { PlayCard, } from '../cards';

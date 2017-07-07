@@ -17,7 +17,7 @@ const { matches, } = Plr;
 const ActionBar = ({ deal, dropNext, user, clearGame, isActive, turnGame, newGame, }) => (
   <Toolbar>
     <Grid container justify={'center'} align={'center'} gutter={24}>
-      <PlayerDrawer user={user} isActive={isActive} open/>
+      {/* <PlayerDrawer user={user} isActive={isActive} open/> */}
       <Button onClick={clearGame}>clearGame</Button>
       <Button onClick={newGame}>newGame</Button>
       <Button onClick={deal}>Deal</Button>
