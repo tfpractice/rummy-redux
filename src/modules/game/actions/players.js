@@ -5,6 +5,7 @@ import { drop, } from './discard';
 
 const { addPlr, players, claimWhole, claimParts, } = Game;
 const { copy, scrap, addHand, player, } = Player;
+
 const storify = s => s instanceof Set ? spread(s) : s;
 
 export const turnGame = () =>
