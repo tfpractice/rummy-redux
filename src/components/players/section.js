@@ -24,10 +24,9 @@ const Player = ({ player, isActive, sets, }) => (
   <Card>
     <CardHeader title={player.name} />
     <CardMedia>
-      <Grid container>
-        <Grid item xs={3}
-          children={ <CardCount cards={hand(player)}/>}/>
-        <Grid item xs={8}>
+      <Grid container justify="center">
+        <Grid item xs={3} children={ <CardCount cards={hand(player)}/>}/>
+        {/* <Grid item xs={8}>
           <List>
             <ListSubheader children={'Sets'} type="title" />
             <p>{sets.length}</p>
@@ -38,6 +37,13 @@ const Player = ({ player, isActive, sets, }) => (
                 children={ <CardSet cards={[ ...s, ]}/>} />);
             })}
           </List>
+        </Grid> */}
+        <Grid item xs={8}>
+          <Grid container justify="center">
+            { sets.map((s, i) => (
+              <Grid item xs={3} key={i}
+                children={ <CardSet cards={s}/>} />))}
+          </Grid>
         </Grid>
       </Grid>
     </CardMedia>

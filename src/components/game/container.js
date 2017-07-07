@@ -5,18 +5,15 @@ import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent, CardHeader, } from 'material-ui/Card';
 import { GameActs, } from '../../modules';
 import { Player, } from '../players';
-import { CardCount, } from '../cards';
-import Discard from './discard';
 import ActionBar from './actionBar';
 import Board from './board';
 
 const { isActive, rummable, active, } = GM;
 
-const idSort = (a, b) => a.name <= b.id ? -1 : 1;
-const mapStateToProps = ({ auth: { user, }, game, }) =>
-  ({ user, game, });
+const idSort = (a, b) => a.id <= b.id ? -1 : 1;
+const mapStateToProps = ({ game, }) => ({ game, });
 
-const Game = ({ game, user, draw, deckDraw, }) => (
+const Game = ({ game, }) => (
   <Grid container justify="center">
     <Grid item xs={11} >
       <Card style={ { backgroundColor: 'transparent', }}>
@@ -41,7 +38,6 @@ const Game = ({ game, user, draw, deckDraw, }) => (
             <Player player={p}/>
           </Grid>)
         )}
-
       </Grid>
     </Grid>
   </Grid>);

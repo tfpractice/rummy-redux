@@ -2,28 +2,25 @@ import React from 'react';
 import { connect, } from 'react-redux';
 import { Game as GM, } from 'rummy-rules';
 import Grid from 'material-ui/Grid';
-import Card, { CardContent, } from 'material-ui/Card';
+
 import { GameActs, } from '../../modules';
 import { CardCount, } from '../cards';
 import Discard from './discard';
 
-const { isActive, rummable, } = GM;
+const { rummable, } = GM;
 
-const mapStateToProps = ({ auth: { user, }, game, }) => {
-  console.log('rummable(game)', rummable(game));
-  return ({ user, game, isActive: isActive(game)(user), });
-};
+const mapStateToProps = ({ auth: { user, }, game, }) => ({ user, game, });
 
-const Board = ({ isActive, game, user, draw, deckDraw, }) => (
+const Board = ({ game, user, deckDraw, }) => (
   <Grid container justify="center" >
     <Grid item xs={11} sm={6} onClick={() => deckDraw(user)} >
       <CardCount cards={game.deck}/>
     </Grid>
     <Grid item xs={11} sm={6}>
-      <Discard cards={game.discard} isActive={isActive} />
+      <Discard cards={game.discard} />
     </Grid>
     <Grid item xs={11} sm>
-      <Discard cards={rummable(game)} isActive={isActive} />
+      <Discard cards={rummable(game)} />
     </Grid>
   </Grid>);
 

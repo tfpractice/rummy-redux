@@ -26,7 +26,7 @@ const styleSheet = createStyleSheet('CardCount', theme => ({
     transform: 'translate(-50%, -50%)',
     '-ms-transform': 'translate(-50%, -50%)',
   },
-  img: { maxWidth: '100%', },
+  img: { maxWidth: '100%', objectFit: 'contain', },
   box: { minHeight: '100%', minWidth: '100%', },
 }));
 
@@ -35,7 +35,7 @@ const CardCount = ({ cards, classes, ...props }) => (
   <Grid container className={classes.root} >
     <Grid item xs>
       <CardMedia>
-        <img src={CardBackUrl}/>
+        <img src={CardBackUrl} className={classes.img} />
         <Text align="center" className={classes.text} type="display1" >
           {cards && cards.length}
         </Text>
