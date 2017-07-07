@@ -19,11 +19,7 @@ const styleSheet = createStyleSheet('CardCount', theme => ({
   },
 }));
 
-const CardCount = ({ cards, classes, ...props }) =>
-
-  // const classes = styleManager.render(styleSheet);
-  
-  (
+const CardCount = ({ cards, classes, ...props }) => (
   <Card className={classes.root}>
     <CardMedia>
       <img src={CardBackUrl}/>
@@ -31,9 +27,8 @@ const CardCount = ({ cards, classes, ...props }) =>
         {cards && cards.length}
       </Text>
     </CardMedia>
-  </Card>)
-
-;
+  </Card>
+);
 
 export default withStyles(styleSheet)(CardCount);
 
