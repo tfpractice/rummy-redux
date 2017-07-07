@@ -9,7 +9,7 @@ const NavBar = () => (
   <AppBar>
     <Toolbar>
       <Grid container justify={'space-between'}>
-        <Text type="headline" colorInherit>Rummy Redux</Text>
+        <Text type="headline" >Rummy Redux</Text>
         {/* <LoginForm formID={'mainLogin'}/> */}
       </Grid>
     </Toolbar>

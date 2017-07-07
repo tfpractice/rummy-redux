@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import List, { ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
-
+import { withState, } from 'recompose';
 import MyHand from './hand';
 import { CardSet, } from '../cards';
 import { GameActs, } from '../../modules';
@@ -22,37 +22,25 @@ const stateToProps = ({ game, auth: { user, }, },) => ({
   plays: (plays(allSets(game))(pHand(user))),
 });
 
+const withToggle = withState('open', 'toggle', ({ open, }) => open || false);
+
 const styleSheet = createStyleSheet('HandDrawer', () => ({
   list: { width: 250, flex: 'initial', },
   remainder: { flex: 1, },
 }));
 
 class PlayerDrawer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false, };
-  }
-  
-  handleOpen() {
-    this.setState({ open: true, });
-  }
-  
-  handleClose () {
-    this.setState({ open: false, });
-  }
-  
   render() {
-    // const classes = this.context.styleManager.render(styleSheet);
-    const { user, play, plays, classes, } = this.props;
-    
+    const { user, play, plays, toggle, open, classes, } = this.props;
+
     console.log('plays', plays);
     return (
       <Grid container >
-        <Button onClick={this.handleOpen}>Open Drawer</Button>
+        <Button onClick={() => toggle(x => !x)}>Open Drawer</Button>
         <Drawer
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-          onClick={this.handleClose}
+          open={open}
+          onRequestClose={() => toggle(x => !x)}
+          onClick={() => toggle(x => !x)}
         >
           <List className={classes.list}>
             <ListSubheader >
@@ -83,4 +71,4 @@ class PlayerDrawer extends Component {
   }
 }
 
-export default connect(stateToProps, GameActs)(withStyles(styleSheet)(PlayerDrawer));
+export default connect(stateToProps, GameActs)(withStyles(styleSheet)(withToggle(PlayerDrawer)));

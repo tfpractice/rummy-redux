@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, } from 'react';
+import React from 'react';
 import { connect, } from 'react-redux';
 import List, { ListItem, ListItemIcon, ListItemSecondaryAction,
   ListItemText, ListSubheader, } from 'material-ui/List';

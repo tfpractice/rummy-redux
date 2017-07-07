@@ -1,11 +1,8 @@
-import { Player, } from 'rummy-rules';
-import { removeBin, removeSet, spread, } from 'fenugreek-collections';
+import { removeSet, spread, } from 'fenugreek-collections';
 import { ADD_USER, REMOVE_USER, SET_USERS, } from './constants';
-import { fireUtils, rqUtils, } from '../../utils';
+import { fireUtils, } from '../../utils';
 
-const { connRef, fireApp, getPresRef, auth, db, getOnlineRef, onlineRef, } = fireUtils;
-const { rqConstants, rqActions, } = rqUtils;
-const { player, setID, setName, copy, } = Player;
+const { getPresRef, onlineRef, } = fireUtils;
 
 const hasID = arr => id => new Set(arr.map(n => n.id)).has(id);
 const set = users => () => users;
@@ -19,20 +16,20 @@ export const removeUser = u => ({ type: REMOVE_USER, curry: remove(u), });
 export const checkConnections = id => getPresRef(id);
 
 export const catConn = ref =>
-   Promise.resolve(ref.child('connections'))
-     .then((cref) => {
-       const pref = cref.push();
+  Promise.resolve(ref.child('connections'))
+    .then((cref) => {
+      const pref = cref.push();
 
-       pref.onDisconnect().remove();
-       return pref.set(Date.now());
-     })
-     .then(() => ref);
+      pref.onDisconnect().remove();
+      return pref.set(Date.now());
+    })
+    .then(() => ref);
 
 const updateRef = u => ref => ref.update(u).then(() => (ref));
 
 export const addOnline = u => dispatch =>
- Promise.resolve(onlineRef.child(u.id))
-   .then(updateRef(u))
-   .then(catConn)
-   .catch(console.error);
+  Promise.resolve(onlineRef.child(u.id))
+    .then(updateRef(u))
+    .then(catConn)
+    .catch(console.error);
    

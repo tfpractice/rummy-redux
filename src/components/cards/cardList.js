@@ -1,7 +1,7 @@
-import React, { Component, PropTypes, } from 'react';
+import React from 'react';
 import List, { ListItem, } from 'material-ui/List';
 import { connect, } from 'react-redux';
-import customPropTypes from 'material-ui/utils/customPropTypes';
+
 import PlayCard from './playCard';
 import CardChip from './chip';
 import Grid from 'material-ui/Grid';

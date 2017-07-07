@@ -1,5 +1,5 @@
-import React, { Component, PropTypes, } from 'react';
-import customPropTypes from 'material-ui/utils/customPropTypes';
+import React from 'react';
+
 import Paper from 'material-ui/Paper';
 import Text from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';

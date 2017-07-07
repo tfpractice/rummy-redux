@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, } from 'react';
+import React from 'react';
 import Paper from 'material-ui/Paper';
 import List, { ListItem, ListItemIcon, } from 'material-ui/List';
 import CardIcon from './icons';

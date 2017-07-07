@@ -1,8 +1,7 @@
-import { denormalize, normalize, schema, } from 'normalizr';
 import * as firebase from 'firebase';
 import { Game, Player, } from 'rummy-rules';
 import { Deck, } from 'bee52';
-import { DECK_ACTIONS, DISCARD_ACTIONS, GAME_ACTIONS, } from '../modules/game/constants';
+import { GAME_ACTIONS, } from '../modules/game/constants';
 
 const { player, } = Player;
 const { shuffle, deck, } = Deck;
@@ -41,35 +40,35 @@ export const fireMid = ({ dispatch, getState, }) => next => (action) => {
   return result;
 };
 
-const cSchema = new schema.Object('card');
-const setSchema = new schema.Object('set', [ cSchema, ]);
-const pSchema = new schema.Entity('players', {
-  hand: [ cSchema, ],
-  sets: [ setSchema, ],
-});
-
-const dkSchema = new schema.Entity('deck', [ cSchema, ]);
-const dsSchema = new schema.Entity('discard', [ cSchema, ]);
-
-const gSchema1 = {
-  players: [ pSchema, ],
-  deck: [ dkSchema, ],
-  discard:  [ cSchema, ],
-};
-const gSchema = new schema.Entity('game', {
-  players: [ pSchema, ],
-  deck: [ dkSchema, ],
-  discard:  [ cSchema, ],
-}, {
- idAttribute: () => 'current',
- mergeStrategy: (entityA, entityB) => {
-   console.log('entityA, entityB', entityA, entityB);
-   return ({
-      ...entityA,
-      ...entityB,
-      
-   });
- },
- processStrategy: entity => copy(entity),
-
-});
+// const cSchema = new schema.Object('card');
+// const setSchema = new schema.Object('set', [ cSchema, ]);
+// const pSchema = new schema.Entity('players', {
+//   hand: [ cSchema, ],
+//   sets: [ setSchema, ],
+// });
+// 
+// const dkSchema = new schema.Entity('deck', [ cSchema, ]);
+// const dsSchema = new schema.Entity('discard', [ cSchema, ]);
+// 
+// const gSchema1 = {
+//   players: [ pSchema, ],
+//   deck: [ dkSchema, ],
+//   discard:  [ cSchema, ],
+// };
+// const gSchema = new schema.Entity('game', {
+//   players: [ pSchema, ],
+//   deck: [ dkSchema, ],
+//   discard:  [ cSchema, ],
+// }, {
+//  idAttribute: () => 'current',
+//  mergeStrategy: (entityA, entityB) => {
+//    console.log('entityA, entityB', entityA, entityB);
+//    return ({
+//       ...entityA,
+//       ...entityB,
+//       
+//    });
+//  },
+//  processStrategy: entity => copy(entity),
+// 
+// });

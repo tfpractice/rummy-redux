@@ -1,8 +1,7 @@
 import { spread, } from 'fenugreek-collections';
-import React, { Component, PropTypes, } from 'react';
+import React from 'react';
 import { connect, } from 'react-redux';
 import { Game as GM, Player as Plr, } from 'rummy-rules';
-import { Tab, Tabs, } from 'material-ui/Tabs';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';

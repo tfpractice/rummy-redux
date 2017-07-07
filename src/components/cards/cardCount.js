@@ -1,7 +1,5 @@
-import React, { Component, PropTypes, } from 'react';
-import { connect, } from 'react-redux';
+import React from 'react';
 import { createStyleSheet, withStyles, } from 'material-ui/styles';
-import customPropTypes from 'material-ui/utils/customPropTypes';
 import Text from 'material-ui/Typography';
 import Card, { CardActions, CardContent, CardMedia, } from 'material-ui/Card';
 
@@ -31,5 +29,3 @@ const CardCount = ({ cards, classes, ...props }) => (
 );
 
 export default withStyles(styleSheet)(CardCount);
-
-CardCount.contextTypes = { styleManager: PropTypes.object, };

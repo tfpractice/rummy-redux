@@ -1,6 +1,5 @@
 import React, { Component, } from 'react';
 import { connect, } from 'react-redux';
-import { render, } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import createPalette, { dark, } from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';

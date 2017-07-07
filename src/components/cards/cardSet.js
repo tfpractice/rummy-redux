@@ -1,6 +1,4 @@
-import React, { Component, PropTypes, } from 'react';
-import PlayCard from './playCard';
-import CardChip from './chip';
+import React from 'react';
 import CardIcon from './icons';
 import Grid from 'material-ui/Grid';
 

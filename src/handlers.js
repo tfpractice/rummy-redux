@@ -1,7 +1,7 @@
 import { auth, connRef, db, onlineRef, } from './utils/firebase';
-import { createPlayer, login, logout, setCurrent, updateCurrent, } from './modules/auth/actions';
-import { addUser, removeUser, setUsers, } from './modules/users/actions';
-import { addPlayer, removePlayer, setCurrentUser, setDeck, setDiscard, updateGame, } from './modules/game/actions';
+import { login, logout, } from './modules/auth/actions';
+
+import { addPlayer, removePlayer, updateGame, } from './modules/game/actions';
 
 const loggedIn = () => !!auth.currentUser;
 const loggedOut = () => !loggedIn();

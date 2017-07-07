@@ -1,6 +1,5 @@
 import React, { PropTypes, } from 'react';
 import { createStyleSheet, withStyles, } from 'material-ui/styles';
-import customPropTypes from 'material-ui/utils/customPropTypes';
 import Avatar from 'material-ui/Avatar';
 
 const uniChars = {
