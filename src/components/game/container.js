@@ -16,7 +16,6 @@ import { GameActs, } from '../../modules';
 const { active, players, isActive, rummable, } = GM;
 const { matches, copy, } = Plr;
 
-console.log('GM', GM);
 const mapStateToProps = ({ auth: { user, }, game, }) =>
   ({ user, game, isActive: isActive(game)(user), });
 

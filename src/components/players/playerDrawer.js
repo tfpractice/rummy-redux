@@ -11,6 +11,7 @@ import { withState, } from 'recompose';
 import MyHand from './hand';
 import { CardSet, } from '../cards';
 import { GameActs, } from '../../modules';
+import Text from 'material-ui/Typography';
 
 const { hand: pHand, matches, copy, } = Player;
 const { active, playable, allSets, findPlr, } = Game;
@@ -31,9 +32,11 @@ const styleSheet = createStyleSheet('HandDrawer', () => ({
 
 class PlayerDrawer extends Component {
   render() {
-    const { user, play, plays, toggle, open, classes, } = this.props;
+    const { user, play, plays, toggle, open, classes, ...props } = this.props;
 
+    // console.log('props', this.props);
     console.log('plays', plays);
+    console.log('user', user);
     return (
       <Grid container >
         <Button onClick={() => toggle(x => !x)}>Open Drawer</Button>
@@ -42,6 +45,7 @@ class PlayerDrawer extends Component {
           onRequestClose={() => toggle(x => !x)}
           onClick={() => toggle(x => !x)}
         >
+          <Text> welcome {user && user.name}</Text>
           <List className={classes.list}>
             <ListSubheader >
               Choose a card to discard

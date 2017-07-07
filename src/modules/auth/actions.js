@@ -12,14 +12,14 @@ const { findPlr, } = Game;
 const set = (user = {}) => () => user;
 
 const {
- pending: loginPend,
- failure: loginFail,
- success: loginSucc,
+  pending: loginPend,
+  failure: loginFail,
+  success: loginSucc,
 } = rqActions(LOGIN);
 const {
- pending: logoutPend,
- failure: logoutFail,
- success: logoutSucc,
+  pending: logoutPend,
+  failure: logoutFail,
+  success: logoutSucc,
 } = rqActions(LOGOUT);
 
 const uCheck = a => !!a.currentUser;
@@ -65,14 +65,14 @@ const initlLog = { displayName: '', };
 export const updateU = ({ displayName, }) => fUser => fUser.updateProfile({ displayName: displayName || fUser.uid, }).then(() => uLoad(auth));
 
 export const login = ({ displayName, } = initlLog) => dispatch =>
- Promise.resolve(dispatch(loginPend()))
-   .then(() => auth.signInAnonymously())
-   .then(updateU({ displayName, }))
-   .then(u => Promise.all([
-     loginSucc(u),
-     setCurrent(createPlayer(u)),
-   ].map(dispatch)))
-   .catch(e => dispatch(loginFail(e.message)));
+  Promise.resolve(dispatch(loginPend()))
+    .then(() => auth.signInAnonymously())
+    .then(updateU({ displayName, }))
+    .then(u => Promise.all([
+      loginSucc(u),
+      setCurrent(createPlayer(u)),
+    ].map(dispatch)))
+    .catch(e => dispatch(loginFail(e.message)));
 
 export const logout = (user = authPlayer(auth)) => (dispatch, getState) => {
   console.log('logging out user arg', user, getState().auth.user, auth.currentUser);

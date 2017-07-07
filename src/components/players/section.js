@@ -14,10 +14,11 @@ import { CardCount, CardSet, } from '../cards';
 
 const { Game: { active, }, Player: { matches, hand, sets, copy, }, } = Rummy;
 
-const mapStateToProps = ({ game, }, { player, }) => {
-  console.log('player,sets(player)', player, sets(player));
-  return ({ isActive: matches(active(game))(player), sets: sets(player), });
-};
+const mapStateToProps = ({ game, }, { player, }) =>
+  // console.log('player,sets(player)', player, sets(player));
+  ({ isActive: matches(active(game))(player), sets: sets(player), })
+
+;
   
 const Player = ({ player, isActive, sets, }) => (
   <Card>
