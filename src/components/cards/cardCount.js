@@ -21,7 +21,7 @@ const styleSheet = createStyleSheet('CardCount', theme => ({
 
 const CardCount = ({ cards, ...props }, { styleManager, }) => {
   const classes = styleManager.render(styleSheet);
-
+  
   return (
     <Card className={classes.root}>
       <CardMedia>

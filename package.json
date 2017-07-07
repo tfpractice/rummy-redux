@@ -23,7 +23,7 @@
     "fenugreek-collections": "^1.1.1",
     "firebase": "^3.7.3",
     "jss-theme-reactor": "^0.10.0",
-    "material-ui": "next",
+    "material-ui": "1.0.0-alpha.10",
     "material-ui-icons": "^1.0.0-alpha.2",
     "normalizr": "^3.2.2",
     "react": "^15.4.2",
