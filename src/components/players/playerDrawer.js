@@ -6,16 +6,16 @@ import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import List, { ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
+import List, { ListItem, ListSubheader, } from 'material-ui/List';
 import { withState, } from 'recompose';
 import MyHand from './hand';
 import { CardSet, } from '../cards';
 import { GameActs, } from '../../modules';
 import Text from 'material-ui/Typography';
 
-const { hand: pHand, matches, copy, } = Player;
-const { active, playable, allSets, findPlr, } = Game;
-const { possibles, plays, possFits, canPlay, } = Sets;
+const { hand: pHand, } = Player;
+const { allSets, findPlr, } = Game;
+const { plays, } = Sets;
 
 const stateToProps = ({ game, auth: { user, }, },) => ({
   game,
@@ -32,11 +32,8 @@ const styleSheet = createStyleSheet('HandDrawer', () => ({
 
 class PlayerDrawer extends Component {
   render() {
-    const { user, play, plays, toggle, open, classes, ...props } = this.props;
+    const { user, play, plays, toggle, open, classes, } = this.props;
 
-    // console.log('props', this.props);
-    console.log('plays', plays);
-    console.log('user', user);
     return (
       <Grid container >
         <Button onClick={() => toggle(x => !x)}>Open Drawer</Button>
