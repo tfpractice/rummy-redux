@@ -15,38 +15,30 @@ import { CardCount, CardSet, } from '../cards';
 const { Game: { active, }, Player: { matches, hand, sets, copy, }, } = Rummy;
 
 const mapStateToProps = ({ game, }, { player, }) =>
-  // console.log('player,sets(player)', player, sets(player));
   ({ isActive: matches(active(game))(player), sets: sets(player), })
 
 ;
   
 const Player = ({ player, isActive, sets, }) => (
   <Card>
-    <CardHeader title={player.name} />
-    <CardMedia>
+    <CardHeader title={player.name} subheader={player.id} />
+    <CardContent>
       <Grid container justify="center">
-        <Grid item xs={3} children={ <CardCount cards={hand(player)}/>}/>
-        {/* <Grid item xs={8}>
-          <List>
-            <ListSubheader children={'Sets'} type="title" />
-            <p>{sets.length}</p>
-            { sets.map((s, i) => {
-              console.log('s', s, [ ...s, ]);
-              console.log('player', player);
-              return (<ListItem key={i}
-                children={ <CardSet cards={[ ...s, ]}/>} />);
-            })}
-          </List>
-        </Grid> */}
-        <Grid item xs={8}>
+        <Grid item xs={11} sm={3} children={ <CardCount cards={hand(player)}/>}/>
+        <Grid item xs={11} sm={8}>
           <Grid container justify="center">
+            <Grid item xs={11}>
+              <Text align="center" type="display1">
+                Sets
+              </Text>
+            </Grid>
             { sets.map((s, i) => (
               <Grid item xs={3} key={i}
                 children={ <CardSet cards={s}/>} />))}
           </Grid>
         </Grid>
       </Grid>
-    </CardMedia>
+    </CardContent>
   </Card>
 );
 

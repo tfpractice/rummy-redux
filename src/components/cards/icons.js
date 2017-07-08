@@ -10,13 +10,25 @@ const uniChars = {
 };
 
 const styleSheet = createStyleSheet('CardIcon', theme => ({
-  HEARTS: { color: '#f00', },
-  DIAMONDS: { color: '#f00', },
-  SPADES: { color: '#000', },
-  CLUBS: { color: '#000', },
+  HEARTS: {
+    color: '#f00',
+    backgroundColor: '#fff',
+  },
+  DIAMONDS: {
+    color: '#f00',
+    backgroundColor: '#fff',
+  },
+  SPADES: {
+    color: '#000',
+    backgroundColor: '#fff',
+  },
+  CLUBS: {
+    color: '#000',
+    backgroundColor: '#fff',
+  },
 }));
 
-const CardIcon = ({ card, classes, ...rest }, { styleManager, }) =>
+const CardIcon = ({ card, classes, ...rest }) =>
 
   // const classes = styleManager.render(styleSheet);
 
@@ -27,5 +39,4 @@ const CardIcon = ({ card, classes, ...rest }, { styleManager, }) =>
 
 ;
 
-CardIcon.contextTypes = { styleManager: PropTypes.object, theme: PropTypes.object, muiTheme: PropTypes.object, };
 export default withStyles(styleSheet)(CardIcon);

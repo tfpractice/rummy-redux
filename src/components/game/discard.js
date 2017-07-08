@@ -5,17 +5,21 @@ import List, { ListItem, ListItemIcon, ListItemSecondaryAction,
 import { PlayCard, } from '../cards';
 import { GameActs, } from '../../modules';
 import Text from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
 
 const stateToProps = ({ game: { discard, }, auth: { user, }, }) =>
   ({ discard, user, });
 
 const Discard = ({ cards, disDrawTo, user, }) => (
-  <List>
-    <ListSubheader />
+  <Grid container justify="center">
+    {/* <ListSubheader children="discard"/> */}
     {cards.map((c, i) =>
-      <PlayCard onClick={() => disDrawTo(user)(c)} card={c} pos={i} key={c.id} />
+      (<Grid item xs={9}>
+        <PlayCard onClick={() => disDrawTo(user)(c)} card={c} pos={i} key={c.id} />
+
+      </Grid>)
     )}
-  </List>
+  </Grid>
 
 );
 
