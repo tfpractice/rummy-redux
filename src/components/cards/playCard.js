@@ -10,8 +10,10 @@ import Grid from 'material-ui/Grid';
 const { canDraw, } = Game;
 const stateToProps = ({ game, auth: { user, }, }, { card, }) =>
   ({ drawable: canDraw(card)(user)(game), });
+
+const styles = createStyleSheet('PlayingCard', theme =>
+  ({ draw: { backgroundColor: theme.palette.accent[500], }, }));
   
-const styles = createStyleSheet('PlayingCard', theme => ({ draw: { backgroundColor: theme.palette.accent[500], }, }));
 const PlayCard = ({ card, drawable, classes, pos, ...rest }) => (
   <Paper elevation={pos} className={drawable && classes.draw} {...rest}>
 
