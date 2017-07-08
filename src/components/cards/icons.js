@@ -28,15 +28,9 @@ const styleSheet = createStyleSheet('CardIcon', theme => ({
   },
 }));
 
-const CardIcon = ({ card, classes, ...rest }) =>
-
-  // const classes = styleManager.render(styleSheet);
-
-  (
+const CardIcon = ({ card, classes, ...rest }) => (
   <Avatar className={classes[`${card.suit}`]} {...rest}>
     {card.rank.toUpperCase()} {uniChars[`${card.suit}`]}
-  </Avatar>)
-
-;
+  </Avatar>);
 
 export default withStyles(styleSheet)(CardIcon);
