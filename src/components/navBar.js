@@ -10,7 +10,7 @@ const NavBar = () => (
     <Toolbar>
       <Grid container justify={'space-between'}>
         <Text type="headline" >Rummy Redux</Text>
-        {/* <LoginForm formID={'mainLogin'}/> */}
+        <LoginForm formID={'mainLogin'}/>
       </Grid>
     </Toolbar>
   </AppBar>

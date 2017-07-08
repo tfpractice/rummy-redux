@@ -5,14 +5,16 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import LogoutLink from './logoutLink';
-import { resetForm, } from '../../utils';
+
+// import { resetForm, } from '../../utils';
 import { AuthActs, } from '../../modules';
+import { ClearForm, renderText, } from '../../utils';
 
 const styles = { display: 'inline-flex', };
 
 const renderField = ({ input, meta: { error: e, }, ...rest }) => (
-    <TextField type="text" inputProps={input} error={e} {...rest}/>
-  );
+  <TextField type="text" inputProps={input} error={e} {...rest}/>
+);
 
 const baseLogin = ({ handleSubmit, }) => (
   <form onSubmit={handleSubmit} style={styles} >
@@ -22,11 +24,11 @@ const baseLogin = ({ handleSubmit, }) => (
   </form>
 );
 
-const ReduxLogin = reduxForm()(baseLogin);
+const ReduxLogin = ClearForm(baseLogin);
 
 const LoginForm = ({ login, formID, }) => (
   <ReduxLogin
-    form={formID} onSubmit={login} onSubmitSuccess={resetForm(formID)}
+    form={formID} onSubmit={login}
   />
 );
 
