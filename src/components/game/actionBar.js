@@ -36,12 +36,12 @@ const ActionTabs = ({ deal, dropNext, clearGame, turnGame, newGame, }) => (
   <Grid container justify="center">
     <Grid item xs>
       <Tabs fullWidth scrollable centered index={false} onChange={() => null}>
-        <Tab label={<PlayerDrawer />}/>
-        <Tab label={<Button onClick={clearGame}>clearGame</Button>} />
-        <Tab label={<Button onClick={newGame}>newGame</Button>} />
-        <Tab label={<Button onClick={deal}>Deal</Button>} />
-        <Tab label={<Button onClick={dropNext}>dropNext</Button>} />
-        <Tab label={<Button onClick={turnGame}>turnGame</Button>} />
+        <Tab icon={<PlayerDrawer />}/>
+        <Tab onClick={clearGame} label={'clearGame'} />
+        <Tab onClick={newGame} label={'newGame'} />
+        <Tab onClick={deal} label={'Deal'} />
+        <Tab onClick={dropNext} label={'dropNext'} />
+        <Tab onClick={turnGame} label={'turnGame'} />
       </Tabs>
     </Grid>
   </Grid>

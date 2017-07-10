@@ -7,6 +7,8 @@ const { addPlr, players, claimWhole, claimParts, } = Game;
 const { copy, scrap, addHand, player, } = Player;
 
 const storify = s => s instanceof Set ? spread(s) : s;
+const binDrop = (...cards) => p =>
+  ({ type: SCRAP_CARDS, curry: Game.dropCards(...cards)(p), });
 
 export const turnGame = () =>
   ({ type: TURN_GAME, curry: Game.turn, });
@@ -29,4 +31,9 @@ export const disDrawTo = p => dispatch => c =>
   dispatch({ type: DECK_DRAW, curry: Game.drawTo(c)(p), });
 
 export const dropCards = p => dispatch => (...cards) =>
-  dispatch({ type: SCRAP_CARDS, curry: Game.dropCards(...cards)(p), });
+  Promise.resolve({ type: SCRAP_CARDS, curry: Game.dropCards(...cards)(p), })
+    .then(dispatch)
+    .then(turnGame)
+    .then(dispatch);
+
+// .then(() => dispatch(turnGame()));

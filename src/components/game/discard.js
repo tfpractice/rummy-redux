@@ -14,7 +14,7 @@ const Discard = ({ cards, disDrawTo, user, }) => (
   <Grid container justify="center">
     {/* <ListSubheader children="discard"/> */}
     {cards.map((c, i) =>
-      (<Grid item xs={9}>
+      (<Grid item key={c.id} xs={9}>
         <PlayCard onClick={() => disDrawTo(user)(c)} card={c} pos={i} key={c.id} />
 
       </Grid>)

@@ -6,6 +6,6 @@ import { AuthActs, } from '../../modules';
 const mapStateToProps = ({ auth: { user, }, }) => ({ user, });
 
 const LogoutLink = ({ logout, user, }) =>
- <Button contrast onClick={() => logout(user)}>Logout</Button>;
+  <Button color="contrast" onClick={() => logout(user)}>Logout</Button>;
 
 export default connect(null, AuthActs)(LogoutLink);

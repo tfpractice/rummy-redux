@@ -45,32 +45,32 @@ export const onlineHandler = (store) => {
   
   onlineRef.on('child_changed', (snap) => {
     if (curDiscon(snap)) {
-      console.log('child_changed curDiscon(snap)', snap.key, snap.val());
+      // console.log('child_changed curDiscon(snap)', snap.key, snap.val());
       
       store.dispatch(logout());
     } else if (noConn(snap)) {
-      console.log('child_changed noConn(snap)', snap.key, snap.val());
+      // console.log('child_changed noConn(snap)', snap.key, snap.val());
       
       snap.ref.remove();
     } else if (hasConn(snap)) {
-      console.log('child_changed hasConn(snap)', snap.key, snap.val());
+      // console.log('child_changed hasConn(snap)', snap.key, snap.val());
       
       store.dispatch(addPlayer(snap.val()));
     }
   });
   
   onlineRef.on('child_removed', (snap) => {
-    console.log('child removed', snap.val());
+    // console.log('child removed', snap.val());
     if (noConn(snap)) {
       store.dispatch(removePlayer(snap.val()));
     }
     
     if (curDiscon(snap)) {
-      console.log('child_removed alternate curDiscon disconnected', snap.val(), snap.key());
+      // console.log('child_removed alternate curDiscon disconnected', snap.val(), snap.key());
     }
     
     if (altDiscon(snap)) {
-      console.log('child_removed alternate altDiscon disconnected', snap.val(), snap.key);
+      // console.log('child_removed alternate altDiscon disconnected', snap.val(), snap.key);
     }
   });
 };
