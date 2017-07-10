@@ -1,7 +1,7 @@
 import { Game, Player, } from 'rummy-rules';
 import { fireUtils, rqUtils, } from '../../utils';
 import { addOnline, } from '../users/actions';
-import { removePlayer, } from '../game/actions';
+import { clearGame, removePlayer, } from '../game/actions';
 import { LOGIN, LOGOUT, SET_CURRENT_USER, } from './constants';
 
 const { auth, onlineRef, } = fireUtils;
@@ -33,6 +33,7 @@ export const createPlayer = (u) => {
   return u ? player(u.displayName, [], [], u.uid)
     : {};
 };
+const lRet = val => console.log('val', val) || val;
 
 export const authPlayer = amod => createPlayer(amod.currentUser);
 
@@ -74,16 +75,17 @@ export const login = ({ displayName, } = initlLog) => dispatch =>
     ].map(dispatch)))
     .catch(e => dispatch(loginFail(e.message)));
 
-export const logout = (user = authPlayer(auth)) => (dispatch, getState) => {
-  console.log('logging out user arg', user, getState().auth.user, auth.currentUser);
-  return Promise.resolve(dispatch(logoutPend()))
-    .then(() => auth.currentUser)
-    .then(takeOffline)
-    .then(deleteU)
-    .then(createPlayer)
-    .then(u => Promise.all([
-      logoutSucc(),
-      removePlayer(getState().auth.user),
-      unsetCurrent(),
-    ].map(dispatch))).catch(e => dispatch(logoutFail(e.message)));
-};
+export const logout = (user = authPlayer(auth)) => (dispatch, getState) => Promise.resolve(dispatch(logoutPend()))
+  .then(() => auth.currentUser)
+  .then(takeOffline)
+  .then(lRet)
+  .then(deleteU)
+  .then(lRet)
+  .then(createPlayer)
+  .then(lRet)
+  .then(u => Promise.all([
+    logoutSucc(),
+    removePlayer(getState().auth.user),
+    clearGame(),
+    unsetCurrent(),
+  ].map(dispatch))).catch(e => dispatch(logoutFail(e.message)));

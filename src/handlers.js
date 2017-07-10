@@ -46,15 +46,15 @@ export const onlineHandler = (store) => {
   onlineRef.on('child_changed', (snap) => {
     if (curDiscon(snap)) {
       console.log('child_changed curDiscon(snap)', snap.key, snap.val());
-
+      
       store.dispatch(logout());
     } else if (noConn(snap)) {
       console.log('child_changed noConn(snap)', snap.key, snap.val());
-
+      
       snap.ref.remove();
     } else if (hasConn(snap)) {
       console.log('child_changed hasConn(snap)', snap.key, snap.val());
-
+      
       store.dispatch(addPlayer(snap.val()));
     }
   });
