@@ -72,6 +72,7 @@ export const login = ({ displayName, } = initlLog) => dispatch =>
     .then(u => Promise.all([
       loginSucc(u),
       setCurrent(createPlayer(u)),
+      removePlayer({ id: 'computer', }),
     ].map(dispatch)))
     .catch(e => dispatch(loginFail(e.message)));
 
