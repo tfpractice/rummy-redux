@@ -7,6 +7,7 @@ const { addPlr, players, claimWhole, claimParts, } = Game;
 const { copy, scrap, addHand, player, } = Player;
 
 const storify = s => s instanceof Set ? spread(s) : s;
+
 const binDrop = (...cards) => p =>
   ({ type: SCRAP_CARDS, curry: Game.dropCards(...cards)(p), });
 

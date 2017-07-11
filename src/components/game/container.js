@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect, } from 'react-redux';
-import { Game as GM, } from 'rummy-rules';
+import { Game as GM, Player as GP, } from 'rummy-rules';
 import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent, CardHeader, } from 'material-ui/Card';
 import { GameActs, } from '../../modules';
@@ -9,7 +9,7 @@ import ActionBar from './actionBar';
 import Board from './board';
 
 const { isActive, rummable, active, } = GM;
-
+const { name, } = GP;
 const idSort = (a, b) => a.id <= b.id ? -1 : 1;
 const mapStateToProps = ({ game, }) => ({ game, });
 
@@ -17,7 +17,7 @@ const Game = ({ game, }) => (
   <Grid container justify="center">
     <Grid item xs={11} >
       <Card style={ { backgroundColor: 'transparent', }}>
-        <CardHeader title={`current player ${active(game).name}`}/>
+        <CardHeader title={`current player ${name(active(game))}`}/>
         <CardContent>
           <Grid container justify="center">
             <Grid item xs={11}>

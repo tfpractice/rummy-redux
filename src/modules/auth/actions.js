@@ -1,15 +1,13 @@
 import { Game, Player, } from 'rummy-rules';
 import { fireUtils, rqUtils, } from '../../utils';
 import { addOnline, } from '../users/actions';
-import { clearGame, removePlayer, } from '../game/actions';
+import { clearGame, newGame, removePlayer, } from '../game/actions';
 import { LOGIN, LOGOUT, SET_CURRENT_USER, } from './constants';
 
 const { auth, onlineRef, } = fireUtils;
 const { rqActions, } = rqUtils;
 const { player, } = Player;
 const { findPlr, } = Game;
-
-const set = (user = {}) => () => user;
 
 const {
   pending: loginPend,
@@ -22,17 +20,17 @@ const {
   success: logoutSucc,
 } = rqActions(LOGOUT);
 
+const initlLog = { displayName: '', };
+const set = (user = {}) => () => user;
+
 const uCheck = a => !!a.currentUser;
 const getCurrent = a => uCheck(a) && a.currentUser;
 const uLoad = a => getCurrent(a).reload().then(() => getCurrent(a));
 
 export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
-export const createPlayer = (u) => {
-  console.log(' createPlayeru', u);
-  return u ? player(u.displayName, [], [], u.uid)
-    : {};
-};
+export const createPlayer = u =>
+  u ? player(u.displayName, [], [], u.uid) : {};
 
 const lRet = val => console.log('val', val) || val;
 
@@ -55,8 +53,6 @@ export const takeOffline = u =>
 
 export const deleteU = u => u && u.delete().then(() => u);
 
-const initlLog = { displayName: '', };
-
 export const updateU = ({ displayName, }) => fUser => fUser.updateProfile({ displayName: displayName || fUser.uid, }).then(() => uLoad(auth));
 
 export const login = ({ displayName, } = initlLog) => dispatch =>
@@ -70,14 +66,15 @@ export const login = ({ displayName, } = initlLog) => dispatch =>
     ].map(dispatch)))
     .catch(e => dispatch(loginFail(e.message)));
 
-export const logout = (user = authPlayer(auth)) => (dispatch, getState) => Promise.resolve(dispatch(logoutPend()))
-  .then(() => auth.currentUser)
-  .then(takeOffline)
-  .then(deleteU)
-  .then(createPlayer)
-  .then(u => Promise.all([
-    logoutSucc(),
-    removePlayer(getState().auth.user),
-    clearGame(),
-    unsetCurrent(),
-  ].map(dispatch))).catch(e => dispatch(logoutFail(e.message)));
+export const logout = (user = authPlayer(auth)) => (dispatch, getState) =>
+  Promise.resolve(dispatch(logoutPend()))
+    .then(() => auth.currentUser)
+    .then(takeOffline)
+    .then(deleteU)
+    .then(u => Promise.all([
+      logoutSucc(),
+      removePlayer(getState().auth.user),
+      unsetCurrent(),
+      newGame(),
+    ].map(dispatch)))
+    .catch(e => dispatch(logoutFail(e.message)));

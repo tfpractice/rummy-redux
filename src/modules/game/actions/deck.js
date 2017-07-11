@@ -25,6 +25,7 @@ export const updateGame = g => (dispatch, getState) => {
     .then(res => (updateCurrent(getState().game)))
     .then(dispatch);
 };
+
 export const setDeck = cards => ({ type: SET_DECK, curry: Game.setDeck(cards), });
-export const newGame = g => ({ type: UPDATE_GAME, curry: Game.reset, });
+export const newGame = g => ({ type: CLEAR_GAME, curry: Game.reset, });
 export const clearGame = g => ({ type: CLEAR_GAME, curry: clear, });
