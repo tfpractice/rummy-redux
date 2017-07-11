@@ -1,14 +1,10 @@
 import { spread, } from 'fenugreek-collections';
-import { Game, Player, Sets, } from 'rummy-rules';
-import { ADD_PLAYER, CLAIM_CARDS, DECK_DRAW, PLAY, REMOVE_PLAYER, SCRAP_CARDS, SET_PLAYERS, TURN_GAME, } from '../constants';
-import { drop, } from './discard';
-
-const { addPlr, players, claimWhole, claimParts, } = Game;
-const { copy, scrap, addHand, player, } = Player;
+import { Game, Player, } from 'rummy-rules';
+import { ADD_PLAYER, DECK_DRAW, PLAY, REMOVE_PLAYER, SCRAP_CARDS, SET_PLAYERS, TURN_GAME, } from '../constants';
 
 const storify = s => s instanceof Set ? spread(s) : s;
 
-const binDrop = (...cards) => p =>
+export const binDrop = (...cards) => p =>
   ({ type: SCRAP_CARDS, curry: Game.dropCards(...cards)(p), });
 
 export const turnGame = () =>
@@ -17,8 +13,8 @@ export const turnGame = () =>
 export const setPlayers = (plrs = []) =>
   ({ type: SET_PLAYERS, curry: Game.setPlayers(plrs), });
 
-export const addPlayer = (p = player()) =>
-  ({ type: ADD_PLAYER, curry: Game.addPlr(copy(p)), });
+export const addPlayer = (p = Player.player()) =>
+  ({ type: ADD_PLAYER, curry: Game.addPlr(Player.copy(p)), });
 
 export const removePlayer = player =>
   ({ type: REMOVE_PLAYER, curry: Game.rmPlr(player), });
@@ -36,5 +32,3 @@ export const dropCards = p => dispatch => (...cards) =>
     .then(dispatch)
     .then(turnGame)
     .then(dispatch);
-
-// .then(() => dispatch(turnGame()));

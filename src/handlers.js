@@ -26,6 +26,7 @@ const connKey = snap => snap.key === 'connections';
 
 export const authHandler = (store) => {
   auth.onAuthStateChanged((u) => {
+    console.log('onAuthStateChanged', u);
   });
 };
 
@@ -37,27 +38,30 @@ export const connHandler = (store) => {
 
 export const onlineHandler = (store) => {
   onlineRef.once('child_added', (snap) => {
-    console.log('conlineref ONCE child added');
+    // console.log('conlineref ONCE child added');
     
     hasName(snap) && store.dispatch(removePlayer({ id: 'computer', }));
   });
   onlineRef.on('child_added', (snap) => {
-    console.log('conlineref child added');
+    // console.log('conlineref child added');
     
     hasName(snap) && store.dispatch(addPlayer(snap.val()));
   });
   
   onlineRef.on('child_changed', (snap) => {
     if (curDiscon(snap)) {
-      console.log('child_changed curDiscon(snap)', snap.key, snap.val());
+      // console.log('child_changed curDiscon(snap)', snap.key, snap.val());
       
       store.dispatch(logout());
     } else if (noConn(snap)) {
-      console.log('child_changed noConn(snap)', snap.key, snap.val());
-      
+      // console.log('child_changed noConn(snap)', snap.key, snap.val());
       snap.ref.remove();
+
+      // setTimeout(() => {
+      // snap.ref.remove();
+      // }, 1000);
     } else if (hasConn(snap)) {
-      console.log('child_changed hasConn(snap)', snap.key, snap.val());
+      // console.log('child_changed hasConn(snap)', snap.key, snap.val());
       
       store.dispatch(addPlayer(snap.val()));
     }

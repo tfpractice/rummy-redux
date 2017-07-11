@@ -1,7 +1,7 @@
 import { Game, Player, } from 'rummy-rules';
 import { fireUtils, rqUtils, } from '../../utils';
 import { addOnline, } from '../users/actions';
-import { clearGame, newGame, removePlayer, } from '../game/actions';
+import { newGame, removePlayer, } from '../game/actions';
 import { LOGIN, LOGOUT, SET_CURRENT_USER, } from './constants';
 
 const { auth, onlineRef, } = fireUtils;
@@ -14,6 +14,7 @@ const {
   failure: loginFail,
   success: loginSucc,
 } = rqActions(LOGIN);
+
 const {
   pending: logoutPend,
   failure: logoutFail,
@@ -31,8 +32,6 @@ export const setCurrentUser = u => ({ type: SET_CURRENT_USER, curry: set(u), });
 
 export const createPlayer = u =>
   u ? player(u.displayName, [], [], u.uid) : {};
-
-const lRet = val => console.log('val', val) || val;
 
 export const authPlayer = amod => createPlayer(amod.currentUser);
 
@@ -75,6 +74,5 @@ export const logout = (user = authPlayer(auth)) => (dispatch, getState) =>
       logoutSucc(),
       removePlayer(getState().auth.user),
       unsetCurrent(),
-      newGame(),
-    ].map(dispatch)))
+      newGame(),].map(dispatch)))
     .catch(e => dispatch(logoutFail(e.message)));
