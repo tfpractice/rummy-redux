@@ -39,7 +39,7 @@ export const onlineHandler = (store) => {
   onlineRef.once('child_added', (snap) => {
     console.log('conlineref ONCE child added');
     
-    // hasName(snap) && store.dispatch(removePlayer({ id: 'computer', }));
+    hasName(snap) && store.dispatch(removePlayer({ id: 'computer', }));
   });
   onlineRef.on('child_added', (snap) => {
     console.log('conlineref child added');
@@ -80,8 +80,9 @@ export const onlineHandler = (store) => {
 };
 
 const gref = db.ref('game');
-const deckRef = gref.child('deck');
-const disRef = gref.child('discard');
+
+// const deckRef = gref.child('deck');
+// const disRef = gref.child('discard');
 
 export const gameHandler = (store) => {
   gref.on('value', (snap) => {
