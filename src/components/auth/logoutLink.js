@@ -1,11 +1,13 @@
-import React, { PropTypes, } from 'react';
+import React from 'react';
 import Button from 'material-ui/Button';
 import { connect, } from 'react-redux';
 import { AuthActs, } from '../../modules';
 
-const mapStateToProps = ({ auth: { user, }, }) => ({ user, });
+const stateToProps = ({ auth: { user, }, }) => ({ user, });
+const mergeProps = ({ user, }, { logout, }, ownProps) =>
+  ({ signOut: () => logout(user), ...ownProps, });
+  
+const LogoutLink = ({ signOut, logout, user, }) =>
+  <Button color="contrast" onClick={signOut}>Logout</Button>;
 
-const LogoutLink = ({ logout, user, }) =>
-  <Button color="contrast" onClick={() => logout(user)}>Logout</Button>;
-
-export default connect(null, AuthActs)(LogoutLink);
+export default connect(stateToProps, AuthActs, mergeProps)(LogoutLink);

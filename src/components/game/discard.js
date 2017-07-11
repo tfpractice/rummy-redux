@@ -1,26 +1,29 @@
 import React from 'react';
 import { connect, } from 'react-redux';
-import List, { ListItem, ListItemIcon, ListItemSecondaryAction,
-  ListItemText, ListSubheader, } from 'material-ui/List';
-import { PlayCard, } from '../cards';
-import { GameActs, } from '../../modules';
 import Text from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+
+import { GameActs, } from '../../modules';
+import { PlayCard, } from '../cards';
 
 const stateToProps = ({ game: { discard, }, auth: { user, }, }) =>
   ({ discard, user, });
 
-const Discard = ({ cards, disDrawTo, user, }) => (
-  <Grid container justify="center">
-    {/* <ListSubheader children="discard"/> */}
-    {cards.map((c, i) =>
-      (<Grid item key={c.id} xs={9}>
-        <PlayCard onClick={() => disDrawTo(user)(c)} card={c} pos={i} key={c.id} />
+const mergeProps = ({ user, }, { disDrawTo, }, ownProps) =>
+  ({ ...ownProps, drawCard: c => () => disDrawTo(user)(c), });
 
+const Discard = ({ cards, drawCard, }) => (
+  <Grid container justify="center">
+    <Grid item xs={11}>
+      <Text type="display1"> Discard Pile </Text>
+    </Grid>
+    {cards.map((c, i) => (
+      <Grid item key={c.id} xs={9}>
+        <PlayCard onClick={drawCard(c)} card={c} pos={i} key={c.id} />
       </Grid>)
     )}
   </Grid>
 
 );
 
-export default connect(stateToProps, GameActs)(Discard);
+export default connect(stateToProps, GameActs, mergeProps)(Discard);

@@ -1,4 +1,4 @@
-import React, { PropTypes, } from 'react';
+import React from 'react';
 import { createStyleSheet, withStyles, } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Text from 'material-ui/Typography';

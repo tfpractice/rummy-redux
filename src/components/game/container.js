@@ -8,7 +8,7 @@ import { Player, } from '../players';
 import ActionBar from './actionBar';
 import Board from './board';
 
-const { isActive, rummable, active, } = GM;
+const { active, } = GM;
 const { name, } = GP;
 const idSort = (a, b) => a.id <= b.id ? -1 : 1;
 const mapStateToProps = ({ game, }) => ({ game, });
@@ -30,14 +30,13 @@ const Game = ({ game, }) => (
         </CardActions>
       </Card>
     </Grid>
-
     <Grid item xs={11}>
       <Grid container justify="center">
-        {game.players.map((p, i) =>
-          (<Grid item xs={11} sm={6} key={p.id} >
+        {game.players.map((p, i) => (
+          <Grid item xs={11} sm={6} key={p.id} >
             <Player player={p}/>
-          </Grid>)
-        )}
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   </Grid>);

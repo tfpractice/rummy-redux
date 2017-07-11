@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect, } from 'react-redux';
 
-import Paper from 'material-ui/Paper';
-import { Tab, Tabs, } from 'material-ui/Tabs';
 import PlayCard from './playCard';
-import CardChip from './chip';
 
 const stateToProps = ({ game: { deck, }, }) => ({ deck, });
 
