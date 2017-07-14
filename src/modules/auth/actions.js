@@ -74,5 +74,5 @@ export const logout = (user = authPlayer(auth)) => (dispatch, getState) =>
       logoutSucc(),
       removePlayer(getState().auth.user),
       unsetCurrent(),
-      newGame(),].map(dispatch)))
+      newGame(), ].map(dispatch)))
     .catch(e => dispatch(logoutFail(e.message)));
