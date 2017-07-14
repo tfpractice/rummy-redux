@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "description": "rummy application",
+  "homepage": ".",
   "repository": "git@github.com:tfpractice/rummy-redux.git",
   "author": "theory friction practice <jackson.brebnor@gmail.com>",
   "license": "MIT",
@@ -34,19 +35,21 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "",
-    "react-swipeable-views": "^0.12.3",
+    "react-swipeable-views": "^0.12.4",
     "react-tap-event-plugin": "^2.0.1",
-    "recompose": "^0.23.5",
-    "redux": "^3.7.1",
-    "redux-form": "^6.8.0",
+    "recompose": "^0.24.0",
+    "redux": "^3.7.2",
+    "redux-form": "^7.0.0",
     "redux-form-material-ui": "^4.2.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "rummy-rules": "^1.0.1-9"
+    "rummy-rules": "^1.0.1-9",
+    "surge": "^0.19.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "yarn build && surge build tfp-rummy.surge.sh",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
