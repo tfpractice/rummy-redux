@@ -13,11 +13,11 @@ module.exports = {
     },
     parser: 'babel-eslint',
     parserOptions: {
-        ecmaFeatures: {
-            experimentalObjectRestSpread: true,
-            jsx: true,
-            modules: true,
-          },
+        // ecmaFeatures: {
+        //     experimentalObjectRestSpread: true,
+        //     jsx: true,
+        //     modules: true,
+        //   },
         sourceType: 'module',
       },
     plugins: [
@@ -156,7 +156,8 @@ module.exports = {
         
         // disable jsx hash incompat
         'jsx-a11y/href-no-hash': 'off',
-        'jsx-a11y/anchor-is-valid': ['warn', { aspects: ['invalidHref'] }],// imports-plugins
+        'jsx-a11y/anchor-is-valid': ['warn', { aspects: ['invalidHref'] }],
+        // imports-plugins
         
         'import/order': ['error', { groups:
          [[ 'builtin', 'external' ], 'index', 'parent', 'sibling'], }, ],
