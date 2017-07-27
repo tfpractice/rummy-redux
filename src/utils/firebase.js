@@ -16,19 +16,19 @@ export const connRef = db.ref('.info/connected');
 export const onlineRef = db.ref('online');
 export const pushRef = onlineRef.push();
 export const presenceRef = db.ref('connections');
-
+export const gameRef = db.ref('game');
 export const getPresRef = id => presenceRef.child(`${id}`);
 export const getOnlineRef = id => onlineRef.push(`${id}`);
 
 export const fireMid = ({ dispatch, getState, }) => next => (action) => {
   const result = next(action);
-  
+
   if (GAME_ACTIONS.has(action.type)) {
-    if (action.type !== 'UPDATE_GAME') {
-      db.ref('game').set(getState().game);
+    if (action.type !== 'UPDATE_GAME' && getState().game.players.length) {
+      gameRef.set(getState().game);
     }
   }
-  
+
   return result;
 };
 
@@ -38,10 +38,10 @@ export const fireMid = ({ dispatch, getState, }) => next => (action) => {
 //   hand: [ cSchema, ],
 //   sets: [ setSchema, ],
 // });
-// 
+//
 // const dkSchema = new schema.Entity('deck', [ cSchema, ]);
 // const dsSchema = new schema.Entity('discard', [ cSchema, ]);
-// 
+//
 // const gSchema1 = {
 //   players: [ pSchema, ],
 //   deck: [ dkSchema, ],
@@ -58,9 +58,9 @@ export const fireMid = ({ dispatch, getState, }) => next => (action) => {
 //    return ({
 //       ...entityA,
 //       ...entityB,
-//       
+//
 //    });
 //  },
 //  processStrategy: entity => copy(entity),
-// 
+//
 // });
