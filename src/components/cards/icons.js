@@ -1,13 +1,13 @@
 import React from 'react';
-import { createStyleSheet, withStyles, } from 'material-ui/styles';
+import { createStyleSheet, withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Text from 'material-ui/Typography';
 
 const uniChars = {
-  HEARTS:  String.fromCharCode('\u2665'.charCodeAt(0)),
-  CLUBS:  String.fromCharCode('\u2663'.charCodeAt(0)),
-  DIAMONDS:  String.fromCharCode('\u2666'.charCodeAt(0)),
-  SPADES:  String.fromCharCode('\u2660'.charCodeAt(0)),
+  HEARTS: String.fromCharCode('\u2665'.charCodeAt(0)),
+  CLUBS: String.fromCharCode('\u2663'.charCodeAt(0)),
+  DIAMONDS: String.fromCharCode('\u2666'.charCodeAt(0)),
+  SPADES: String.fromCharCode('\u2660'.charCodeAt(0)),
 };
 
 const styleSheet = createStyleSheet('CardIcon', theme => ({
@@ -29,25 +29,29 @@ const styleSheet = createStyleSheet('CardIcon', theme => ({
   },
 }));
 
-const CardIcon = ({ card, classes, ...rest }) => (
-  <Avatar className={classes[`${card.suit}`]} {...rest}>
+const CardIcon = ({ card, classes, ...rest }) =>
+  (<Avatar className={classes[`${card.suit}`]} {...rest}>
     {card.rank.toUpperCase()} {uniChars[`${card.suit}`]}
   </Avatar>);
-  
-const spreadRank = card => isNaN(card.rank) ?
-  `${card.rank.toUpperCase()} ${uniChars[`${card.suit}`]}` :
-  [ ...Array(parseInt(card.rank)).keys(), ]
-    .map((r, i) => uniChars[`${card.suit}`]).join(' ');
-  
-const CardText = ({ card, }) => (<Text align="right" type="headline">
-  {`${card.rank.toUpperCase()} ${uniChars[`${card.suit}`]}`}
-</Text>);
 
-const Long = ({ card, classes, ...rest }) => (
-  isNaN(card.rank) ? <CardText card={card}/> :
-    <Text align="justify" type="headline">
+const spreadRank = card =>
+  isNaN(card.rank)
+    ? `${card.rank.toUpperCase()} ${uniChars[`${card.suit}`]}`
+    : [ ...Array(parseInt(card.rank)).keys() ]
+      .map((r, i) => uniChars[`${card.suit}`])
+      .join(' ');
+
+const CardText = ({ card }) =>
+  (<Text align="justify" type="headline">
+    {`${card.rank.toUpperCase()} ${uniChars[`${card.suit}`]}`}
+  </Text>);
+
+const Long = ({ card, classes, ...rest }) =>
+  isNaN(card.rank)
+    ? <CardText card={card} />
+    : <Text align="justify" type="headline">
       {spreadRank(card)}
-    </Text>);
+    </Text>;
 
 export const LongCard = withStyles(styleSheet)(Long);
 export default withStyles(styleSheet)(CardIcon);
