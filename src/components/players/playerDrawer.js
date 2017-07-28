@@ -5,28 +5,26 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Text from 'material-ui/Typography';
 
-import { Game, Player, Sets } from 'rummy-rules';
+import List, { ListItem, ListSubheader } from 'material-ui/List';
 import { connect } from 'react-redux';
 import { spread } from 'fenugreek-collections';
+import { Game, Player, Sets } from 'rummy-rules';
 import { createStyleSheet, withStyles } from 'material-ui/styles';
-
-import List, { ListItem, ListSubheader } from 'material-ui/List';
 import { compose, withHandlers, withState } from 'recompose';
 
 import { CardSet } from '../cards';
 import { GameActs } from '../../modules';
 import MyHand from './hand';
 
-const { hand: pHand, matches, sets } = Player;
+const { hand: pHand } = Player;
 const { allSets, findPlr, isActive } = Game;
 const { plays: sPlays } = Sets;
 
 const stateToProps = ({ game, auth: { user }}) => ({
-  game,
   user: findPlr(user)(game),
   active: isActive(game)(user),
   hand: pHand(findPlr(user)(game)),
-  plays: sPlays(allSets(game))(pHand(user)),
+  plays: sPlays(allSets(game))(pHand(findPlr(user)(game))).map(spread),
 });
 
 const mergeProps = (state, dis, own) => ({
@@ -66,19 +64,15 @@ const PlayerDrawer = ({
       <List className={classes.list}>
         <ListSubheader>Choose a card to discard</ListSubheader>
         <ListItem divider>
-          <MyHand user={user} cards={pHand(user)} />
+          <MyHand user={user} cards={hand} />
         </ListItem>
         <ListItem>
           <List className={classes.list}>
             <ListSubheader>Possibles</ListSubheader>
             {plays.map((s, i) =>
-              (<ListItem
-                key={i}
-                button
-                divider
-                onClick={play(s)}
-                children={<CardSet cards={[ ...s ]} />}
-              />)
+              (<ListItem key={i} button divider onClick={play(s)}>
+                <CardSet cards={s} />
+              </ListItem>)
             )}
           </List>
         </ListItem>

@@ -15,11 +15,11 @@ module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 7,
-    // ecmaFeatures: {
-    //     experimentalObjectRestSpread: true,
-    //     jsx: true,
-    //     modules: true,
-    //   },
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+      jsx: true,
+      modules: true,
+    },
     sourceType: 'module',
   },
   plugins: ['react', 'jsx-a11y', 'import', 'prettier', 'import-order-autofix'],
@@ -188,10 +188,29 @@ module.exports = {
     'react/prop-types': 1,
     'react/react-in-jsx-scope': 1,
     'react/self-closing-comp': 1,
-    'react/jsx-wrap-multilines': 1,
+    'react/jsx-wrap-multilines': [
+      2,
+      {
+        arrow: true,
+        return: true,
+        assignment: true,
+        declaration: true,
+      },
+    ],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-equals-spacing': [2, 'never'],
     'react-app/no-undef': 0,
+    'react/jsx-sort-props': [
+      0,
+      {
+        callbacksLast: true,
+        shorthandFirst: true,
+        shorthandLast: false,
+        ignoreCase: true,
+        noSortAlphabetically: true,
+        reservedFirst: true,
+      },
+    ],
     // prettier
     // 'prettier/prettier': 'off',
     'prettier/prettier': [
@@ -200,6 +219,7 @@ module.exports = {
         trailingComma: 'all',
         bracketSpacing: false,
         jsxBracketSameLine: true,
+        semi: true,
         // parser: 'babylon',
       },
     ],

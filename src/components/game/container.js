@@ -21,7 +21,8 @@ const Game = ({ game, players }) =>
   (<Grid container align="center" justify="center">
     <Grid item xs={11}>
       <Card style={{ backgroundColor: '#9E9E9E' }}>
-        <CardHeader title={`current player ${name(active(game))}`} />
+        <CardHeader title={<ActionBar />} />
+
         <CardContent>
           <Grid container justify="center">
             <Grid item xs={11}>
@@ -29,15 +30,12 @@ const Game = ({ game, players }) =>
             </Grid>
           </Grid>
         </CardContent>
-        <CardActions>
-          <ActionBar />
-        </CardActions>
       </Card>
     </Grid>
     <Grid item xs={11}>
       <Grid container justify="center">
-        {players.map((p, i) =>
-          (<Grid item xs={11} sm={6} key={p.id}>
+        {players.map(p =>
+          (<Grid item key={p.id} xs={11} sm={6}>
             <Player player={p} />
           </Grid>)
         )}
