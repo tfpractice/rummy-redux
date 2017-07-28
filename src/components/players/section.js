@@ -1,4 +1,7 @@
 import React from 'react';
+import Grid from 'material-ui/Grid';
+import Text from 'material-ui/Typography';
+import { createStyleSheet, withStyles } from 'material-ui/styles';
 import { Game, Player } from 'rummy-rules';
 import { connect } from 'react-redux';
 import Card, {
@@ -8,15 +11,18 @@ import Card, {
   CardMedia,
 } from 'material-ui/Card';
 
-import Grid from 'material-ui/Grid';
-import Text from 'material-ui/Typography';
 import { CardCount, CardSet } from '../cards';
+
+const styled = withStyles(
+  createStyleSheet('PlayerSection', theme => ({ active: { backgroundColor: theme.palette.accent[900] }}))
+);
 
 const { isActive } = Game;
 const { hand, sets } = Player;
-const stateToProps = ({ game, auth: { user }}) => ({ isActive: isActive(game)(user) });
-const PlayerSection = ({ player }) =>
-  (<Card>
+const stateToProps = ({ game }, { player }) => ({ active: isActive(game)(player) });
+
+const PlayerSection = ({ player, active, classes }) =>
+  (<Card className={active && classes.active}>
     <CardHeader title={player.name} subheader={player.id} />
     <CardContent>
       <Grid container justify="center">
@@ -42,4 +48,4 @@ const PlayerSection = ({ player }) =>
     </CardContent>
   </Card>);
 
-export default connect(stateToProps)(PlayerSection);
+export default connect(stateToProps)(styled(PlayerSection));
