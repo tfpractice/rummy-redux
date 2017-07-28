@@ -3,29 +3,44 @@ import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import List, { ListItem, ListSubheader } from 'material-ui/List';
-import { createStyleSheet, withStyles } from 'material-ui/styles';
-import { compose, withHandlers, withState } from 'recompose';
+import Text from 'material-ui/Typography';
+
 import { Game, Player, Sets } from 'rummy-rules';
 import { connect } from 'react-redux';
+import { spread } from 'fenugreek-collections';
+import { createStyleSheet, withStyles } from 'material-ui/styles';
 
-import { GameActs } from '../../modules';
+import List, { ListItem, ListSubheader } from 'material-ui/List';
+import { compose, withHandlers, withState } from 'recompose';
+
 import { CardSet } from '../cards';
+import { GameActs } from '../../modules';
 import MyHand from './hand';
 
 const { hand: pHand, matches } = Player;
 const { allSets, findPlr, isActive } = Game;
-const { plays } = Sets;
+const { plays: sPlays } = Sets;
 
-const stateToProps = ({ game, auth: { user }}) => ({
-  game,
-  active: isActive(game)(user),
-  user: findPlr(user)(game),
-  hand: pHand(findPlr(user)(game)),
-  plays: plays(allSets(game))(pHand(user)),
-});
+const stateToProps = ({ game, auth: { user }}) => {
+  // console.log('user', user);
+  // console.log('findPlr(user)(game)', findPlr(user)(game));
+  // console.log(
+  //   'plays(allSets(game))(pHand(findPlr(user)(game)))',
+  //   sPlays(allSets(game))(pHand(findPlr(user)(game)))
+  // );
 
-const mergeProps = (state, dis, own) => ({
+  const a = 0;
+
+  return {
+    game,
+    user: findPlr(user)(game),
+    active: isActive(game)(user),
+    hand: pHand(findPlr(user)(game)),
+    plays: sPlays(allSets(game))(pHand(user)),
+  };
+};
+
+const mergeProps = ({ state, dis, own }) => ({
   ...state,
   ...dis,
   ...own,
@@ -36,9 +51,8 @@ const withSwitch = compose(
   withState('open', 'turn', ({ open }) => !!open),
   withHandlers({ toggle: ({ turn }) => () => turn(x => !x) })
 );
-
 const styled = withStyles(
-  createStyleSheet('HandDrawer', theme => ({
+  createStyleSheet('HandDrawer', () => ({
     list: { width: 250, flex: 'initial' },
     remainder: { flex: 1 },
   }))
@@ -46,37 +60,50 @@ const styled = withStyles(
 
 const PlayerDrawer = ({
   user,
-  active,
   play,
-  plays,
+  sets,
   hand,
+  plays,
   toggle,
   open,
+  active,
   classes,
-}) =>
-  (<Grid container>
-    <Button fab color={active ? 'accent' : 'default'} onClick={toggle}>
-      My Hand
-    </Button>
-    <Drawer open={open} onRequestClose={toggle} onClick={toggle}>
-      <List className={classes.list}>
-        <ListSubheader>Choose a card to discard</ListSubheader>
-        <ListItem divider>
-          <MyHand user={user} cards={hand} />
-        </ListItem>
-        <ListItem divider>
-          <List className={classes.list}>
-            <ListSubheader>Possible Sets</ListSubheader>
-            {plays.map((s, i) =>
-              (<ListItem divider button key={i} onClick={play(s)}>
-                <CardSet cards={[ ...s ]} />
-              </ListItem>)
-            )}
-          </List>
-        </ListItem>
-      </List>
-    </Drawer>
-  </Grid>);
+}) => {
+  console.log('user', user);
+
+  console.log('hand', hand);
+  console.log('sets', sets);
+
+  return (
+    <Grid container>
+      <Button fab color={active ? 'accent' : 'default'} onClick={toggle}>
+        My Hand
+      </Button>
+      <Drawer open={open} onRequestClose={toggle} onClick={toggle}>
+        <List className={classes.list}>
+          <ListSubheader>Choose a card to discard</ListSubheader>
+          <ListItem divider>
+            <MyHand user={user} cards={hand} />
+          </ListItem>
+          <ListItem>
+            <List className={classes.list}>
+              <ListSubheader>Possibles</ListSubheader>
+              {/* {[ ...plays ].map((s, i) =>
+              (<ListItem
+                key={i}
+                button
+                divider
+                onClick={play(s)}
+                children={<CardSet cards={[ ...s ]} />}
+               />)
+            )} */}
+            </List>
+          </ListItem>
+        </List>
+      </Drawer>
+    </Grid>
+  );
+};
 
 export default connect(stateToProps, GameActs, mergeProps)(
   withSwitch(styled(PlayerDrawer))

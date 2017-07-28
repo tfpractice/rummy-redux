@@ -50,7 +50,7 @@ const PlayerSection = ({ player, current, sets, hand, active, classes }) =>
         <Grid item xs={11} sm={3}>
           <CardCount cards={hand} />
         </Grid>
-        <Grid item xs={11} sm={8}>
+        <Grid item xs={11} sm={9}>
           <Text align="center" type="title">
             Sets
           </Text>
