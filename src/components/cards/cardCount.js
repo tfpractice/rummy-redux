@@ -16,7 +16,11 @@ const styleSheet = createStyleSheet('CardCount', theme => ({
     transform: 'translate(-50%, -50%)',
     '-ms-transform': 'translate(-50%, -50%)',
   },
-  img: { maxWidth: '100%', objectFit: 'contain' },
+  img: {
+    maxWidth: '100%',
+    objectFit: 'contain',
+    filter: 'hue-rotate(90deg) grayscale(100%)',
+  },
   box: { minHeight: '100%', minWidth: '100%' },
 }));
 

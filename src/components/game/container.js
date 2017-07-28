@@ -20,9 +20,8 @@ const mapStateToProps = ({ game }) => ({
 const Game = ({ game, players }) =>
   (<Grid container align="center" justify="center">
     <Grid item xs={11}>
-      <Card style={{ backgroundColor: '#9E9E9E' }}>
+      <Card style={{ backgroundColor: 'rgba(117,117,117,.8)' }}>
         <CardHeader title={<ActionBar />} />
-
         <CardContent>
           <Grid container justify="center">
             <Grid item xs={11}>

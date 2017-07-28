@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: rgba(224, 224, 224, 0.9);
 }
 
 .App-logo {
@@ -17,8 +18,15 @@
 .App-intro {
   font-size: large;
 }
+#root {
+  background-image: url(/images/background.png);
+}
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

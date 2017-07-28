@@ -6,6 +6,7 @@ import Card, { CardContent, CardHeader } from 'material-ui/Card';
 import Game from '../game';
 import './main.css';
 
+const style = { backgroundImage: `url(/images/background.png)` };
 const Main = () =>
   (<Grid container align="center" justify="center" className="App">
     <Grid item xs={10}>

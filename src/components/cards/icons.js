@@ -42,14 +42,14 @@ const spreadRank = card =>
       .join(' ');
 
 const CardText = ({ card }) =>
-  (<Text align="justify" type="headline">
+  (<Text align="center" type="headline">
     {`${card.rank.toUpperCase()} ${uniChars[`${card.suit}`]}`}
   </Text>);
 
 const Long = ({ card, classes, ...rest }) =>
   isNaN(card.rank)
     ? <CardText card={card} />
-    : <Text align="justify" type="headline">
+    : <Text align="center" type="headline">
       {spreadRank(card)}
     </Text>;
 

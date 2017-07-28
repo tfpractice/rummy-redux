@@ -14,10 +14,13 @@ const { isActive } = Game;
 const { hand, sets, matches } = Player;
 
 const styled = withStyles(
-  createStyleSheet('PlayerSection', theme => ({
-    xAvatar: { backgroundColor: '#fff' },
-    active: { backgroundColor: theme.palette.accent[500] },
-  }))
+  createStyleSheet('PlayerSection', (theme) => {
+    console.log('theme', theme);
+    return {
+      xAvatar: { backgroundColor: '#fff' },
+      active: { backgroundColor: theme.palette.accent[500] },
+    };
+  })
 );
 
 const stateToProps = ({ game, auth: { user }}, { player }) => ({
