@@ -1,22 +1,26 @@
 import React from 'react';
-import { connect, } from 'react-redux';
-import { Game as GM, Player as GP, } from 'rummy-rules';
 import Grid from 'material-ui/Grid';
-import Card, { CardActions, CardContent, CardHeader, } from 'material-ui/Card';
-import { GameActs, } from '../../modules';
-import { Player, } from '../players';
+import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card';
+import { connect } from 'react-redux';
+import { Game as GM, Player as GP } from 'rummy-rules';
+
+import { GameActs } from '../../modules';
+import { Player } from '../players';
 import ActionBar from './actionBar';
 import Board from './board';
 
-const { active, } = GM;
-const { name, } = GP;
+const { active } = GM;
+const { name } = GP;
 const idSort = (a, b) => (a.id <= b.id ? -1 : 1);
-const mapStateToProps = ({ game, }) => ({ game, });
+const mapStateToProps = ({ game }) => ({
+  game,
+  players: [ ...game.players ].sort(idSort),
+});
 
-const Game = ({ game, }) =>
-  (<Grid container justify="center">
+const Game = ({ game, players }) =>
+  (<Grid container align="center" justify="center">
     <Grid item xs={11}>
-      <Card style={{ backgroundColor: 'transparent', }}>
+      <Card style={{ backgroundColor: '#9E9E9E' }}>
         <CardHeader title={`current player ${name(active(game))}`} />
         <CardContent>
           <Grid container justify="center">
@@ -32,7 +36,7 @@ const Game = ({ game, }) =>
     </Grid>
     <Grid item xs={11}>
       <Grid container justify="center">
-        {game.players.map((p, i) =>
+        {players.map((p, i) =>
           (<Grid item xs={11} sm={6} key={p.id}>
             <Player player={p} />
           </Grid>)
