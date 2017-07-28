@@ -13,12 +13,13 @@ import { GameActs } from '../../modules';
 import { CardSet } from '../cards';
 import MyHand from './hand';
 
-const { hand: pHand } = Player;
-const { allSets, findPlr } = Game;
+const { hand: pHand, matches } = Player;
+const { allSets, findPlr, isActive } = Game;
 const { plays } = Sets;
 
 const stateToProps = ({ game, auth: { user }}) => ({
   game,
+  active: isActive(game)(user),
   user: findPlr(user)(game),
   hand: pHand(findPlr(user)(game)),
   plays: plays(allSets(game))(pHand(user)),
@@ -43,23 +44,31 @@ const styled = withStyles(
   }))
 );
 
-const PlayerDrawer = ({ user, play, plays, hand, toggle, open, classes }) =>
+const PlayerDrawer = ({
+  user,
+  active,
+  play,
+  plays,
+  hand,
+  toggle,
+  open,
+  classes,
+}) =>
   (<Grid container>
-    <Button fab onClick={toggle}>
+    <Button fab color={active ? 'accent' : 'default'} onClick={toggle}>
       My Hand
     </Button>
     <Drawer open={open} onRequestClose={toggle} onClick={toggle}>
       <List className={classes.list}>
         <ListSubheader>Choose a card to discard</ListSubheader>
-        <ListItem>
+        <ListItem divider>
           <MyHand user={user} cards={hand} />
         </ListItem>
-        <Divider />
-        <ListItem>
+        <ListItem divider>
           <List className={classes.list}>
             <ListSubheader>Possible Sets</ListSubheader>
             {plays.map((s, i) =>
-              (<ListItem key={i} onClick={play(s)}>
+              (<ListItem divider button key={i} onClick={play(s)}>
                 <CardSet cards={[ ...s ]} />
               </ListItem>)
             )}
