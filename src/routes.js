@@ -1,24 +1,23 @@
-import React, { Component, } from 'react';
-import { connect, } from 'react-redux';
-
+import React, { Component } from 'react';
 import createPalette from 'material-ui/styles/palette';
-import { createMuiTheme, MuiThemeProvider, } from 'material-ui/styles/';
 import teal from 'material-ui/colors/teal';
 import pink from 'material-ui/colors/pink';
 import red from 'material-ui/colors/red';
 import grey from 'material-ui/colors/grey';
-
 import Grid from 'material-ui/Grid';
-import { BrowserRouter, Link, Route, Switch, } from 'react-router-dom';
-import { Game, Main, NavBar, NoMatch, } from './components';
+import { connect } from 'react-redux';
+import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles/';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
-const palette = createPalette({ primary: red, accent: grey, type: 'dark', });
+import { Game, Main, NavBar, NoMatch } from './components';
 
-export const theme = createMuiTheme({ palette, });
+const palette = createPalette({ primary: red, accent: grey, type: 'dark' });
 
-const mapStateToProps = ({ users, }) => ({ users, });
+export const theme = createMuiTheme({ palette });
 
-const styles = { paddingTop: '5rem', };
+const mapStateToProps = ({ users }) => ({ users });
+
+const styles = { paddingTop: '5rem' };
 
 export class Routes extends Component {
   render() {

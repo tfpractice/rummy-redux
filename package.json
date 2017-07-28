@@ -26,6 +26,7 @@
   "dependencies": {
     "bee52": "^1.0.3-6",
     "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-prettier": "^2.1.2",
     "fenugreek-collections": "^1.2.0-0",
     "firebase": "^4.2.0",
     "jss-theme-reactor": "^0.11.1",
