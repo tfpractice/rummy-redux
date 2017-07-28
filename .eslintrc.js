@@ -22,7 +22,7 @@ module.exports = {
     //   },
     sourceType: 'module',
   },
-  plugins: ['react', 'jsx-a11y', 'import', 'prettier'],
+  plugins: ['react', 'jsx-a11y', 'import', 'prettier', 'import-order-autofix'],
   rules: {
     // Ignore Rules
     'space-infix-ops': 2,
@@ -215,7 +215,7 @@ module.exports = {
         ],
       },
     ],
-
+    'import-order-autofix/order': 2,
     'import/no-extraneous-dependencies': [
       'error',
       {
