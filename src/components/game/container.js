@@ -10,18 +10,18 @@ import Board from './board';
 
 const { active, } = GM;
 const { name, } = GP;
-const idSort = (a, b) => a.id <= b.id ? -1 : 1;
+const idSort = (a, b) => (a.id <= b.id ? -1 : 1);
 const mapStateToProps = ({ game, }) => ({ game, });
 
-const Game = ({ game, }) => (
-  <Grid container justify="center">
-    <Grid item xs={11} >
-      <Card style={ { backgroundColor: 'transparent', }}>
-        <CardHeader title={`current player ${name(active(game))}`}/>
+const Game = ({ game, }) =>
+  (<Grid container justify="center">
+    <Grid item xs={11}>
+      <Card style={{ backgroundColor: 'transparent', }}>
+        <CardHeader title={`current player ${name(active(game))}`} />
         <CardContent>
           <Grid container justify="center">
             <Grid item xs={11}>
-              <Board/>
+              <Board />
             </Grid>
           </Grid>
         </CardContent>
@@ -32,11 +32,11 @@ const Game = ({ game, }) => (
     </Grid>
     <Grid item xs={11}>
       <Grid container justify="center">
-        {game.players.map((p, i) => (
-          <Grid item xs={11} sm={6} key={p.id} >
-            <Player player={p}/>
-          </Grid>
-        ))}
+        {game.players.map((p, i) =>
+          (<Grid item xs={11} sm={6} key={p.id}>
+            <Player player={p} />
+          </Grid>)
+        )}
       </Grid>
     </Grid>
   </Grid>);

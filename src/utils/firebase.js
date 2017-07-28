@@ -31,36 +31,3 @@ export const fireMid = ({ dispatch, getState, }) => next => (action) => {
 
   return result;
 };
-
-// const cSchema = new schema.Object('card');
-// const setSchema = new schema.Object('set', [ cSchema, ]);
-// const pSchema = new schema.Entity('players', {
-//   hand: [ cSchema, ],
-//   sets: [ setSchema, ],
-// });
-//
-// const dkSchema = new schema.Entity('deck', [ cSchema, ]);
-// const dsSchema = new schema.Entity('discard', [ cSchema, ]);
-//
-// const gSchema1 = {
-//   players: [ pSchema, ],
-//   deck: [ dkSchema, ],
-//   discard:  [ cSchema, ],
-// };
-// const gSchema = new schema.Entity('game', {
-//   players: [ pSchema, ],
-//   deck: [ dkSchema, ],
-//   discard:  [ cSchema, ],
-// }, {
-//  idAttribute: () => 'current',
-//  mergeStrategy: (entityA, entityB) => {
-//    console.log('entityA, entityB', entityA, entityB);
-//    return ({
-//       ...entityA,
-//       ...entityB,
-//
-//    });
-//  },
-//  processStrategy: entity => copy(entity),
-//
-// });
