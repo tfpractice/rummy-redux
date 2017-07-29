@@ -33,12 +33,6 @@ const stateToProps = ({ game, auth: { user }}, { player }) => ({
 const PlayerSection = ({ player, current, sets, hand, active, classes }) =>
   (<Card>
     <CardHeader
-      title={
-        <Text align="center" type="display1">
-          {player.name}
-        </Text>
-      }
-      subheader={player.id}
       avatar={
         current
           ? <PlayerDrawer />
@@ -46,10 +40,16 @@ const PlayerSection = ({ player, current, sets, hand, active, classes }) =>
             {player.name[0].toUpperCase()}
           </Avatar>
       }
+      title={
+        <Text align="center" type="display1">
+          {player.name}
+        </Text>
+      }
+      subheader={player.id}
     />
 
     <CardContent>
-      <Grid container align="center" justify="center">
+      <Grid container justify="center">
         <Grid item xs={11} sm={3}>
           <CardCount cards={hand} />
         </Grid>

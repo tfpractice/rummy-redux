@@ -11,6 +11,7 @@ import Board from './board';
 
 const { active } = GM;
 const { name } = GP;
+
 const idSort = (a, b) => (a.id <= b.id ? -1 : 1);
 const mapStateToProps = ({ game }) => ({
   game,

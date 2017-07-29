@@ -142,7 +142,15 @@ module.exports = {
         ObjectPattern: { multiline: true },
       },
     ],
-    'newline-after-var': ['error', 'always'],
+    'padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+      {
+        blankLine: 'any',
+        prev: ['const', 'let', 'var'],
+        next: ['const', 'let', 'var'],
+      },
+    ],
     // 'object-property-newline': ['error', { allowMultiplePropertiesPerLine: true }],
     'line-comment-position': ['error', { position: 'above' }],
     'brace-style': [
@@ -185,7 +193,7 @@ module.exports = {
     'react/no-did-mount-set-state': 1,
     'react/no-did-update-set-state': 1,
     'react/no-multi-comp': 1,
-    'react/prop-types': 1,
+    'react/prop-types': 0,
     'react/react-in-jsx-scope': 1,
     'react/self-closing-comp': 1,
     'react/jsx-wrap-multilines': [
@@ -200,17 +208,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-equals-spacing': [2, 'never'],
     'react-app/no-undef': 0,
-    'react/jsx-sort-props': [
-      0,
-      {
-        callbacksLast: true,
-        shorthandFirst: true,
-        shorthandLast: false,
-        ignoreCase: true,
-        noSortAlphabetically: true,
-        reservedFirst: true,
-      },
-    ],
+
     // prettier
     // 'prettier/prettier': 'off',
     'prettier/prettier': [
@@ -235,7 +233,7 @@ module.exports = {
         ],
       },
     ],
-    'import-order-autofix/order': 2,
+    'import-order-autofix/order': 'error',
     'import/no-extraneous-dependencies': [
       'error',
       {

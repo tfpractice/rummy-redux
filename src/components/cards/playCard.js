@@ -20,12 +20,12 @@ const styles = createStyleSheet('PlayingCard', theme => ({
 
 const PlayCard = ({ card, drawable, classes, dispatch, pos, ...rest }) =>
   (<Paper
+    {...rest}
     elevation={pos}
     className={drawable ? classes.draw : classes.card}
-    {...rest}
    >
     <Grid container justify="space-between" align="center">
-      <Grid item xs={1} sm>
+      <Grid item xs={3} sm>
         <CardIcon card={card} />
       </Grid>
       <Grid item xs sm={8}>
